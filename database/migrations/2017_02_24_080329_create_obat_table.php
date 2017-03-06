@@ -20,7 +20,7 @@ class CreateObatTable extends Migration
             $table->double('dosis');
             $table->string('bentuk_sediaan');
             $table->unsignedInteger('harga_jual');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->primary('id');

@@ -18,7 +18,7 @@ class CreateTablePengeluaran extends Migration
             $table->date('tgl');
             $table->string('nama');
             $table->unsignedInteger('harga');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->primary('id');

@@ -23,7 +23,7 @@ class CreateTableDJual extends Migration
             $table->unsignedInteger('subtotal_jual');
             $table->unsignedInteger('diskon');
             $table->unsignedInteger('subtotal_jual_setelah_diskon');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->primary(['no_nota', 'id_obat', 'harga_beli']);

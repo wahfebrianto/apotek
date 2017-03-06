@@ -20,10 +20,10 @@ class CreateTableKartuStok extends Migration
             $table->date('tanggal_beli');
             $table->date('expired_date');
             $table->unsignedInteger('stok');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->primary(['id', 'id_obat', 'harga_beli']);
+            $table->primary(['id', 'id_obat']);
             $table->foreign('id_obat')->references('id')->on('obat');
         });
     }

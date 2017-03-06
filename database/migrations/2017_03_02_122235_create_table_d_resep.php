@@ -22,7 +22,7 @@ class CreateTableDResep extends Migration
             $table->unsignedInteger('harga_beli');
             $table->unsignedInteger('subtotal_jual');
             $table->unsignedInteger('subtotal_beli');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->primary(['no_nota', 'id_racikan', 'id_obat', 'harga_beli']);

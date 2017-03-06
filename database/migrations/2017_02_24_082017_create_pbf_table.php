@@ -21,7 +21,7 @@ class CreatePbfTable extends Migration
             $table->string('nama_cp');
             $table->string('telp_cp');
             $table->boolean('tergolong_pajak');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

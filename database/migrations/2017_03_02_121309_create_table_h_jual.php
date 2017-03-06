@@ -18,8 +18,9 @@ class CreateTableHJual extends Migration
             $table->date('tgl');
             $table->unsignedInteger('id_pegawai');
             $table->unsignedInteger('total');
+            $table->unsignedInteger('diskon');
             $table->unsignedInteger('grand_total');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->primary('no_nota');

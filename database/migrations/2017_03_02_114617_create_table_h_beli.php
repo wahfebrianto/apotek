@@ -20,8 +20,9 @@ class CreateTableHBeli extends Migration
             $table->date('tanggal_pesan');
             $table->unsignedInteger('total');
             $table->unsignedInteger('diskon');
-            $table->unsignedInteger('pajak');
             $table->unsignedInteger('grand_total');
+            $table->boolean('status_lunas')->nullable();
+            $table->date('tanggal_jatuh_tempo')->nullable();
             $table->string('keterangan');
             $table->timestamps();
             $table->softDeletes();

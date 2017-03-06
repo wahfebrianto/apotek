@@ -16,7 +16,7 @@ class CreatePamakologiTable extends Migration
         Schema::create('pamakologi', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

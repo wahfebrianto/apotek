@@ -23,7 +23,7 @@ class CreateTableDBeli extends Migration
             $table->unsignedInteger('subtotal_setelah_diskon');
             $table->date('tanggal_terima');
             $table->unsignedInteger('id_pegawai_penerima');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->primary(['no_nota', 'id_obat']);

@@ -3,8 +3,35 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class H_jual extends Model
 {
-    //
+  use SoftDeletes;
+  /**
+   * The table associated with the model.
+   *
+   * @var string
+   */
+  protected $table = 'h_jual';
+  protected $primarykey = 'no_nota';
+  protected $dates = ['deleted_at'];
+
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+      'no_nota', 'tgl', 'id_pegawai', 'total', 'diskon', 'grand_total', 'keterangan'
+  ];
+
+  /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = [
+
+  ];
 }
