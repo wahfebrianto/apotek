@@ -34,4 +34,14 @@ class H_resep extends Model
   protected $hidden = [
 
   ];
+
+  public function d_resep()
+  {
+      return $this->hasMany('App\D_resep');
+  }
+
+  public function h_jual()
+  {
+      return $this->belongsTo('App\H_jual')
+  }
 }

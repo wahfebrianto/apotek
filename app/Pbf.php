@@ -34,4 +34,9 @@ class Pbf extends Model
   protected $hidden = [
       'id'
   ];
+
+  public function h_beli()
+  {
+      return $this->hasMany('App\H_beli');
+  }
 }

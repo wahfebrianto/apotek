@@ -34,4 +34,19 @@ class H_jual extends Model
   protected $hidden = [
 
   ];
+
+  public function d_jual()
+  {
+      return $this->hasMany('App\D_jual');
+  }
+
+  public function h_resep()
+  {
+      return $this->hasMany('App\H_resep')
+  }
+
+  public function user()
+  {
+      return $this->belongsTo('App\User')
+  }
 }

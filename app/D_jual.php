@@ -34,4 +34,14 @@ class D_jual extends Model
   protected $hidden = [
 
   ];
+
+  public function obat()
+  {
+      return $this->hasOne('App\Obat');
+  }
+
+  public function h_jual()
+  {
+      return $this->belongsTo('App\H_jual')
+  }
 }

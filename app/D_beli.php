@@ -34,4 +34,14 @@ class D_beli extends Model
   protected $hidden = [
 
   ];
+
+  public function obat()
+  {
+      return $this->hasOne('App\Obat');
+  }
+
+  public function h_beli()
+  {
+      return $this->belongsTo('App\H_beli')
+  }
 }

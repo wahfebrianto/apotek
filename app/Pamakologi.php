@@ -34,4 +34,9 @@ class Pamakologi extends Model
   protected $hidden = [
       'id'
   ];
+
+  public function obat()
+  {
+      return $this->belongsTo('App\Obat');
+  }
 }

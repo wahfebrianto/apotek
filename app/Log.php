@@ -34,4 +34,9 @@ class Log extends Model
   protected $hidden = [
       'id'
   ];
+
+  public function obat()
+  {
+      return $this->hasOne('App\Obat');
+  }
 }

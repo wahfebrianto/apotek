@@ -34,4 +34,14 @@ class D_resep extends Model
   protected $hidden = [
 
   ];
+
+  public function obat()
+  {
+      return $this->hasOne('App\Obat');
+  }
+
+  public function h_resep()
+  {
+      return $this->belongsTo('App\H_resep')
+  }
 }

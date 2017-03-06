@@ -34,4 +34,19 @@ class H_beli extends Model
   protected $hidden = [
 
   ];
+
+  public function d_beli()
+  {
+      return $this->hasMany('App\D_beli');
+  }
+
+  public function user()
+  {
+      return $this->belongsTo('App\User')
+  }
+
+  public function pbf()
+  {
+      return $this->belongsTo('App\Pbf')
+  }
 }

@@ -34,4 +34,34 @@ class Obat extends Model
   protected $hidden = [
       'id'
   ];
+
+  public function pamakologi()
+  {
+      return $this->hasOne('App\Pamakologi');
+  }
+
+  public function log()
+  {
+      return $this->belongsTo('App\Log');
+  }
+
+  public function kartu_stok()
+  {
+      return $this->hasMany('App\Kartu_stok');
+  }
+
+  public function d_resep()
+  {
+      return $this->belongsTo('App\D_resep')
+  }
+
+  public function d_jual()
+  {
+      return $this->belongsTo('App\D_jual')
+  }
+
+  public function d_beli()
+  {
+      return $this->belongsTo('App\D_beli')
+  }
 }
