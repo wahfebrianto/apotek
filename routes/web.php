@@ -15,4 +15,9 @@ Route::get('/', 'HomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+Route::resource('pegawai', 'MPegawaiController');
+Route::get('pegawai/delete/{id}', 'MPegawaiController@delete');
+Route::get('pegawai/edit/{id}', 'MPegawaiController@edit');
+Route::post('pegawai/change', 'MPegawaiController@change')->name('pegawai.change');
+
 Auth::routes();
