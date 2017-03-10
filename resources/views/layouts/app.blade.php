@@ -12,8 +12,11 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/datatables/datatables.css" rel="stylesheet">
 
     <!-- Scripts -->
+    <!--<script src="/js/app.js"></script>-->
+    <script src="/datatables/datatables.js"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -87,8 +90,5 @@
 
         @yield('content')
     </div>
-
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
 </body>
 </html>
