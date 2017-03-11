@@ -20,4 +20,9 @@ Route::get('pegawai/delete/{id}', 'MPegawaiController@delete');
 Route::get('pegawai/edit/{id}', 'MPegawaiController@edit');
 Route::post('pegawai/change', 'MPegawaiController@change')->name('pegawai.change');
 
+Route::resource('pengeluaran', 'MPengeluaranController');
+Route::get('pengeluaran/delete/{id}', 'MPengeluaranController@delete');
+Route::get('pengeluaran/edit/{id}', 'MPengeluaranController@edit');
+Route::post('pengeluaran/change', 'MPengeluaranController@change')->name('pengeluaran.change');
+
 Auth::routes();

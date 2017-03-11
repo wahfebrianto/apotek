@@ -15,7 +15,7 @@ class Pengeluaran extends Model
    */
   protected $table = 'pengeluaran';
   protected $primarykey = 'id';
-  protected $incrementing = false;
+  public $incrementing = false;
   protected $dates = ['deleted_at'];
 
   /**
