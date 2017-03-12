@@ -20,4 +20,6 @@ Route::get('pegawai/delete/{id}', 'MPegawaiController@delete');
 Route::get('pegawai/edit/{id}', 'MPegawaiController@edit');
 Route::post('pegawai/change', 'MPegawaiController@change')->name('pegawai.change');
 
+Route::resource('pamakologi','MPamakologiController');
+
 Auth::routes();

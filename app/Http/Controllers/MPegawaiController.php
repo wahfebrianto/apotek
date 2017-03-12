@@ -55,7 +55,7 @@ class MPegawaiController extends Controller
       $user->password = bcrypt($request->input('password'));
       $user->save();
 
-      Session::flash('message', 'Pegawai baru telah ditambahkan');
+      Session::flash('message', 'Pegawai baru telah ditambahkan.');
       return Redirect::to('pegawai');
   }
 
@@ -80,7 +80,7 @@ class MPegawaiController extends Controller
         'password' => $request->input('password')
     ];
     User::where('id',$id)->update($dataUbah);
-    Session::flash('message', 'Pegawai berhasil diubah');
+    Session::flash('message', 'Pegawai berhasil diubah.');
     return Redirect::to('pegawai');
   }
 
@@ -88,7 +88,7 @@ class MPegawaiController extends Controller
   {
       if($id == 1)
       {
-        Session::flash('message', 'You cannot delete admin');
+        Session::flash('message', 'Anda tidak dapat menghapus admin.');
         Session::flash('alert-class', 'alert-danger');
                 return Redirect::to('pegawai');
       }
@@ -96,7 +96,7 @@ class MPegawaiController extends Controller
       {
         $user = User::find($id);
         $user->delete();
-        Session::flash('message', 'Pegawai berhasil dihapus');
+        Session::flash('message', 'Pegawai berhasil dihapus.');
         return Redirect::to('pegawai');
       }
   }

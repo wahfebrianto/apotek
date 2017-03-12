@@ -12,7 +12,7 @@
                 @if (Session::has('message'))
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <table class="table table-striped table-bordered" id="table-pegawai">
+                <table id="table-pegawai" class="row-border stripe" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                           <th></th>
@@ -34,13 +34,13 @@
                             <td>Rp {{number_format($user->gaji,2,",",".")}}</td>
                             <td>{{$user->username}}</td>
                             <td>
-                                <a class="btn btn-small btn-info" href="{{ URL::to('pegawai/edit/' . $user->id ) }}">Ubah</a>
-                                <a class="btn btn-small btn-warning pull-right" href="{{ URL::to('pegawai/delete/' . $user->id ) }}">Delete</a>
+                                <a class="col-sm-12 col-lg-6 btn btn-small btn-info" href="{{ URL::to('pegawai/edit/' . $user->id ) }}">Ubah</a>
+                                <a class="col-sm-12 col-lg-6 btn btn-small btn-warning" href="{{ URL::to('pegawai/delete/' . $user->id ) }}">Delete</a>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
-                    <tfoot>
+                    {{-- <tfoot>
                       <tr>
                           <th></th>
                           <th>Nama</th>
@@ -50,7 +50,7 @@
                           <th>Username</th>
                           <th>&nbsp;</th>
                       </tr>
-                    </tfoot>
+                    </tfoot> --}}
                 </table>
               </div>
             </div>
@@ -65,7 +65,8 @@
             "orderable": false,
             "targets": 0
         } ],
-        "order": [[ 1, 'asc' ]]
+        "order": [[ 1, 'asc' ]],
+        "responsive": true
         } );
 
         t.on( 'order.dt search.dt', function () {

@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/datatables/DataTables-1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="/datatables/datatables.css" rel="stylesheet">
 
     <!-- Scripts -->
@@ -22,6 +23,8 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+
 </head>
 <body>
     <div id="app">
@@ -54,6 +57,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="{{ route('pegawai.index') }}">Pegawai</a>
+                                    <a href="{{ route('pamakologi.index') }}">Pamakologi</a>
                                 </li>
                             </ul>
                         </li>
@@ -89,6 +93,8 @@
         </nav>
 
         @yield('content')
+        <!-- Delete Mehod -->
+        <script src="/js/laravel.js"></script>
     </div>
 </body>
 </html>
