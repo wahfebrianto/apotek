@@ -70,6 +70,9 @@
                                 <li>
                                     <a href="{{ route('pengeluaran.index') }}">Pengeluaran</a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('log.index') }}">Log</a>
+                                </li>
                             </ul>
                         </li>
                       @endif
@@ -107,5 +110,9 @@
         <!-- Delete Mehod -->
         <script src="/js/laravel.js"></script>
     </div>
+    <?php
+      $debugbar = App::make('debugbar');
+      $debugbar->addCollector(new DebugBar\DataCollector\MessagesCollector('my_messages'));
+    ?>
 </body>
 </html>

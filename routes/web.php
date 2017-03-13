@@ -29,4 +29,9 @@ Route::get('pengeluaran/delete/{id}', 'MPengeluaranController@delete');
 Route::get('pengeluaran/edit/{id}', 'MPengeluaranController@edit');
 Route::post('pengeluaran/change', 'MPengeluaranController@change')->name('pengeluaran.change');
 
+Route::resource('log', 'MLogController');
+Route::get('log/delete/{id}', 'MLogController@delete');
+Route::get('log/edit/{id}', 'MLogController@edit');
+Route::post('log/change', 'MLogController@change')->name('log.change');
+
 Auth::routes();

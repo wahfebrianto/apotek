@@ -42,7 +42,7 @@ class Obat extends Model
 
   public function log()
   {
-      return $this->belongsTo('App\Log');
+      return $this->hasMany('App\Log');
   }
 
   public function kartu_stok()
@@ -52,16 +52,16 @@ class Obat extends Model
 
   public function d_resep()
   {
-      return $this->belongsTo('App\D_resep')
+      return $this->belongsTo('App\D_resep');
   }
 
   public function d_jual()
   {
-      return $this->belongsTo('App\D_jual')
+      return $this->belongsTo('App\D_jual');
   }
 
   public function d_beli()
   {
-      return $this->belongsTo('App\D_beli')
+      return $this->belongsTo('App\D_beli');
   }
 }

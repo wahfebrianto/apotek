@@ -6,10 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "barryvdh/laravel-debugbar": "^2.3",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "ramsey/uuid": "^3.5",
-		"webpatser/laravel-uuid": "2.*"
+        "webpatser/laravel-uuid": "2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

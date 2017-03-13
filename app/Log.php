@@ -37,6 +37,6 @@ class Log extends Model
 
   public function obat()
   {
-      return $this->hasOne('App\Obat');
+      return $this->belongsTo('App\Obat','id_obat');
   }
 }
