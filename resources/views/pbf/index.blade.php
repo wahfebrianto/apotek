@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
-              <div class="panel-heading">Pengeluaran</div>
+              <div class="panel-heading">PBF</div>
               <div class="panel-body">
-                <a class="btn btn-small btn-success" href="{{ URL::to('pengeluaran/create') }}">Pengeluaran Baru</a>
+                <a class="btn btn-small btn-success" href="{{ URL::to('pbf/create') }}">PBF Baru</a>
 				        <hr />
                 @if (Session::has('message'))
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
@@ -16,24 +16,30 @@
                     <thead>
                       <tr>
                           <th></th>
-                          <th>Tgl</th>
                           <th>Nama</th>
-                          <th>Harga</th>
+                          <th>Alamat</th>
+                          <th>Telepon</th>
+                          <th>Nama CP</th>
+                          <th>Telepon CP</th>
+                          <th>Tergolong Pajak</th>
                           <th>Keterangan</th>
                           <th>&nbsp;</th>
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach ($pengeluaran as $data)
+                    @foreach ($pbfData as $pbf)
                         <tr>
                             <td></td>
-                            <td>{{date('d/m/Y', strtotime($data->tgl))}}</td>
-                            <td>{{$data->nama}}</td>
-                            <td>Rp {{number_format($data->harga,2,",",".")}}</td>
-                            <td>{{$data->keterangan}}</td>
+                            <td>{{$pbf->nama}}</td>
+                            <td>{{$pbf->alamat}}</td>
+                            <td>{{$pbf->telepon}}</td>
+                            <td>{{$pbf->nama_cp}}</td>
+                            <td>{{$pbf->telp_cp}}</td>
+                            <td>{{($pbf->tergolong_pajak) == 0 ? "Tidak" : "Ya"}}</td>
+                            <td>{{$pbf->keterangan}}</td>
                             <td>
-                                <a class="col-sm-12 col-lg-6 btn btn-small btn-info" href="{{ URL::to('pengeluaran/edit/' . $data->id ) }}">Ubah</a>
-                                <a class="col-sm-12 col-lg-6 btn btn-small btn-warning pull-right" href="{{ URL::to('pengeluaran/delete/' . $data->id ) }}">Delete</a>
+                                <a class="col-sm-12 btn btn-small btn-info" href="{{ URL::to('pbf/'.$pbf->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-12 btn btn-small btn-warning" href="{{ url('pbf', [$pbf->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach

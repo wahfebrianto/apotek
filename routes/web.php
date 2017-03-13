@@ -22,6 +22,8 @@ Route::post('pegawai/change', 'MPegawaiController@change')->name('pegawai.change
 
 Route::resource('pamakologi','MPamakologiController');
 
+Route::resource('pbf','MPBFController');
+
 Route::resource('pengeluaran', 'MPengeluaranController');
 Route::get('pengeluaran/delete/{id}', 'MPengeluaranController@delete');
 Route::get('pengeluaran/edit/{id}', 'MPengeluaranController@edit');

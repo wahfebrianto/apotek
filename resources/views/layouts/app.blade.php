@@ -14,10 +14,12 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/datatables/DataTables-1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="/datatables/datatables.css" rel="stylesheet">
+    <link href="/css/bootstrap-toggle.min.css" rel="stylesheet">
 
     <!-- Scripts -->
     <!--<script src="/js/app.js"></script>-->
     <script src="/datatables/datatables.js"></script>
+    <script src="/js/bootstrap-toggle.min.js"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -57,7 +59,13 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="{{ route('pegawai.index') }}">Pegawai</a>
+                                </li>
+                                <li>
                                     <a href="{{ route('pamakologi.index') }}">Pamakologi</a>
+                                </li>
+                                </li>
+                                <li>
+                                    <a href="{{ route('pbf.index') }}">PBF</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('pengeluaran.index') }}">Pengeluaran</a>
