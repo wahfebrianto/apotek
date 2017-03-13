@@ -59,6 +59,9 @@
                                     <a href="{{ route('pegawai.index') }}">Pegawai</a>
                                     <a href="{{ route('pamakologi.index') }}">Pamakologi</a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('pengeluaran.index') }}">Pengeluaran</a>
+                                </li>
                             </ul>
                         </li>
                       @endif
