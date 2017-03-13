@@ -29,8 +29,8 @@
                             <td>{{$data->Obat->nama}}</td>
                             <td>{{$data->keterangan}}</td>
                             <td>
-                                <a class="btn btn-small btn-info" href="{{ URL::to('log/edit/' . $data->id ) }}">Ubah</a>
-                                <a class="btn btn-small btn-warning pull-right" href="{{ URL::to('log/delete/' . $data->id ) }}">Delete</a>
+                                <a class="col-sm-12 col-lg-6 btn btn-small btn-info" href="{{ URL::to('log/edit/' . $data->id ) }}">Ubah</a>
+                                <a class="col-sm-12 col-lg-6 btn btn-small btn-warning pull-right" href="{{ URL::to('log/delete/' . $data->id ) }}">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -58,7 +58,8 @@
             "orderable": false,
             "targets": 0
         } ],
-        "order": [[ 1, 'asc' ]]
+        "order": [[ 1, 'asc' ]],
+        "responsive": true
         } );
 
         t.on( 'order.dt search.dt', function () {
