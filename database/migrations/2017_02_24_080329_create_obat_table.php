@@ -17,7 +17,7 @@ class CreateObatTable extends Migration
             $table->uuid('id');
             $table->string('nama');
             $table->unsignedInteger('id_pamakologi');
-            $table->double('dosis');
+            $table->string('dosis');
             $table->string('bentuk_sediaan');
             $table->unsignedInteger('harga_jual');
             $table->string('keterangan')->nullable();

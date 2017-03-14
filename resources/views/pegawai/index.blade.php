@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">Pegawai</div>
               <div class="panel-body">
@@ -34,8 +34,8 @@
                             <td>Rp {{number_format($user->gaji,2,",",".")}}</td>
                             <td>{{$user->username}}</td>
                             <td>
-                                <a class="col-sm-12 col-lg-6 btn btn-small btn-info" href="{{ URL::to('pegawai/edit/' . $user->id ) }}">Ubah</a>
-                                <a class="col-sm-12 col-lg-6 btn btn-small btn-warning" href="{{ URL::to('pegawai/delete/' . $user->id ) }}">Delete</a>
+                                <a class="col-sm-11 col-lg-5 btn btn-small btn-info" href="{{ URL::to('pegawai/'.$user->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-11 col-lg-5 btn btn-small btn-warning pull-right" href="{{ url('pegawai', [$user->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach

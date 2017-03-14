@@ -17,6 +17,7 @@ class Obat extends Model
   protected $primarykey = 'id';
   protected $dates = ['deleted_at'];
   protected $guarded = ['id'];
+  public $incrementing = false;
 
   /**
    * The attributes that are mass assignable.
@@ -33,7 +34,7 @@ class Obat extends Model
    * @var array
    */
   protected $hidden = [
-      // 'id'
+       'id'
   ];
 
   public function pamakologi()

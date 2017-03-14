@@ -60,7 +60,7 @@ class MPengeluaranController extends Controller
       return Redirect::to('pengeluaran');
   }
 
-  public function change(Request $request)
+  public function update(Request $request, $id)
   {
     $this->validate($request, [
       'tgl' => 'required',
@@ -68,7 +68,6 @@ class MPengeluaranController extends Controller
       'harga' => 'required|numeric',
       'keterangan' => 'required',
     ]);
-    $id = $request->input('id');
 
     $dataUbah = [
         'tgl' => $request->input('tgl'),
@@ -81,7 +80,7 @@ class MPengeluaranController extends Controller
     return Redirect::to('pengeluaran');
   }
 
-  public function delete($id)
+  public function destroy($id)
   {
       $pengeluaran = Pengeluaran::find($id);
       $pengeluaran->delete();

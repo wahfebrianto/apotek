@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Ubah Pengeluaran</div>
                 <div class="panel-body">
@@ -17,11 +17,10 @@
                       </div>
                   @endif
 
-                  <form class="form-horizontal" role="form" method="POST" action="{{ route('pengeluaran.change') }}">
+                  <form class="form-horizontal" role="form" method="POST" action="{{ url('pengeluaran', [$pengeluaran->id]) }}">
 
                   {{ csrf_field() }}
-
-                  <input type="hidden" name="id" value="{{ $pengeluaran->id }}">
+                  {{ method_field('PUT') }}
 
                   <div class="form-group">
                       <label for="tgl" class="col-md-4 control-label">Tanggal</label>

@@ -6,7 +6,7 @@ use App\Log;
 use App\Obat;
 use Illuminate\Http\Request;
 use Webpatser\Uuid\Uuid;
-use \Auth, \Redirect, \Validator, \Input, \Session, \DB;
+use \Auth, \Redirect, \Validator, \Input, \Session;
 
 class MLogController extends Controller
 {
@@ -32,16 +32,14 @@ class MLogController extends Controller
       return view('log.index', compact('log'));
   }
 
-  public function change(Request $request)
+  public function update(Request $request, $id)
   {
     $this->validate($request, [
       'obat' => 'required',
       'keterangan' => 'required',
     ]);
-    $id = $request->input('id');
-    $obat = DB::table('obat')->select('id')->where('nama', $request->input('obat'))->get();
     $dataUbah = [
-        'id_obat' => $obat[0]->id,
+        'id_obat' => $request->input('obat'),
         'keterangan' => $request->input('keterangan')
     ];
     Log::where('id',$id)->update($dataUbah);
@@ -49,7 +47,7 @@ class MLogController extends Controller
     return Redirect::to('log');
   }
 
-  public function delete($id)
+  public function destroy($id)
   {
       $log = Log::find($id);
       $log->delete();

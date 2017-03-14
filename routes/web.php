@@ -16,9 +16,6 @@ Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 
 Route::resource('pegawai', 'MPegawaiController');
-Route::get('pegawai/delete/{id}', 'MPegawaiController@delete');
-Route::get('pegawai/edit/{id}', 'MPegawaiController@edit');
-Route::post('pegawai/change', 'MPegawaiController@change')->name('pegawai.change');
 
 Route::resource('pamakologi','MPamakologiController');
 
@@ -27,13 +24,7 @@ Route::resource('pbf','MPBFController');
 Route::resource('obat','MObatController');
 
 Route::resource('pengeluaran', 'MPengeluaranController');
-Route::get('pengeluaran/delete/{id}', 'MPengeluaranController@delete');
-Route::get('pengeluaran/edit/{id}', 'MPengeluaranController@edit');
-Route::post('pengeluaran/change', 'MPengeluaranController@change')->name('pengeluaran.change');
 
 Route::resource('log', 'MLogController');
-Route::get('log/delete/{id}', 'MLogController@delete');
-Route::get('log/edit/{id}', 'MLogController@edit');
-Route::post('log/change', 'MLogController@change')->name('log.change');
 
 Auth::routes();

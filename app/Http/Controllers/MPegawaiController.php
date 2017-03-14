@@ -59,7 +59,7 @@ class MPegawaiController extends Controller
       return Redirect::to('pegawai');
   }
 
-  public function change(Request $request)
+  public function update(Request $request, $id)
   {
     $this->validate($request, [
       'nama' => 'required',
@@ -69,7 +69,6 @@ class MPegawaiController extends Controller
       'username' => 'required|alpha_dash',
       'password' => 'required|min:6|confirmed',
     ]);
-    $id = $request->input('id');
 
     $dataUbah = [
         'nama' => $request->input('nama'),
@@ -84,7 +83,7 @@ class MPegawaiController extends Controller
     return Redirect::to('pegawai');
   }
 
-  public function delete($id)
+  public function destroy($id)
   {
       if($id == 1)
       {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use \Auth, \Redirect, \Validator, \Input, \Session, \DB;
+use \Auth, \Redirect, \Validator, \Input, \Session;
 use App\Obat, App\Pamakologi;
 use Webpatser\Uuid\Uuid;
 
@@ -24,13 +24,8 @@ class MObatController extends Controller
 
     public function index()
     {
-         $obatData = Obat::all();
-        //$obatData = DB::table('obat')->get();
-        foreach ($obatData as $obat) {
-          echo $obat->id."<br>";
-        }
-        // dd($obatData);
-        // return view('obat.index')->with('obatData',$obatData);
+        $obatData = Obat::with('pamakologi')->get();
+        return view('obat.index')->with('obatData',$obatData);
     }
 
     /**
@@ -93,9 +88,8 @@ class MObatController extends Controller
     public function edit($id)
     {
         $pamakologiData = Pamakologi::get();
-        //$obat = Obat::find($id)->;
-        dd($obat);
-        //return view('obat.edit')->with(['pamakologiData'=>$pamakologiData,'obat'=>$obat]);
+        $obat = Obat::find($id);
+        return view('obat.edit')->with(['pamakologiData'=>$pamakologiData,'obat'=>$obat]);
     }
 
     /**

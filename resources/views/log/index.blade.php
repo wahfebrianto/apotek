@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">Log</div>
               <div class="panel-body">
@@ -26,11 +26,11 @@
                         <tr>
                             <td></td>
                             <td>{{date('d/m/Y', strtotime($data->created_at))}}</td>
-                            <td>{{$data->Obat->nama}}</td>
+                            <td>{{$data->obat->nama}}</td>
                             <td>{{$data->keterangan}}</td>
                             <td>
-                                <a class="col-sm-12 col-lg-6 btn btn-small btn-info" href="{{ URL::to('log/edit/' . $data->id ) }}">Ubah</a>
-                                <a class="col-sm-12 col-lg-6 btn btn-small btn-warning pull-right" href="{{ URL::to('log/delete/' . $data->id ) }}">Delete</a>
+                                <a class="col-sm-11 col-lg-5 btn btn-small btn-info" href="{{ URL::to('log/' . $data->id ."/edit") }}">Ubah</a>
+                                <a class="col-sm-11 col-lg-5 btn btn-small btn-warning pull-right" href="{{ url('log', [$data->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach

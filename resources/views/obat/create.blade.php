@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Obat Baru</div>
                 <div class="panel-body">
@@ -66,7 +66,6 @@
                           <label for="keterangan" class="col-md-4 control-label">Keterangan</label>
                           <div class="col-md-6">
                               <textarea id="keterangan" class="form-control" name="keterangan" cols="40" rows="5"></textarea>
-                              {{-- <input id="alamat" type="text" class="form-control" name="alamat" required> --}}
                           </div>
                       </div>
                       <div class="form-group">

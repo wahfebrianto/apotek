@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Ubah Log</div>
                 <div class="panel-body">
@@ -17,11 +17,10 @@
                       </div>
                   @endif
 
-                  <form class="form-horizontal" role="form" method="POST" action="{{ route('log.change') }}">
+                  <form class="form-horizontal" role="form" method="POST" action="{{ url('log', [$log->id]) }}">
 
                   {{ csrf_field() }}
-
-                  <input type="hidden" name="id" value="{{ $log->id }}">
+                  {{ method_field('PUT') }}
 
                   <div class="form-group">
                       <label for="tgl" class="col-md-4 control-label">Tanggal</label>
@@ -37,7 +36,7 @@
                       <div class="col-md-6">
                         <select id="obat" class="selectpicker form-control" name="obat">
                             @foreach ($obat as $data)
-                                <option>{{$data->nama}}</option>
+                                <option value="{{$data->id}}">{{$data->nama}}</option>
                             @endforeach
                         </select>
                       </div>
@@ -67,7 +66,7 @@
 </div>
 <script>
 $(document).ready(function(){
-    $("#obat").val('{{ $log->obat->nama }}');
+    $("#obat").val('{{ $log->obat->id }}');
 });
 </script>
 @endsection

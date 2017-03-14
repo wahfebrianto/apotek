@@ -38,8 +38,8 @@
                             <td>{{($pbf->tergolong_pajak) == 0 ? "Tidak" : "Ya"}}</td>
                             <td>{{$pbf->keterangan}}</td>
                             <td>
-                                <a class="col-sm-12 btn btn-small btn-info" href="{{ URL::to('pbf/'.$pbf->id.'/edit') }}">Ubah</a>
-                                <a class="col-sm-12 btn btn-small btn-warning" href="{{ url('pbf', [$pbf->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                <a class="col-sm-11 col-lg-5 btn btn-small btn-info" href="{{ URL::to('pbf/'.$pbf->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-11 col-lg-5 btn btn-small btn-warning pull-right" href="{{ url('pbf', [$pbf->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach
