@@ -61,6 +61,9 @@
                                     <a href="{{ route('pegawai.index') }}">Pegawai</a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('obat.index') }}">Obat</a>
+                                </li>
+                                <li>
                                     <a href="{{ route('pamakologi.index') }}">Pamakologi</a>
                                 </li>
                                 </li>

@@ -37,6 +37,6 @@ class Pamakologi extends Model
 
   public function obat()
   {
-      return $this->belongsTo('App\Obat');
+      return $this->hasMany('App\Obat');
   }
 }

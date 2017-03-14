@@ -16,6 +16,7 @@ class Obat extends Model
   protected $table = 'obat';
   protected $primarykey = 'id';
   protected $dates = ['deleted_at'];
+  protected $guarded = ['id'];
 
   /**
    * The attributes that are mass assignable.
@@ -32,12 +33,12 @@ class Obat extends Model
    * @var array
    */
   protected $hidden = [
-      'id'
+      // 'id'
   ];
 
   public function pamakologi()
   {
-      return $this->hasOne('App\Pamakologi');
+      return $this->belongsTo('App\Pamakologi','id_pamakologi');
   }
 
   public function log()

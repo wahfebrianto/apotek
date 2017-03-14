@@ -24,6 +24,8 @@ Route::resource('pamakologi','MPamakologiController');
 
 Route::resource('pbf','MPBFController');
 
+Route::resource('obat','MObatController');
+
 Route::resource('pengeluaran', 'MPengeluaranController');
 Route::get('pengeluaran/delete/{id}', 'MPengeluaranController@delete');
 Route::get('pengeluaran/edit/{id}', 'MPengeluaranController@edit');
