@@ -101,7 +101,24 @@ class MObatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $obat = Obat::find($id);
+        $this->validate($request, [
+              'nama' => 'required',
+              'dosis' => 'required',
+              'bentuk_sediaan' => 'required',
+              'harga_jual' => 'required',
+        ]);
+
+        $obat->nama = $request->nama;
+        $obat->id_pamakologi = $request->id_pamakologi;
+        $obat->dosis = $request->dosis;
+        $obat->bentuk_sediaan = $request->bentuk_sediaan;
+        $obat->harga_jual = $request->harga_jual;
+        $obat->keterangan = $request->keterangan;
+        $obat->save();
+
+        Session::flash('message', 'Obat baru telah diupdate.');
+        return Redirect::to('obat');
     }
 
     /**
@@ -112,6 +129,9 @@ class MObatController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $obat = Obat::find($id);
+      Session::flash('message', 'Obat '.$obat->nama.' telah berhasil dihapus.');
+      $obat->delete();
+      return Redirect::to('obat');
     }
 }

@@ -12,6 +12,6 @@ $('[data-method]').append(function(){
 /*
  Generic are you sure dialog
  */
-// $('form[name=delete_item]').submit(function(){
-//     return confirm('Apakah anda yakin ingin menghapus data ini ?');
-// });
+$('form[name=delete_item]').submit(function(){
+    return confirm('Apakah anda yakin ingin menghapus data ini ?');
+});

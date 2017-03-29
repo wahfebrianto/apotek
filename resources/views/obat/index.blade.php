@@ -12,7 +12,7 @@
                 @if (Session::has('message'))
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <table id="data-table" class="row-border stripe" cellspacing="0" width="100%">
+                <table id="data-table" class="row-border hover stripe" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                           <th></th>
@@ -36,8 +36,9 @@
                             <td>Rp {{number_format($obat->harga_jual,2,",",".")}}</td>
                             <td>{{$obat->keterangan}}</td>
                             <td>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-info" href="{{ URL::to('obat/'.$obat->id.'/edit') }}">Ubah</a>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-warning pull-right" href="{{ url('obat', [$obat->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                <a class="col-sm-12 col-lg-12 btn btn-primary btn-action" href="{{ URL::to('stok/'.$obat->id) }}">Stok</a>
+                                <a class="col-sm-12 col-lg-6 btn btn-info btn-action" href="{{ URL::to('obat/'.$obat->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-12 col-lg-6 btn btn-warning btn-action" href="{{ url('obat', [$obat->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach

@@ -1093,6 +1093,11 @@ html {
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+/*td.highlight {
+    background-color: black !important;
+}*/
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -7240,5 +7245,3 @@ div.dtr-modal div.dtr-modal-background {
 div.dtr-bs-modal table.table tr:first-child td {
   border-top: none;
 }
-
-

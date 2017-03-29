@@ -16,6 +16,7 @@ class Kartu_stok extends Model
   protected $table = 'kartu_stok';
   protected $primarykey = ['id', 'id_obat'];
   protected $dates = ['deleted_at'];
+  public $incrementing = false;
 
   /**
    * The attributes that are mass assignable.
@@ -37,6 +38,6 @@ class Kartu_stok extends Model
 
   public function obat()
   {
-      return $this->belongsTo('App\Obat');
+    return $this->belongsTo('App\Obat','id_obat');
   }
 }
