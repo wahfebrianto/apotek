@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use \Auth, \Redirect, \Validator, \Input, \Session;
-use App\Obat, App\Kartu_stok;
+use App\Obat, App\Kartu_stok, App\Log;
 use Webpatser\Uuid\Uuid;
 
 class MStokController extends Controller
@@ -42,7 +42,7 @@ class MStokController extends Controller
    public function create($id_obat)
    {
       $obat = Obat::find($id_obat);
-      return view('stok.create')->with(array('obat'=>$obat,'stok'=>$stok));
+      return view('stok.create')->with(array('obat'=>$obat));
    }
 
    public function store(Request $request){
@@ -54,11 +54,18 @@ class MStokController extends Controller
        $stok = new Kartu_stok;
        $stok->id = Uuid::generate()->string;
        $stok->id_obat = $request->id_obat;
-       $stok->harga_beli = $request->harga_beli;
+       $stok->harga_beli = intval(str_replace(['.',','],'',$request->harga_beli));
        $stok->tanggal_beli = $request->tanggal_beli;
        $stok->expired_date = $request->tanggal_expired;
        $stok->stok = $request->stok;
        $stok->keterangan = $request->keterangan;
+
+       $log = new Log;
+       $log->id_obat = $stok->id_obat;
+       $log->jenis = "Stok";
+       $log->keterangan = "Penambahan stok obat seharga Rp ".number_format($stok->harga_beli,2,",",".")." sebanyak ".$stok->stok." biji.";
+       $log->save();
+
        $stok->save();
 
        Session::flash('message', 'Stok baru telah ditambahkan.');
@@ -79,11 +86,21 @@ class MStokController extends Controller
            'harga_beli' => 'required',
      ]);
 
-     $stok->harga_beli = $request->harga_beli;
+     $stok->harga_beli = intval(str_replace(['.',','],'',$request->harga_beli));
      $stok->tanggal_beli = $request->tanggal_beli;
      $stok->expired_date = $request->tanggal_expired;
+     $old_stok = $stok->stok;
      $stok->stok = $request->stok;
      $stok->keterangan = $request->keterangan;
+
+     if($old_stok != $stok->stok){
+         $log = new Log;
+         $log->id_obat = $stok->id_obat;
+         $log->jenis = "Stok";
+         $log->keterangan = "Penyesuaian stok obat untuk tanggal expired ".date("d-m-Y",strtotime($stok->expired_date))." dari ".$old_stok." menjadi ".$stok->stok.".";
+         $log->save();
+     }
+
      $stok->save();
 
      Session::flash('message', 'Stok baru telah diupdate.');
@@ -94,6 +111,13 @@ class MStokController extends Controller
    {
     $stok = Kartu_stok::find($id);
     Session::flash('message', 'Stok telah berhasil dihapus.');
+
+    $log = new Log;
+    $log->id_obat = $stok->id_obat;
+    $log->jenis = "Stok";
+    $log->keterangan = "Penghapusan stok obat untuk tanggal expired ".date("d-m-Y",strtotime($stok->expired_date))." sejumlah ".$stok->stok.".";
+    $log->save();
+
     $stok->delete();
     return Redirect::to('stok/'.$stok->id_obat);
    }

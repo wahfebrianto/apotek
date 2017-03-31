@@ -35,4 +35,8 @@ Route::resource('pengeluaran', 'MPengeluaranController');
 
 Route::resource('log', 'MLogController');
 
+//pembelian
+Route::get('pembelian','MPembelianController@index')->name('pembelian.index');
+Route::get('pembelian/create','MPembelianController@create')->name('pembelian.create');
+
 Auth::routes();

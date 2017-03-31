@@ -50,8 +50,7 @@
                       <div class="col-md-6">
                           <div class="input-group">
                             <span class="input-group-addon">Rp</span>
-                            <input id="gaji" type="number" class="form-control" name="gaji" value=0>
-                            <span class="input-group-addon">.00</span>
+                            <input id="gaji" type="text" class="form-control" name="gaji">
                           </div>
                       </div>
                   </div>
@@ -93,5 +92,10 @@
             </div>
         </div>
     </div>
+    <script>
+      $(document).ready(function(){
+          $('#gaji').number(true,0,',','.');
+      });
+    </script>
 </div>
 @endsection

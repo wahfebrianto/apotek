@@ -11,18 +11,21 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet">
-    <link href="/datatables/DataTables-1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="/datatables/datatables.css" rel="stylesheet">
-    <link href="/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{ asset('css/app.css')}}" rel="stylesheet">
+    <link href="{{ asset('datetimepicker/bootstrap-datetimepicker.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css')}}" rel="stylesheet">
+    <link href="{{ asset('datatables/DataTables-1.10.13/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('datatables/datatables.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+    <link rel="icon" href="{{ asset('assets/logo.ico')}}">
 
     <!-- Scripts -->
     <!--<script src="/js/app.js"></script>-->
-    <script src="/datatables/datatables.js"></script>
-    <script src="/js/bootstrap-toggle.min.js"></script>
-    <script src="/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ asset('datatables/datatables.js')}}"></script>
+    <script src="{{ asset('js/bootstrap-toggle.min.js')}}"></script>
+    <script src="{{ asset('js/jquery.number.min.js')}}"></script>
+    <script src="{{ asset('datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('datetimepicker/bootstrap-datetimepicker.id.js')}}" charset="UTF-8"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -46,6 +49,9 @@
                     </button>
 
                     <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ url('/') }}" style="padding-top:7px;padding-right:5px;">
+                        <img src="/assets/logo.png" width="35px" height="35px">
+                    </a>
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name') }}
                     </a>
@@ -82,15 +88,27 @@
                             </ul>
                         </li>
                       @endif
+                      {{-- <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                              Pembelian<span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu" role="menu">
+                              <li>
+                                  <a href="{{ route('pegawai.index') }}">Pembelian Baru</a>
+                              </li>
+                              <li>
+                                  <a href="{{ route('obat.index') }}">Obat</a>
+                              </li>
+                          </ul>
+                      </li> --}}
+                      @if (!Auth::guest())
                       <li class="dropdown">
-                        <a href="{{ route('pegawai.index') }}">Pembelian</a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="{{ route('pegawai.index') }}">Penjualan</a>
+                        <a href="{{ route('pembelian.index') }}">Pembelian</a>
                       </li>
                       <li class="dropdown">
                         <a href="{{ route('pegawai.index') }}">Laporan</a>
                       </li>
+                      @endif
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -123,7 +141,7 @@
 
         @yield('content')
         <!-- Delete Mehod -->
-        <script src="/js/laravel.js"></script>
+        <script src="{{asset('js/laravel.js')}}"></script>
     </div>
     <?php
       $debugbar = App::make('debugbar');

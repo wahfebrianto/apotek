@@ -23,11 +23,26 @@
 
                   <div class="form-group">
                       <label for="tgl" class="col-md-4 control-label">Tanggal</label>
-
-                      <div class="col-md-6">
-                          <input id="tgl" type="date" class="form-control" name="tgl" value="{{ date("Y-m-d") }}" required>
-                      </div>
+                      <div class=" col-md-6">
+                        <div class="input-group date form_datetime" id='datetimepicker-date-tanggal' data-link-field="tgl">
+                          <input type='text' class="form-control" value="<?php echo date("d F Y"); ?>" readonly>
+                          <span class="input-group-addon custom-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" name="tgl" id="tgl" value="<?php echo date("Y-m-d"); ?>">
+                    </div>
                   </div>
+                  <script type="text/javascript">
+                      $('#datetimepicker-date-tanggal').datetimepicker({
+                          todayBtn:  1,
+                          autoclose: 1,
+                          todayHighlight: 1,
+                          startView: 2,
+                          minView: 2,
+                          forceParse: 0,
+                          format: 'dd MM yyyy',
+                          pickerPosition: "bottom-left"
+                      });
+                  </script>
 
                   <div class="form-group">
                       <label for="nama" class="col-md-4 control-label">Nama</label>
@@ -46,8 +61,7 @@
                       <div class="col-md-6">
                           <div class="input-group">
                             <span class="input-group-addon">Rp</span>
-                            <input id="harga" type="number" class="form-control" name="harga" autofocus>
-                            <span class="input-group-addon">.00</span>
+                            <input id="harga" type="text" class="form-control" name="harga" autofocus>
                           </div>
                       </div>
                   </div>
@@ -73,5 +87,10 @@
             </div>
         </div>
     </div>
+    <script>
+      $(document).ready(function(){
+          $('#harga').number(true,0,',','.');
+      });
+    </script>
 </div>
 @endsection

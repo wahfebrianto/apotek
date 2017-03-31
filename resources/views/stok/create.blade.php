@@ -28,7 +28,7 @@
                       </div>
 
                       <div class="form-group">
-                          <label for="bentuk_sediaan" class="col-md-4 control-label">Tanggal Beli</label>
+                          <label for="tanggal_beli" class="col-md-4 control-label">Tanggal Beli</label>
                           <div class=" col-md-6">
                             <div class="input-group date form_datetime" id='datetimepicker-date-tanggal-beli' data-link-field="tanggal_beli">
       		                    <input type='text' class="form-control" value="<?php echo date("d F Y"); ?>" readonly>
@@ -39,7 +39,7 @@
                       </div>
 
                       <div class="form-group">
-                          <label for="bentuk_sediaan" class="col-md-4 control-label">Tanggal Expired</label>
+                          <label for="tanggal_expired" class="col-md-4 control-label">Tanggal Expired</label>
                           <div class=" col-md-6">
                             <div class="input-group date form_datetime" id='datetimepicker-date-tanggal-expired' data-link-field="tanggal_expired">
       		                    <input type='text' class="form-control" value="<?php echo date("d F Y"); ?>" readonly>
@@ -60,7 +60,7 @@
                 						  pickerPosition: "bottom-left"
             					    });
             					    var curdate = '<?php echo date("Y-m-d"); ?>';
-        		            	$('#datetimepicker-date-tanggal-beli').datetimepicker('setEndDate', curdate);
+        		            	//$('#datetimepicker-date-tanggal-beli').datetimepicker('setEndDate', curdate);
 
             					    $('#datetimepicker-date-tanggal-expired').datetimepicker({
             					        todayBtn:  1,
@@ -94,8 +94,7 @@
                           <div class="col-md-6">
                               <div class="input-group">
                                 <span class="input-group-addon">Rp</span>
-                                <input id="harga_beli" type="number" class="form-control" name="harga_beli" value=1 min=1 required>
-                                <span class="input-group-addon">.00</span>
+                                <input id="harga_beli" type="text" class="form-control" name="harga_beli" required>
                               </div>
                           </div>
                       </div>
@@ -117,4 +116,9 @@
         </div>
     </div>
 </div>
+<script>
+  $(document).ready(function(){
+      $('#harga_beli').number(true,0,',','.');
+  });
+</script>
 @endsection

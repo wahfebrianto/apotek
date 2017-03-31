@@ -12,16 +12,16 @@
                 @if (Session::has('message'))
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <table id="data-table" class="row-border stripe" cellspacing="0" width="100%">
+                <table id="data-table" class="row-border stripe table-bordered" cellspacing="0" width="100%">
                     <thead>
                       <tr>
-                          <th></th>
+                          <th class="number-td">No</th>
                           <th>Nama</th>
                           <th>Alamat</th>
                           <th>Telepon</th>
                           <th>Nama CP</th>
                           <th>Telepon CP</th>
-                          <th>Tergolong Pajak</th>
+                          <th>Pajak</th>
                           <th>Keterangan</th>
                           <th>&nbsp;</th>
                       </tr>
@@ -29,7 +29,7 @@
                     <tbody>
                     @foreach ($pbfData as $pbf)
                         <tr>
-                            <td></td>
+                            <td class="number-td"></td>
                             <td>{{$pbf->nama}}</td>
                             <td>{{$pbf->alamat}}</td>
                             <td>{{$pbf->telepon}}</td>
@@ -38,8 +38,8 @@
                             <td>{{($pbf->tergolong_pajak) == 0 ? "Tidak" : "Ya"}}</td>
                             <td>{{$pbf->keterangan}}</td>
                             <td>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-info" href="{{ URL::to('pbf/'.$pbf->id.'/edit') }}">Ubah</a>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-warning pull-right" href="{{ url('pbf', [$pbf->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                <a class="col-sm-12 btn btn-small btn-info" href="{{ URL::to('pbf/'.$pbf->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-12 btn btn-small btn-warning" href="{{ url('pbf', [$pbf->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach
@@ -59,7 +59,10 @@
             "targets": 0
         } ],
         "order": [[ 1, 'asc' ]],
-        "responsive": true
+        "responsive": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
+        }
         } );
 
         t.on( 'order.dt search.dt', function () {

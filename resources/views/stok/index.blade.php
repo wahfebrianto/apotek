@@ -46,10 +46,10 @@
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
 
-                <table id="data-table" class="row-border hover stripe" cellspacing="0" width="100%">
+                <table id="data-table" class="row-border hover stripe table-bordered" cellspacing="0" width="100%">
                     <thead>
                       <tr>
-                          <th></th>
+                          <th class="number-td"></th>
                           <th>Tanggal Beli</th>
                           <th>Tanggal Expired</th>
                           <th>Stok</th>
@@ -61,15 +61,15 @@
                     <tbody>
                     @foreach ($stokData as $stok)
                         <tr>
-                            <td></td>
+                            <td class="number-td"></td>
                             <td>{{date("d-m-Y",strtotime($stok->tanggal_beli))}}</td>
                             <td>{{date("d-m-Y",strtotime($stok->expired_date))}}</td>
                             <td>{{$stok->stok}}</td>
                             <td>Rp {{number_format($stok->harga_beli,2,",",".")}}</td>
                             <td>{{$stok->keterangan}}</td>
                             <td>
-                                <a class="col-sm-12 col-lg-6 btn btn-info btn-action" href="{{ URL::to('stok/'.$stok->id.'/edit') }}">Ubah</a>
-                                <a class="col-sm-12 col-lg-6 btn btn-warning btn-action" href="{{ url('stok', [$stok->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                <a class="col-sm-12 col-lg-5 btn btn-info btn-action less-margin" href="{{ URL::to('stok/'.$stok->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-12 col-lg-5 btn btn-warning btn-action less-margin" href="{{ url('stok', [$stok->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach
@@ -89,7 +89,10 @@
             "targets": 0
         } ],
         "order": [[ 1, 'asc' ]],
-        "responsive": true
+        "responsive": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
+        }
         } );
 
         t.on( 'order.dt search.dt', function () {

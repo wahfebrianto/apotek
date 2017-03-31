@@ -12,10 +12,10 @@
                 @if (Session::has('message'))
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <table id="data-table" class="row-border stripe" cellspacing="0" width="100%">
+                <table id="data-table" class="row-border stripe table-bordered" cellspacing="0" width="100%">
                     <thead>
                       <tr>
-                          <th></th>
+                          <th class="number-td">No</th>
                           <th>Nama</th>
                           <th>Keterangan</th>
                           <th>&nbsp;</th>
@@ -24,12 +24,12 @@
                     <tbody>
                     @foreach ($pamakologiData as $pamakologi)
                         <tr>
-                            <td></td>
+                            <td class="number-td"></td>
                             <td>{{$pamakologi->nama}}</td>
                             <td>{{$pamakologi->keterangan}}</td>
                             <td>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-info" href="{{ URL::to('pamakologi/'.$pamakologi->id.'/edit') }}">Ubah</a>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-warning pull-right" href="{{ url('pamakologi', [$pamakologi->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                <a class="col-sm-12 col-lg-5 btn btn-small btn-info less-margin" href="{{ URL::to('pamakologi/'.$pamakologi->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-12 col-lg-5 btn btn-small btn-warning less-margin" href="{{ url('pamakologi', [$pamakologi->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach
@@ -49,7 +49,10 @@
             "targets": 0
         } ],
         "order": [[ 1, 'asc' ]],
-        "responsive": true
+        "responsive": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
+        }
         } );
 
         t.on( 'order.dt search.dt', function () {

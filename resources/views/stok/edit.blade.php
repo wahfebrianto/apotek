@@ -61,7 +61,7 @@
                 						  pickerPosition: "bottom-left"
             					    });
             					    var curdate = '<?php echo date("Y-m-d"); ?>';
-        		            	$('#datetimepicker-date-tanggal-beli').datetimepicker('setEndDate', curdate);
+        		            	//$('#datetimepicker-date-tanggal-beli').datetimepicker('setEndDate', curdate);
 
             					    $('#datetimepicker-date-tanggal-expired').datetimepicker({
             					        todayBtn:  1,
@@ -95,8 +95,7 @@
                           <div class="col-md-6">
                               <div class="input-group">
                                 <span class="input-group-addon">Rp</span>
-                                <input id="harga_beli" type="number" class="form-control" name="harga_beli" value={{$stok->harga_beli}} min=1 required>
-                                <span class="input-group-addon">.00</span>
+                                <input id="harga_beli" type="text" class="form-control" name="harga_beli" value={{$stok->harga_beli}} required readonly>
                               </div>
                           </div>
                       </div>
@@ -118,4 +117,9 @@
         </div>
     </div>
 </div>
+<script>
+  $(document).ready(function(){
+      $('#harga_beli').number(true,0,',','.');
+  });
+</script>
 @endsection

@@ -12,10 +12,10 @@
                 @if (Session::has('message'))
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <table id="table-pegawai" class="row-border stripe" cellspacing="0" width="100%">
+                <table id="table-pegawai" class="row-border stripe table-bordered" cellspacing="0" width="100%">
                     <thead>
                       <tr>
-                          <th></th>
+                          <th class="number-td">No</th>
                           <th>Nama</th>
                           <th>Alamat</th>
                           <th>Telepon</th>
@@ -27,15 +27,15 @@
                     <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td></td>
+                            <td class="number-td"></td>
                             <td>{{$user->nama}}</td>
                             <td>{{$user->alamat}}</td>
                             <td>{{$user->telepon}}</td>
                             <td>Rp {{number_format($user->gaji,2,",",".")}}</td>
                             <td>{{$user->username}}</td>
                             <td>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-info" href="{{ URL::to('pegawai/'.$user->id.'/edit') }}">Ubah</a>
-                                <a class="col-sm-11 col-lg-5 btn btn-small btn-warning pull-right" href="{{ url('pegawai', [$user->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                <a class="col-sm-12 col-lg-5 btn btn-small btn-info less-margin" href="{{ URL::to('pegawai/'.$user->id.'/edit') }}">Ubah</a>
+                                <a class="col-sm-12 col-lg-5 btn btn-small btn-warning less-margin" href="{{ url('pegawai', [$user->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach
@@ -66,7 +66,10 @@
             "targets": 0
         } ],
         "order": [[ 1, 'asc' ]],
-        "responsive": true
+        "responsive": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
+        }
         } );
 
         t.on( 'order.dt search.dt', function () {

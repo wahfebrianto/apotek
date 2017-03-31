@@ -42,11 +42,11 @@ class H_beli extends Model
 
   public function user()
   {
-      return $this->belongsTo('App\User')
+      return $this->belongsTo('App\User','id_pegawai');
   }
 
   public function pbf()
   {
-      return $this->belongsTo('App\Pbf')
+      return $this->belongsTo('App\Pbf','id_pbf');
   }
 }

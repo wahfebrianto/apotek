@@ -40,7 +40,7 @@
                       <div class="form-group">
                           <label for="dosis" class="col-md-4 control-label">Dosis</label>
                           <div class="col-md-6">
-                              <input id="dosis" type="text" class="form-control" name="dosis" required autofocus pattern="^\d+(\.\d+)?$">
+                              <input id="dosis" type="text" class="form-control" name="dosis" required autofocus>
                           </div>
                       </div>
 
@@ -56,8 +56,7 @@
                           <div class="col-md-6">
                               <div class="input-group">
                                 <span class="input-group-addon">Rp</span>
-                                <input id="harga_jual" type="number" class="form-control" name="harga_jual" value=0>
-                                <span class="input-group-addon">.00</span>
+                                <input id="harga_jual" type="text" class="form-control" name="harga_jual" required autofocus>
                               </div>
                           </div>
                       </div>
@@ -79,4 +78,9 @@
         </div>
     </div>
 </div>
+<script>
+  $(document).ready(function(){
+      $('#harga_jual').number(true,0,',','.');
+  });
+</script>
 @endsection

@@ -12,10 +12,10 @@
                 @if (Session::has('message'))
                 	<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                 @endif
-                <table id="data-table" class="row-border hover stripe" cellspacing="0" width="100%">
+                <table id="data-table" class="row-border hover stripe table-bordered" cellspacing="0" width="100%">
                     <thead>
                       <tr>
-                          <th></th>
+                          <th class="number-td">No</th>
                           <th>Nama</th>
                           <th>Jenis Pamakologi</th>
                           <th>Dosis</th>
@@ -28,7 +28,7 @@
                     <tbody>
                     @foreach ($obatData as $obat)
                         <tr>
-                            <td></td>
+                            <td class="number-td"></td>
                             <td>{{$obat->nama}}</td>
                             <td>{{$obat->pamakologi->nama}}</td>
                             <td>{{$obat->dosis}}</td>
@@ -58,7 +58,10 @@
             "targets": 0
         } ],
         "order": [[ 1, 'asc' ]],
-        "responsive": true
+        "responsive": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
+        }
         } );
 
         t.on( 'order.dt search.dt', function () {

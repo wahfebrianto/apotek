@@ -11,12 +11,38 @@
   text-align: left;
 }
 
+.overview-line:last-of-type{
+  margin-bottom:20px;
+}
+
+.auto-width{
+  width:98% !important;
+  overflow: hidden;
+}
+
 .no-padding{
   padding:0px !important;
 }
 
-.overview-line:last-of-type{
-  margin-bottom:20px;
+.no-margin{
+  margin:0px !important;
+}
+
+.less-margin{
+  margin-left:3% !important;
+  margin-right:3% !important;
+}
+
+.trans-custom{
+  font-size: 0.85em;
+}
+
+.number-td{
+  text-align: center !important;
+}
+
+.font-size-doubled{
+  font-size: 1.2em;
 }
 
 .btn-action{

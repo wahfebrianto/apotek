@@ -41,7 +41,7 @@ class MPegawaiController extends Controller
         'nama' => 'required',
         'alamat' => 'required',
         'telepon' => 'required',
-        'gaji' => 'required|numeric',
+        'gaji' => 'required',
         'username' => 'required|alpha_dash',
         'password' => 'required|min:6|confirmed',
       ]);
@@ -50,7 +50,7 @@ class MPegawaiController extends Controller
       $user->nama = $request->input('nama');
       $user->alamat = $request->input('alamat');
       $user->telepon = $request->input('telepon');
-      $user->gaji = $request->input('gaji');
+      $user->gaji = intval(str_replace(['.',','],'',$request->input('gaji')));
       $user->username = $request->input('username');
       $user->password = bcrypt($request->input('password'));
       $user->save();
@@ -65,7 +65,7 @@ class MPegawaiController extends Controller
       'nama' => 'required',
       'alamat' => 'required',
       'telepon' => 'required',
-      'gaji' => 'required|numeric',
+      'gaji' => 'required',
       'username' => 'required|alpha_dash',
       'password' => 'required|min:6|confirmed',
     ]);
@@ -74,9 +74,9 @@ class MPegawaiController extends Controller
         'nama' => $request->input('nama'),
         'alamat' => $request->input('alamat'),
         'telepon' => $request->input('telepon'),
-        'gaji' => $request->input('gaji'),
+        'gaji' => intval(str_replace(['.',','],'',$request->input('gaji'))),
         'username' => $request->input('username'),
-        'password' => $request->input('password')
+        'password' => bcrypt($request->input('password'))
     ];
     User::where('id',$id)->update($dataUbah);
     Session::flash('message', 'Pegawai berhasil diubah.');

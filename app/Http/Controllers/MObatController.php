@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use \Auth, \Redirect, \Validator, \Input, \Session;
-use App\Obat, App\Pamakologi;
+use App\Obat, App\Pamakologi, App\Log;
 use Webpatser\Uuid\Uuid;
 
 class MObatController extends Controller
@@ -60,7 +60,7 @@ class MObatController extends Controller
         $obat->id_pamakologi = $request->id_pamakologi;
         $obat->dosis = $request->dosis;
         $obat->bentuk_sediaan = $request->bentuk_sediaan;
-        $obat->harga_jual = $request->harga_jual;
+        $obat->harga_jual = intval(str_replace(['.',','],'',$request->harga_jual));
         $obat->keterangan = $request->keterangan;
         $obat->save();
 
@@ -113,8 +113,21 @@ class MObatController extends Controller
         $obat->id_pamakologi = $request->id_pamakologi;
         $obat->dosis = $request->dosis;
         $obat->bentuk_sediaan = $request->bentuk_sediaan;
-        $obat->harga_jual = $request->harga_jual;
+        $old_harga_jual = $obat->harga_jual;
+        $obat->harga_jual = intval(str_replace(['.',','],'',$request->harga_jual));
         $obat->keterangan = $request->keterangan;
+
+        if($old_harga_jual != $obat->harga_jual){
+            $log = new Log;
+            $log->id_obat = $obat->id;
+            $log->jenis = "Harga Jual";
+            if($old_harga_jual > $obat->harga_jual)
+                $log->keterangan = "harga jual turun dari Rp ".number_format($old_harga_jual,2,",",".")." menjadi Rp".number_format($obat->harga_jual,2,",",".").".";
+            else
+                $log->keterangan = "harga jual naik dari Rp ".number_format($old_harga_jual,2,",",".")." menjadi Rp".number_format($obat->harga_jual,2,",",".").".";
+            $log->save();
+        }
+
         $obat->save();
 
         Session::flash('message', 'Obat baru telah diupdate.');

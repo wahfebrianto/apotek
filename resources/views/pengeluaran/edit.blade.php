@@ -24,11 +24,26 @@
 
                   <div class="form-group">
                       <label for="tgl" class="col-md-4 control-label">Tanggal</label>
-
-                      <div class="col-md-6">
-                          <input id="tgl" type="date" class="form-control" name="tgl" value="{{ $pengeluaran->tgl }}" required>
-                      </div>
+                      <div class=" col-md-6">
+                        <div class="input-group date form_datetime" id='datetimepicker-date-tanggal' data-link-field="tgl">
+                          <input type='text' class="form-control" value="<?php echo date("d F Y",strtotime($pengeluaran->tgl)); ?>" readonly>
+                          <span class="input-group-addon custom-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" name="tgl" id="tgl" value="<?php echo date("Y-m-d",strtotime($pengeluaran->tgl)); ?>">
+                    </div>
                   </div>
+                  <script type="text/javascript">
+                      $('#datetimepicker-date-tanggal').datetimepicker({
+                          todayBtn:  1,
+                          autoclose: 1,
+                          todayHighlight: 1,
+                          startView: 2,
+                          minView: 2,
+                          forceParse: 0,
+                          format: 'dd MM yyyy',
+                          pickerPosition: "bottom-left"
+                      });
+                  </script>
 
                   <div class="form-group">
                       <label for="nama" class="col-md-4 control-label">Nama</label>
@@ -78,6 +93,7 @@
 <script>
 $(document).ready(function(){
     $("#nama").val('{{ $pengeluaran->nama }}');
+    $('#harga').number(true,0,',','.');
 });
 </script>
 @endsection

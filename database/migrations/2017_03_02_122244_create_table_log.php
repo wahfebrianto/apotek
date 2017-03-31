@@ -16,6 +16,7 @@ class CreateTableLog extends Migration
         Schema::create('log', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('id_obat');
+            $table->string('jenis');
             $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
