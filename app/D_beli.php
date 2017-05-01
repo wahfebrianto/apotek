@@ -37,11 +37,11 @@ class D_beli extends Model
 
   public function obat()
   {
-      return $this->hasOne('App\Obat');
+      return $this->belongsTo('App\Obat','id_obat');
   }
 
   public function h_beli()
   {
-      return $this->belongsTo('App\H_beli')
+      return $this->belongsTo('App\H_beli');
   }
 }

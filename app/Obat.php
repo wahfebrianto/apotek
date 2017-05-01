@@ -25,7 +25,7 @@ class Obat extends Model
    * @var array
    */
   protected $fillable = [
-      'nama', 'id_pamakologi', 'dosis', 'bentuk_sediaan', 'harga_jual', 'keterangan'
+      'nama', 'id_pamakologi', 'dosis', 'satuan_dosis', 'bentuk_sediaan', 'harga_jual', 'keterangan'
   ];
 
   /**
@@ -64,6 +64,6 @@ class Obat extends Model
 
   public function d_beli()
   {
-      return $this->belongsTo('App\D_beli');
+      return $this->belongsTo('App\D_beli','id');
   }
 }

@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="container auto-width">
+    @if (Session::has('message'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+    @endif
     <div class="row trans-custom ">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('obat.store') }}">
+        <form class="form-horizontal" role="form" method="POST" action="{{ route('pembelian.store') }}">
         {{ csrf_field() }}
         <div class="col-md-12">
             <div class="col-md-5">
@@ -23,7 +26,7 @@
                         <div class="form-group">
                             <label for="no_nota" class="col-md-3 control-label">No. Nota</label>
                             <div class="col-md-9">
-                                <input id="no_nota" type="text" class="form-control" name="no_nota" required autofocus>
+                                <input id="no_nota" type="text" class="form-control" value="{{$nonota}}" name="no_nota" readonly>
                             </div>
                         </div>
 
@@ -50,7 +53,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="tanggal_jatuh_tempo" class="col-md-3 control-label">Tanggal Expired</label>
+                            <label for="tanggal_jatuh_tempo" class="col-md-3 control-label">Tanggal Jatuh Tempo</label>
                             <div class=" col-md-9">
                               <div class="input-group date form_datetime" id='datetimepicker-date-tanggal-jatuh-tempo' data-link-field="tanggal_jatuh_tempo">
         		                    <input type='text' class="form-control" value="<?php echo date("d F Y"); ?>" readonly>
@@ -146,7 +149,11 @@
                       <div class="form-group">
                           <label for="nama_obat" class="col-md-2 control-label">Nama Obat</label>
                           <div class="col-md-10">
-                              <input id="nama_obat" type="text" class="form-control" name="nama_obat" autofocus>
+                            <select class="form-control" id="nama_obat" name="nama_obat" required>
+                                @foreach ($obatData as $obat)
+                                    <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}">{{$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}</option>
+                                @endforeach
+                            </select>
                           </div>
                       </div>
                       <div class="form-group">
@@ -157,8 +164,8 @@
                                 <input id="harga_beli" type="text" class="form-control" name="harga_beli" autofocus>
                               </div>
                           </div>
-                          <label for="jumlah" class="col-md-2 control-label">Qty</label>
-                          <div class="col-md-2">
+                          <label for="jumlah" class="col-md-1 control-label">Qty</label>
+                          <div class="col-md-3">
                               <input id="jumlah" type="number" class="form-control" name="jumlah" value=1 min=1 autofocus>
                           </div>
                       </div>
@@ -199,6 +206,7 @@
                           <thead>
                             <tr>
                                 <th>No</th>
+                                <th>id_obat</th>
                                 <th>Nama Obat</th>
                                 <th>Harga Beli</th>
                                 <th>Qty</th>
@@ -219,6 +227,8 @@
 </div>
 <script>
     $(document).ready(function(){
+        $( "#nama_obat" ).combobox();
+
         $('#total').number(true,0,',','.');
         $('#diskon').number(true,0,',','.');
         $('#grand_total').number(true,0,',','.');
@@ -228,18 +238,57 @@
         $('#diskonobat').number(true,0,',','.');
         $('#subsubtotal').number(true,0,',','.');
 
+        var t = $('#data-table').DataTable( {
+            "columnDefs": [ {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+                },
+                {
+                "targets": [ 1 ],
+                "visible": false
+                }
+            ],
+            "order": [[ 1, 'asc' ]],
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "responsive": true,
+            "autoWidth": true,
+            "scrollY": 218,
+            "scroller":true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
+            }
+        });
+
         function autoSum(){
               var jumlah = ($('#jumlah').val()=="")? 0 : parseInt($('#jumlah').val());
-              var harga_beli = ($('#jumlah').val()=="")? 0 : parseInt($('#harga_beli').val());
-              var diskon = ($('#jumlah').val()=="")? 0 : parseInt($('#diskonobat').val());
+              var harga_beli = ($('#harga_beli').val()=="")? 0 : parseInt($('#harga_beli').val());
+              var diskon = ($('#diskonobat').val()=="")? 0 : parseInt($('#diskonobat').val());
               var subtotal = jumlah*harga_beli;
               var subsubtotal = subtotal-diskon;
+              subsubtotal = (subsubtotal<0)? 0 : subsubtotal;
               $('#subtotal').val(subtotal);
               $('#subsubtotal').val(subsubtotal);
         }
 
+        function autoSumHeader(){
+              var grandtotal = 0;
+              var datatable_row = t.rows().data();
+              for (var i = 0; i < datatable_row.length; i++) {
+                var currentPrice =  parseInt(datatable_row[i][7].replace(/\D/g,''));
+                grandtotal = grandtotal + currentPrice;
+              }
+              var diskon = ($('#diskon').val()=="")? 0 : parseInt($('#diskon').val());
+              var grandgrandtotal = grandtotal - diskon;
+              grandgrandtotal = (grandgrandtotal<0)? 0 : grandgrandtotal;
+              $('#total').val(grandtotal);
+              $('#grand_total').val(grandgrandtotal);
+        }
+
         function refresh(){
-            $('#nama_obat').val("");
+            //$('#nama_obat').val("");
             $('#harga_beli').val("0");
             $('#jumlah').val("1");
             $('#diskonobat').val("0");
@@ -256,55 +305,50 @@
           autoSum();
         });
         $('#jumlah').bind('keyup mouseup',function(){
-          autoSum()
+          autoSum();
         });
         $('#diskonobat').bind('keyup mouseup',function(){
-          autoSum()
+          autoSum();
         });
 
-        var t = $('#data-table').DataTable( {
-            "columnDefs": [ {
-            "searchable": false,
-            "orderable": false,
-            "targets": 0
-              } ],
-            "order": [[ 1, 'asc' ]],
-            "paging": false,
-            "info": false,
-            "searching": false,
-            "responsive": true,
-            "autoWidth": true,
-            "scrollY": 218,
-            "scroller":true,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
-            }
+        $('#diskon').bind('keyup mouseup',function(){
+          autoSumHeader();
         });
 
         $('#btn-tambah-obat').on('click',function(){
             var jumlah = ($('#jumlah').val()=="")? 0 : parseInt($('#jumlah').val());
-            var harga_beli = ($('#jumlah').val()=="")? 0 : parseInt($('#harga_beli').val());
+            var harga_beli = ($('#harga_beli').val()=="")? 0 : parseInt($('#harga_beli').val());
             var diskon = ($('#diskonobat').val()=="")? 0 : parseInt($('#diskonobat').val());
             var subtotal = ($('#subtotal').val()=="")? 0 : parseInt($('#subtotal').val());
             var subsubtotal = ($('#subsubtotal').val()=="")? 0 : parseInt($('#subsubtotal').val());
-            var nama_obat = $('#nama_obat').val();
-            t.row.add( [
-                ' ',
-                nama_obat,
-                "Rp " + $.number(harga_beli),
-                jumlah,
-                "Rp " + $.number(subtotal),
-                "Rp " + $.number(diskon),
-                "Rp " + $.number(subsubtotal)
-            ] ).draw( false );
+            var id_obat = $('#nama_obat').val().split(";")[0];
+            var nama_obat = $('#nama_obat').val().split(";")[1];
+            //alert(harga_beli);
+            if (harga_beli != 0 && nama_obat != "") {
+              t.row.add( [
+                  ' ',
+                  id_obat,
+                  nama_obat,
+                  "Rp " + $.number(harga_beli),
+                  jumlah,
+                  "Rp " + $.number(subtotal),
+                  "Rp " + $.number(diskon),
+                  "Rp " + $.number(subsubtotal)
+              ] ).draw( false );
 
-            refresh();
+              refresh();
 
-            t.on( 'order.dt search.dt', function () {
-                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                } );
-            } ).draw();
+              t.on( 'order.dt search.dt', function () {
+                  t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                      cell.innerHTML = i+1;
+                  } );
+              } ).draw();
+              autoSumHeader();
+              saveRowData();
+            }
+            else{
+              alert('Inputan tidak valid.');
+            }
         });
 
 
@@ -325,7 +369,29 @@
                     cell.innerHTML = i+1;
                 } );
             } ).draw();
+            autoSumHeader();
+            saveRowData();
         });
+
+        function saveRowData(){
+          var datatable_row = t.rows().data();
+          var dataRow = [];
+          for (var i = 0; i < datatable_row.length; i++) {
+            dataRow[i] = datatable_row[i];
+          }
+          // console.log(dataRow);
+          $.ajax({
+              type: 'POST',
+              url: '/pembelian/rowdata',
+              data: {
+                  '_token' : '{{ csrf_token() }}',
+                  'row' : dataRow
+              },
+              success:function(){
+                 //alert("a");
+             }
+          });
+        }
     });
 </script>
 @endsection

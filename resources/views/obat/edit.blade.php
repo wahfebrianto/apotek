@@ -30,7 +30,7 @@
                       <div class="form-group">
                           <label for="id_pamakologi" class="col-md-4 control-label">Jenis Pamakologi</label>
                           <div class="col-md-6">
-                              <select class="form-control" id="id_pamakologi" name="id_pamakologi">
+                              <select class="form-control" id="id_pamakologi" name="id_pamakologi" required>
                                   @foreach ($pamakologiData as $pamakologi)
                                       <option value="{{$pamakologi->id}}" {{($obat->id_pamakologi == $pamakologi->id) ? "selected" : ""}}>{{$pamakologi->nama}}</option>
                                   @endforeach
@@ -42,6 +42,13 @@
                           <label for="dosis" class="col-md-4 control-label">Dosis</label>
                           <div class="col-md-6">
                               <input id="dosis" type="text" class="form-control" name="dosis" value="{{$obat->dosis}}" required autofocus>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="satuan_dosis" class="col-md-4 control-label">Dosis</label>
+                          <div class="col-md-6">
+                              <input id="satuan_dosis" type="text" class="form-control" name="satuan_dosis" value="{{$obat->satuan_dosis}}" required autofocus>
                           </div>
                       </div>
 

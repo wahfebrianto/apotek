@@ -16,10 +16,12 @@ class CreateTableKartuStok extends Migration
         Schema::create('kartu_stok', function (Blueprint $table) {
             $table->uuid('id');
             $table->uuid('id_obat');
-            $table->unsignedInteger('harga_beli');
-            $table->date('tanggal_beli');
+            $table->date('tanggal');
+            $table->string('jenis');
+            $table->integer('jumlah');
+            // $table->unsignedInteger('sisa');
+            $table->unsignedInteger('harga');
             $table->date('expired_date');
-            $table->unsignedInteger('stok');
             $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();

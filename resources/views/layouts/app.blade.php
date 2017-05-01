@@ -17,6 +17,10 @@
     <link href="{{ asset('datatables/DataTables-1.10.13/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     <link href="{{ asset('datatables/datatables.css')}}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('jqueryui/jquery-ui.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('jqueryui/jquery-ui.structure.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('jqueryui/jquery-ui.theme.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/combobox.css')}}" rel="stylesheet">
     <link rel="icon" href="{{ asset('assets/logo.ico')}}">
 
     <!-- Scripts -->
@@ -24,6 +28,10 @@
     <script src="{{ asset('datatables/datatables.js')}}"></script>
     <script src="{{ asset('js/bootstrap-toggle.min.js')}}"></script>
     <script src="{{ asset('js/jquery.number.min.js')}}"></script>
+    <script src="{{ asset('jqueryui/jquery-ui.min.js')}}"></script>
+    {{-- <script src="{{asset('js/require.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/bootstrap.js')}}" data-modules="tooltip button"></script> --}}
+    <script src="{{asset('js/combobox.js')}}"></script>
     <script src="{{ asset('datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('datetimepicker/bootstrap-datetimepicker.id.js')}}" charset="UTF-8"></script>
     <script>
@@ -88,19 +96,7 @@
                             </ul>
                         </li>
                       @endif
-                      {{-- <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                              Pembelian<span class="caret"></span>
-                          </a>
-                          <ul class="dropdown-menu" role="menu">
-                              <li>
-                                  <a href="{{ route('pegawai.index') }}">Pembelian Baru</a>
-                              </li>
-                              <li>
-                                  <a href="{{ route('obat.index') }}">Obat</a>
-                              </li>
-                          </ul>
-                      </li> --}}
+
                       @if (!Auth::guest())
                       <li class="dropdown">
                         <a href="{{ route('pembelian.index') }}">Pembelian</a>

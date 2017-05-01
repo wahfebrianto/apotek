@@ -38,5 +38,10 @@ Route::resource('log', 'MLogController');
 //pembelian
 Route::get('pembelian','MPembelianController@index')->name('pembelian.index');
 Route::get('pembelian/create','MPembelianController@create')->name('pembelian.create');
+Route::get('pembelian/list/{no_nota}','MPembelianController@list')->name('pembelian.list');
+Route::post('pembelian','MPembelianController@store')->name('pembelian.store');
+Route::post('pembelian/rowdata', 'MPembelianController@rowdata')->name('pembelian.rowdata');
+Route::post('pembelian','MPembelianController@store')->name('pembelian.store');
+Route::delete('pembelian/{no_nota}','MPembelianController@destroy')->name('pembelian.destroy');
 
 Auth::routes();

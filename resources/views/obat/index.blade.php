@@ -19,6 +19,7 @@
                           <th>Nama</th>
                           <th>Jenis Pamakologi</th>
                           <th>Dosis</th>
+                          <th>Satuan Dosis</th>
                           <th>Bentuk Sediaan</th>
                           <th>Harga Jual</th>
                           <th>Keterangan</th>
@@ -32,6 +33,7 @@
                             <td>{{$obat->nama}}</td>
                             <td>{{$obat->pamakologi->nama}}</td>
                             <td>{{$obat->dosis}}</td>
+                            <td>{{$obat->satuan_dosis}}</td>
                             <td>{{$obat->bentuk_sediaan}}</td>
                             <td>Rp {{number_format($obat->harga_jual,2,",",".")}}</td>
                             <td>{{$obat->keterangan}}</td>

@@ -1,0 +1,16 @@
+<?php echo date("d F Y",strtotime($stok->tanggal)); ?>
+<?php echo date("Y-m-d",strtotime($stok->tanggal)); ?Y
+
+UPDATE CDM PDM
+1. Stok
+2. Obat
+
+Yang Belum STOK :
+1. penyesuaian stok mines ditengah2
+2. index stok.php table tidak bisa di sort. -- DONE
+3. table index stok bisa cari berdasarkan tanggal
+4. tambah tab table untuk cek stok saat ini. -- DONE
+
+Yang Belum Pembelian :
+1. History yang hapus data pembelian
+2. auto update stok

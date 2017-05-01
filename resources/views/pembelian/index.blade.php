@@ -20,8 +20,8 @@
                           <th>PBF</th>
                           <th>Tanggal Pemesanan</th>
                           <th>Tanggal Jatuh Tempo</th>
-                          <th>Total</th>
-                          <th>Diskon</th>
+                          {{-- <th>Total</th>
+                          <th>Diskon</th> --}}
                           <th>Grand Total</th>
                           <th>Pegawai</th>
                           <th>Keterangan</th>
@@ -34,17 +34,16 @@
                             <td class="number-td"></td>
                             <td>{{$data->no_nota}}</td>
                             <td>{{$data->pbf->nama}}</td>
-                            <td>{{$data->tanggal_pesan}}</td>
-                            <td>{{$data->tanggal_jatuh_tempo}}</td>
-                            <td>Rp {{number_format($data->total,2,",",".")}}</td>
-                            <td>Rp {{number_format($data->diskon,2,",",".")}}</td>
+                            <td>{{date("d-m-Y",strtotime($data->tanggal_pesan))}}</td>
+                            <td>{{date("d-m-Y",strtotime($data->tanggal_jatuh_tempo))}}</td>
+                            {{-- <td>Rp {{number_format($data->total,2,",",".")}}</td>
+                            <td>Rp {{number_format($data->diskon,2,",",".")}}</td> --}}
                             <td>Rp {{number_format($data->grand_total,2,",",".")}}</td>
                             <td>{{$data->user->nama}}</td>
                             <td>{{$data->keterangan}}</td>
                             <td>
-                                {{-- <a class="col-sm-12 col-lg-12 btn btn-primary btn-action" href="{{ URL::to('stok/'.$obat->id) }}">Stok</a>
-                                <a class="col-sm-12 col-lg-6 btn btn-info btn-action" href="{{ URL::to('obat/'.$obat->id.'/edit') }}">Ubah</a>
-                                <a class="col-sm-12 col-lg-6 btn btn-warning btn-action" href="{{ url('obat', [$obat->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a> --}}
+                                <a class="col-sm-12 btn btn-info btn-action" href="{{ URL::to('pembelian/list/'.$data->no_nota) }}">Lihat</a>
+                                <a class="col-sm-12 btn btn-warning btn-action" href="{{ url('pembelian', [$data->no_nota]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach
