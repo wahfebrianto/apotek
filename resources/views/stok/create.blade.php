@@ -55,9 +55,9 @@
                           <label for="tanggal_expired" class="col-md-4 control-label">Tanggal Expired</label>
                           <div class=" col-md-6">
                             <div class="input-group date form_datetime" id='datetimepicker-date-tanggal-expired' data-link-field="tanggal_expired">
-      		                    <input type='text' class="form-control" value="<?php echo date("d F Y"); ?>" readonly>
+      		                    <input type='text' class="form-control" value="<?php echo date("d F Y", strtotime('+1 years')); ?>" readonly>
                               <span class="input-group-addon custom-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <input type="hidden" name="tanggal_expired" id="tanggal_expired" value="<?php echo date("Y-m-d"); ?>">
+                            <input type="hidden" name="tanggal_expired" id="tanggal_expired" value="<?php echo date("Y-m-d", strtotime('+1 years')); ?>">
                           </div>
                           </div>
                       </div>

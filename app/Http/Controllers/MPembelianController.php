@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use \Auth, \Redirect, \Validator, \Input, \Session;
-use App\H_beli, App\D_beli, App\Pbf, App\Obat;
+use App\H_beli, App\D_beli, App\Pbf, App\Obat, App\Kartu_stok;
 use Webpatser\Uuid\Uuid;
 
 class MPembelianController extends Controller
@@ -109,5 +109,40 @@ class MPembelianController extends Controller
        $h_beli= H_beli::where('no_nota',$id)->delete();
        Session::flash('message', 'Data Pembelian telah berhasil dihapus.');
        return Redirect::to('pembelian');
+    }
+
+    public function penerimaan()
+    {
+        $penerimaanData = D_beli::whereNull('tanggal_terima')->get();
+        // dd($penerimaanData);
+        return view('penerimaan.index')->with(['penerimaanData'=>$penerimaanData]);
+    }
+
+    public function terima(Request $request)
+    {
+        $d_beli = D_beli::where('no_nota',$request->nonota)
+                        ->where('id_obat',$request->id_obat)
+                        ->update(['tanggal_terima'=>$request->tanggal_terima]);
+
+        //update stok
+        $stok = new Kartu_stok;
+        $stok->id = Uuid::generate()->string;
+        $stok->id_obat = $request->id_obat;
+        $stok->tanggal = $request->tanggal_terima;
+        $stok->jenis = 'masuk';
+        $stok->harga = intval(str_replace(['.',','],'',$request->harga_beli));
+
+        $stok->expired_date = $request->tanggal_expired;
+        $stok->jumlah = $request->jumlah;
+
+        //sisa
+        $total_stok = Kartu_stok::where('id_obat',$request->id_obat)->sum('jumlah');
+        $total_stok = (!empty($total_stok))? $total_stok : 0;
+        $total_stok = $total_stok + $stok->jumlah;
+
+        $stok->keterangan = "Diperoleh dari nota pembelian ".$request->nonota;
+        $stok->save();
+
+        Session::flash('message', 'Pembelian obat '.$request->nama_obat.' dengan nomor nota '.$request->nonota.' telah diterima pada tanggal '. date("d-m-Y",strtotime($request->tanggal_terima)));
     }
 }

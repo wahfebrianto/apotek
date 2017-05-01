@@ -62,7 +62,7 @@
                           <th>Jumlah</th>
                           <th>Diskon</th>
                           <th>Subtotal</th>
-                          <th>&nbsp;</th>
+                          <th>Tanggal Terima</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -74,10 +74,7 @@
                             <td>{{$data->jumlah}}</td>
                             <td>Rp {{number_format($data->diskon,2,",",".")}}</td>
                             <td>Rp {{number_format($data->subtotal_setelah_diskon,2,",",".")}}</td>
-                            <td>
-                                {{-- <a class="col-sm-12 btn btn-info btn-action" href="{{ URL::to('pembelian/list/'.$data->no_nota) }}">Lihat</a>
-                                <a class="col-sm-12 btn btn-warning btn-action" href="{{ url('pembelian', [$data->no_nota]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a> --}}
-                            </td>
+                            <td>{{($data->tanggal_terima==null)? '-' : date("d-m-Y",strtotime($data->tanggal_terima))}}</td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container auto-width">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -24,6 +24,7 @@
                           <th>Diskon</th> --}}
                           <th>Grand Total</th>
                           <th>Pegawai</th>
+                          <th>Status Pembayaran</th>
                           <th>Keterangan</th>
                           <th>&nbsp;</th>
                       </tr>
@@ -40,6 +41,7 @@
                             <td>Rp {{number_format($data->diskon,2,",",".")}}</td> --}}
                             <td>Rp {{number_format($data->grand_total,2,",",".")}}</td>
                             <td>{{$data->user->nama}}</td>
+                            <td>{{($data->status_lunas==0)? 'Belum Lunas' : 'Lunas'}}</td>
                             <td>{{$data->keterangan}}</td>
                             <td>
                                 <a class="col-sm-12 btn btn-info btn-action" href="{{ URL::to('pembelian/list/'.$data->no_nota) }}">Lihat</a>

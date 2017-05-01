@@ -44,4 +44,8 @@ Route::post('pembelian/rowdata', 'MPembelianController@rowdata')->name('pembelia
 Route::post('pembelian','MPembelianController@store')->name('pembelian.store');
 Route::delete('pembelian/{no_nota}','MPembelianController@destroy')->name('pembelian.destroy');
 
+//penerimaan
+Route::get('penerimaan','MPembelianController@penerimaan')->name('penerimaan.index');
+Route::post('penerimaan', 'MPembelianController@terima')->name('pembelian.terima');
+
 Auth::routes();

@@ -102,7 +102,11 @@
                         <a href="{{ route('pembelian.index') }}">Pembelian</a>
                       </li>
                       <li class="dropdown">
-                        <a href="{{ route('pegawai.index') }}">Laporan</a>
+                        <a href="{{ route('penerimaan.index') }}">Penerimaan Obat</a>
+                      </li>
+                      </li>
+                      <li class="dropdown">
+                        <a href="{{ route('pegawai.index') }}">Pembayaran</a>
                       </li>
                       @endif
                     </ul>

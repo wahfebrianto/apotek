@@ -42,6 +42,6 @@ class D_beli extends Model
 
   public function h_beli()
   {
-      return $this->belongsTo('App\H_beli');
+      return $this->belongsTo('App\H_beli','no_nota','no_nota');
   }
 }
