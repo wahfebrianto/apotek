@@ -106,7 +106,7 @@
                       </li>
                       </li>
                       <li class="dropdown">
-                        <a href="{{ route('pegawai.index') }}">Pembayaran</a>
+                        <a href="{{ route('pembayaran.index') }}">Pembayaran</a>
                       </li>
                       @endif
                     </ul>

@@ -1,6 +1,7 @@
 UPDATE CDM PDM
 1. Stok
 2. Obat
+3. H_beli -> status lunas jadi tanggal pembayaran
 
 Yang Belum STOK :
 1. penyesuaian stok mines ditengah2
@@ -15,3 +16,6 @@ Yang Belum Pembelian :
 
 Penerimaan :
 1. kapan tau tanggale expired obatnya
+
+Pembayaran :
+1. tanggal pembayaran

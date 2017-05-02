@@ -54,7 +54,7 @@ class MPembelianController extends Controller
                 $h_beli->total = intval(str_replace(['.',','],'',$request->total));
                 $h_beli->diskon = intval(str_replace(['.',','],'',$request->diskon));
                 $h_beli->grand_total = intval(str_replace(['.',','],'',$request->grand_total));
-                $h_beli->status_lunas = false;
+                $h_beli->tanggal_pembayaran = null;
                 $h_beli->tanggal_jatuh_tempo = $request->tanggal_jatuh_tempo;
                 $h_beli->keterangan = $request->keterangan;
                 $h_beli->save();
@@ -95,12 +95,12 @@ class MPembelianController extends Controller
         }
     }
 
-    public function list($id)
+    public function listpembelian($id)
     {
        $h_beli = H_beli::where('no_nota',$id)->first();
        $d_beli = D_beli::where('no_nota',$id)->get();
         // dd($d_beli);
-       return view('pembelian.list')->with(['h_beli'=>$h_beli,'d_beli'=>$d_beli]);
+       return view('pembelian.listpembelian')->with(['h_beli'=>$h_beli,'d_beli'=>$d_beli]);
     }
 
     public function destroy($id)
@@ -145,4 +145,21 @@ class MPembelianController extends Controller
 
         Session::flash('message', 'Pembelian obat '.$request->nama_obat.' dengan nomor nota '.$request->nonota.' telah diterima pada tanggal '. date("d-m-Y",strtotime($request->tanggal_terima)));
     }
+
+    public function pembayaran()
+    {
+        $pembayaranData = H_beli::whereNull('tanggal_pembayaran')->get();
+        // dd($penerimaanData);
+        return view('pembayaran.index')->with(['pembayaranData'=>$pembayaranData]);
+    }
+
+    public function bayar(Request $request)
+    {
+
+        $h_beli = H_beli::where('no_nota',$request->nonota)
+                      ->update(['tanggal_pembayaran'=>$request->tanggal_pembayaran]);
+        Session::flash('message', 'Pembelian dengan nomor nota '.$request->nonota.' telah dibayar pada tanggal '. date("d-m-Y",strtotime($request->tanggal_pembayaran)));
+    }
+
+
 }

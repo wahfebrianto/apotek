@@ -21,7 +21,7 @@ class CreateTableHBeli extends Migration
             $table->unsignedInteger('total');
             $table->unsignedInteger('diskon');
             $table->unsignedInteger('grand_total');
-            $table->boolean('status_lunas')->nullable();
+            $table->date('tanggal_pembayaran')->nullable();
             $table->date('tanggal_jatuh_tempo')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();

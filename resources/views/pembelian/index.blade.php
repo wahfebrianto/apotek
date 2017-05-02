@@ -41,7 +41,7 @@
                             <td>Rp {{number_format($data->diskon,2,",",".")}}</td> --}}
                             <td>Rp {{number_format($data->grand_total,2,",",".")}}</td>
                             <td>{{$data->user->nama}}</td>
-                            <td>{{($data->status_lunas==0)? 'Belum Lunas' : 'Lunas'}}</td>
+                            <td>{{($data->tanggal_pembayaran==0)? 'Belum Lunas' : 'Lunas'}}</td>
                             <td>{{$data->keterangan}}</td>
                             <td>
                                 <a class="col-sm-12 btn btn-info btn-action" href="{{ URL::to('pembelian/list/'.$data->no_nota) }}">Lihat</a>

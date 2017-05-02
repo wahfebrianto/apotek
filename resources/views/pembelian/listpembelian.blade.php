@@ -16,7 +16,7 @@
                     <div class="col-md-6 overview-line no-padding">
                         <label class="col-xs-5 no-padding">Status</label>
                         <label class="col-xs-1 no-padding">:</label>
-                        <label class="col-xs-6 no-padding">{{($h_beli->status_lunas==0)? 'Belum Lunas' : 'Lunas'}}</label>
+                        <label class="col-xs-6 no-padding">{{($h_beli->tanggal_pembayaran==0)? 'Belum Lunas' : 'Lunas'}}</label>
                     </div>
                     <div class="col-md-6 overview-line no-padding">
                       <label class="col-xs-5 no-padding">Pegawai</label>
