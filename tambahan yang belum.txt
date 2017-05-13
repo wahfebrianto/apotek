@@ -2,6 +2,7 @@ UPDATE CDM PDM
 1. Stok
 2. Obat
 3. H_beli -> status lunas jadi tanggal pembayaran
+4. H_resep -> tambahan diskon
 
 Yang Belum STOK :
 1. penyesuaian stok mines ditengah2
@@ -11,11 +12,16 @@ Yang Belum STOK :
 
 Yang Belum Pembelian :
 1. History yang hapus data pembelian
-2. auto update stok
+2. auto update stok -- DONE
 3. Pengiriman bisa 2 kali 1 barang.
 
 Penerimaan :
 1. kapan tau tanggale expired obatnya
 
 Pembayaran :
-1. tanggal pembayaran
+1. tanggal pembayaran -- DONE
+
+penjualan
+1. bisa gratis ?
+2. bisa desimal
+3. no tabel

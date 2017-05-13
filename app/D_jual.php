@@ -37,11 +37,11 @@ class D_jual extends Model
 
   public function obat()
   {
-      return $this->hasOne('App\Obat');
+      return $this->belongsTo('App\Obat','id_obat');
   }
 
   public function h_jual()
   {
-      return $this->belongsTo('App\H_jual')
+      return $this->belongsTo('App\H_jual','no_nota','no_nota');
   }
 }

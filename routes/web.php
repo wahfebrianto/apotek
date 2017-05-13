@@ -39,7 +39,6 @@ Route::resource('log', 'MLogController');
 Route::get('pembelian','MPembelianController@index')->name('pembelian.index');
 Route::get('pembelian/create','MPembelianController@create')->name('pembelian.create');
 Route::get('pembelian/list/{no_nota}','MPembelianController@listpembelian')->name('pembelian.listpembelian');
-Route::post('pembelian','MPembelianController@store')->name('pembelian.store');
 Route::post('pembelian/rowdata', 'MPembelianController@rowdata')->name('pembelian.rowdata');
 Route::post('pembelian','MPembelianController@store')->name('pembelian.store');
 Route::delete('pembelian/{no_nota}','MPembelianController@destroy')->name('pembelian.destroy');
@@ -51,5 +50,11 @@ Route::post('penerimaan', 'MPembelianController@terima')->name('pembelian.terima
 //pembayaran
 Route::get('pembayaran','MPembelianController@pembayaran')->name('pembayaran.index');
 Route::post('pembayaran', 'MPembelianController@bayar')->name('pembelian.bayar');
+
+//penjualan
+Route::get('penjualan','MPenjualanController@index')->name('penjualan.index');
+Route::get('penjualan/create','MPenjualanController@create')->name('penjualan.create');
+Route::post('penjualan/rowdata', 'MPenjualanController@rowdata')->name('penjualan.rowdata');
+Route::post('penjualan','MPenjualanController@store')->name('penjualan.store');
 
 Auth::routes();

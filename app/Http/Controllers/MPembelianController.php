@@ -34,6 +34,7 @@ class MPembelianController extends Controller
 
     public function rowdata(Request $request)
     {
+        Session::forget('rowData');
         Session::put('rowData',$request->row);
     }
 
@@ -82,7 +83,7 @@ class MPembelianController extends Controller
                    $d_beli->save();
                 }
                 DB::commit();
-                Session::flash('message', 'Tidak ditemukan data obat yang ingin dibeli.');
+                Session::flash('message', 'Data Pembelian berhasil ditambahkan');
                 return Redirect::to('pembelian');
             } catch (Exception $e) {
                 dd($e->getMessage());

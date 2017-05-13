@@ -1,0 +1,11 @@
+.jenis-obat{
+	display: none;
+}
+
+.jenis-resep{
+	display: none;
+}
+
+.active-jenis{
+	display : block;
+}

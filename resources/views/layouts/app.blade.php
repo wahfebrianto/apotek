@@ -21,6 +21,7 @@
     <link href="{{ asset('jqueryui/jquery-ui.structure.min.css')}}" rel="stylesheet">
     <link href="{{ asset('jqueryui/jquery-ui.theme.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/combobox.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/penjualan.css')}}" rel="stylesheet">
     <link rel="icon" href="{{ asset('assets/logo.ico')}}">
 
     <!-- Scripts -->
@@ -107,6 +108,9 @@
                       </li>
                       <li class="dropdown">
                         <a href="{{ route('pembayaran.index') }}">Pembayaran</a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="{{ route('penjualan.index') }}">Penjualan</a>
                       </li>
                       @endif
                     </ul>

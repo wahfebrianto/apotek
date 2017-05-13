@@ -15,9 +15,18 @@
   margin-bottom:20px;
 }
 
+.grand_total{
+  margin-left:-3%;
+  margin-right:3%;
+}
+
 .auto-width{
   width:98% !important;
   overflow: hidden;
+}
+
+.full-height{
+  height:6em; !important;
 }
 
 .no-padding{
@@ -96,4 +105,17 @@
 
 .text-left{
     text-align: left !important;
+}
+
+.divide{
+    padding-bottom: 2%;
+    border-bottom: 1px solid #ddd;
+}
+
+td.details-control {
+    background: url('../assets/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../assets/details_close.png') no-repeat center center;
 }

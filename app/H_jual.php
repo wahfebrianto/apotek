@@ -42,11 +42,11 @@ class H_jual extends Model
 
   public function h_resep()
   {
-      return $this->hasMany('App\H_resep')
+      return $this->hasMany('App\H_resep');
   }
 
   public function user()
   {
-      return $this->belongsTo('App\User')
+      return $this->belongsTo('App\User','id_pegawai');
   }
 }

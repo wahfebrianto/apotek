@@ -27,6 +27,7 @@ class CreateTableDBeli extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->primary(['no_nota', 'id_obat']);
+            $table->foreign('no_nota')->references('no_nota')->on('h_beli');
             $table->foreign('id_obat')->references('id')->on('obat');
         });
     }

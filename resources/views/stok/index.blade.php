@@ -16,7 +16,7 @@
                     <div class="col-md-6 overview-line no-padding">
                       <label class="col-xs-5 no-padding">Dosis</label>
                       <label class="col-xs-1 no-padding">:</label>
-                      <label class="col-xs-6 no-padding">{{$obat->dosis}}</label>
+                      <label class="col-xs-6 no-padding">{{$obat->dosis.' '.$obat->satuan_dosis}}</label>
                     </div>
                     <div class="col-md-6 overview-line no-padding">
                       <label class="col-xs-5 no-padding">Bentuk Sediaan</label>
@@ -97,7 +97,7 @@
                               <th>Tanggal Beli</th>
                               <th>Tanggal Expired</th>
                               <th>Jumlah</th>
-                              <th>Harga Beli</th>
+                              {{-- <th>Harga Beli</th> --}}
                           </tr>
                         </thead>
                         <tbody>
@@ -107,7 +107,7 @@
                                 <td>{{date("d-m-Y",strtotime($stok->tanggal))}}</td>
                                 <td>{{date("d-m-Y",strtotime($stok->expired_date))}}</td>
                                 <td>{{$stok->jumlah}}</td>
-                                <td>Rp {{number_format($stok->harga,2,",",".")}}</td>
+                                {{-- <td>Rp {{number_format($stok->harga,2,",",".")}}</td> --}}
                             </tr>
                         @endforeach
                         </tbody>

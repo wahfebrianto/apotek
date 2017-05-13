@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             'telepon' => '-',
             'gaji' => 0,
             'username' => 'admin',
-            'password' => bcrypt('admin123'),
+            'password' => bcrypt('master'),
         ]);
     }
 }

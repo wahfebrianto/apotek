@@ -26,6 +26,26 @@ class CreateTableHJual extends Migration
             $table->primary('no_nota');
             $table->foreign('id_pegawai')->references('id')->on('users');
         });
+
+        $autogen = "CREATE FUNCTION `autogenID_HJual`()
+        RETURNS varchar(10) CHARSET latin1
+            NO SQL
+          BEGIN
+            DECLARE URUT INT;
+              DECLARE TGL VARCHAR(6);
+              DECLARE NOTA VARCHAR(10);
+
+              SET TGL = DATE_FORMAT(NOW(), '%m%y');
+              SELECT IFNULL(COUNT(*),0)+1 INTO URUT
+              FROM h_jual
+              WHERE SUBSTR(no_nota,1,5) = CONCAT('J',TGL);
+
+              SET NOTA = CONCAT('J',TGL,LPAD(URUT,5,'0'));
+            RETURN NOTA;
+          END";
+
+          DB::unprepared("DROP FUNCTION IF EXISTS autogenID_HJual");
+          DB::unprepared($autogen);
     }
 
     /**

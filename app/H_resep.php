@@ -23,7 +23,7 @@ class H_resep extends Model
    * @var array
    */
   protected $fillable = [
-      'no_nota', 'id_racikan', 'nama_racikan', 'bentuk_sediaan', 'total', 'jumlah', 'biaya_kemasan'
+      'no_nota', 'id_racikan', 'nama_racikan', 'bentuk_sediaan', 'diskon', 'total', 'jumlah', 'biaya_kemasan'
   ];
 
   /**
@@ -42,6 +42,6 @@ class H_resep extends Model
 
   public function h_jual()
   {
-      return $this->belongsTo('App\H_jual')
+      return $this->belongsTo('App\H_jual','no_nota','no_nota');
   }
 }
