@@ -19,13 +19,11 @@ class CreateTableDResep extends Migration
             $table->uuid('id_obat');
             $table->unsignedInteger('jumlah');
             $table->unsignedInteger('harga_jual');
-            $table->unsignedInteger('harga_beli');
             $table->unsignedInteger('subtotal_jual');
-            $table->unsignedInteger('subtotal_beli');
             $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->primary(['no_nota', 'id_racikan', 'id_obat', 'harga_beli']);
+            $table->primary(['no_nota', 'id_racikan', 'id_obat']);
             $table->foreign(['no_nota', 'id_racikan'])->references(['no_nota', 'id_racikan'])->on('h_resep');
             $table->foreign('id_obat')->references('id')->on('obat');
         });

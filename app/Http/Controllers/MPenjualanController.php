@@ -68,56 +68,87 @@ class MPenjualanController extends Controller
                 //d_jual
                 if(sizeof($djualData)>0){
                     foreach ($djualData as $data) {
-                      $id_obat = $data[1];
-                      $jumlah = $data[4];
-                      $total_stok = Kartu_stok::where('id_obat',$id_obat)->sum('jumlah');
+                      // $id_obat = $data[1];
+                      // $jumlah_total = $data[4];
+                      // $total_stok = Kartu_stok::where('id_obat',$id_obat)->sum('jumlah');
 
-                      if($total_stok>=$jumlah){
-                          //  $expired = DB::table('kartu_stok')
-                          //            ->where('kartu_stok.id_obat',$id_obat)
-                          //            ->whereNull('deleted_at')
-                          //            ->min('expired_date');
-                           //
-                          //  $harga_beli = DB::table('kartu_stok')
-                          //                ->where('id_obat',$id_obat)
-                          //                ->where('expired_date',$expired)
-                          //                ->where('jenis','masuk')
-                          //                ->max('harga');
-                          //  $stok_yang_dipakai = DB::table('kartu_stok')
-                          //                ->select(DB::raw('tanggal, expired_date, sum(jumlah) as jumlah, harga'))
-                          //                ->where('id_obat',$id_obat)
-                          //                ->where('expired_date',$expired)
-                          //                ->whereNull('deleted_at')
-                          //                ->groupBy('expired_date')
-                          //                ->orderBy('expired_date')
-                          //                ->first();
-                          //  dd($stok_yang_dipakai);
+                      // if($total_stok>=$jumlah_total){
+                        // while($jumlah_total>0){
+                        //    $expired = DB::table('kartu_stok')
+                        //              ->where('kartu_stok.id_obat',$id_obat)
+                        //              ->whereNull('deleted_at')
+                        //              ->min('expired_date');
+                        //
+                        //    $harga_beli = DB::table('kartu_stok')
+                        //                  ->where('id_obat',$id_obat)
+                        //                  ->where('expired_date',$expired)
+                        //                  ->where('jenis','masuk')
+                        //                  ->whereColumn('terpakai','<','jumlah')
+                        //                  ->max('harga');
+                        //
+                        //   //  dd(DB::getQueryLog());
+                        //
+                        //    $stok_yang_dipakai = DB::table('kartu_stok')
+                        //                  ->select(DB::raw('sum(jumlah-terpakai) as jumlah'))
+                        //                  ->where('id_obat',$id_obat)
+                        //                  ->where('expired_date',$expired)
+                        //                  ->where('jenis','masuk')
+                        //                  ->whereColumn('terpakai','<','jumlah')
+                        //                  ->where('harga',$harga_beli)
+                        //                  ->whereNull('deleted_at')
+                        //                  ->groupBy('expired_date')
+                        //                  ->orderBy('expired_date')
+                        //                  ->first();
+                        //    dd($stok_yang_dipakai);
+                        //
+                        //    if($jumlah_total<=$stok_yang_dipakai){
+                        //      $jumlah = $jumlah_total;
+                        //      //update terpakai
+                        //    }
+                        //    else{
+                        //      $jumlah = $stok_yang_dipakai;
+                        //      //update terpakai
+                        //    }
+                        //    $jumlah_total = $jumlah_total-$stok_yang_dipakai;
+                        //    $subtotal_beli = $harga_beli*$jumlah;
+                        //
+                        //    $harga_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[3])));
+                        //    $subtotal_jual = $harga_jual*$jumlah;
+                        //
+                        //    if($jumlah_total!=0){
+                        //      $diskon = 0;
+                        //      $subtotal_jual_setelah_diskon = $subtotal_jual;
+                        //    }
+                        //    else{
+                        //      $diskon = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[6])));
+                        //
+                        //      $subtotal_jual_setelah_diskon = $subtotal_jual-$diskon;
+                        //      if($subtotal_jual_setelah_diskon<0) $subtotal_jual_setelah_diskon = 0;
+                        //    }
 
-
-
-
-                           $harga_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[3])));
-                           $subtotal_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[5])));
-                           $diskon = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[6])));
-                           $subtotal_jual_setelah_diskon = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[7])));
+                          $id_obat = $data[1];
+                          $jumlah = $data[4];
+                          $harga_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[3])));
+                          $subtotal_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[5])));
+                          $diskon = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[6])));
+                          $subtotal_jual_setelah_diskon = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[7])));
 
                            $d_jual = new D_jual;
                            $d_jual->no_nota = $request->no_nota;
                            $d_jual->id_obat = $id_obat;
                            $d_jual->jumlah = $jumlah;
                            $d_jual->harga_jual = $harga_jual;
-                           $d_jual->harga_beli = 9;
-                           $d_jual->subtotal_beli = 99;
                            $d_jual->subtotal_jual = $subtotal_jual;
                            $d_jual->diskon = $diskon;
                            $d_jual->subtotal_jual_setelah_diskon = $subtotal_jual_setelah_diskon;
                            $d_jual->keterangan = null;
                            $d_jual->save();
-                       }
-                       else{
-                           Session::flash('message', 'Insert Data Penjualan Gagal, Stok tidak mencukupi');
-                           return Redirect::to('penjualan/create');
-                       }
+                        //  }
+                      //  }
+                      //  else{
+                      //      Session::flash('message', 'Insert Data Penjualan Gagal, Stok tidak mencukupi');
+                      //      return Redirect::to('penjualan/create');
+                      //  }
                     }
                 }
 
@@ -143,7 +174,6 @@ class MPenjualanController extends Controller
                        $h_resep->biaya_kemasan = $biaya_kemasan;
                        $h_resep->diskon = $diskon;
                        $h_resep->grand_total = $grand_total;
-                       $h_resep->total_harga_beli = 9;
                        $h_resep->keterangan = $request->keterangan_resep;
                        $h_resep->save();
 
@@ -160,9 +190,7 @@ class MPenjualanController extends Controller
                           $d_resep->id_obat = $id_obat;
                           $d_resep->jumlah = $jumlah*$jumlah_resep;
                           $d_resep->harga_jual = $harga_jual;
-                          $d_resep->harga_beli = 1;
                           $d_resep->subtotal_jual = ($jumlah*$jumlah_resep)*$harga_jual;
-                          $d_resep->subtotal_beli = 11;
                           $d_resep->keterangan = null;
                           $d_resep->save();
                        }

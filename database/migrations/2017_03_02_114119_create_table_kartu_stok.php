@@ -19,9 +19,9 @@ class CreateTableKartuStok extends Migration
             $table->date('tanggal');
             $table->string('jenis');
             $table->integer('jumlah');
-            // $table->unsignedInteger('sisa');
             $table->unsignedInteger('harga');
             $table->date('expired_date');
+            $table->unsignedInteger('terpakai');
             $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();

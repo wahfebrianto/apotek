@@ -64,8 +64,13 @@ class MStokController extends Controller
        $stok->harga = intval(str_replace(['.',','],'',$request->harga));
 
        $stok->expired_date = $request->tanggal_expired;
-       if ($request->jenis == 'keluar') $stok->jumlah = 0 - $request->jumlah;
-       else $stok->jumlah = $request->jumlah;
+       if ($request->jenis == 'keluar') {
+          $stok->jumlah = 0 - $request->jumlah;
+       }
+       else {
+          $stok->jumlah = $request->jumlah;
+       }
+       $stok->terpakai = 0;
 
        //sisa
        $total_stok = Kartu_stok::where('id_obat',$request->id_obat)->sum('jumlah');
@@ -113,6 +118,7 @@ class MStokController extends Controller
        $old_stok = $stok->jumlah;
        if (strtolower($request->jenis) == 'keluar') $stok->jumlah = 0 - $request->jumlah;
        else $stok->jumlah = $request->jumlah;
+      //  $stok->terpakai = 0;
        $stok->keterangan = $request->keterangan;
 
       //  if($old_stok != $stok->stok){

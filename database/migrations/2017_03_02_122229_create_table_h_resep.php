@@ -23,7 +23,6 @@ class CreateTableHResep extends Migration
             $table->unsignedInteger('biaya_kemasan');
             $table->unsignedInteger('diskon');
             $table->unsignedInteger('grand_total');
-            $table->unsignedInteger('total_harga_beli');
             $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();

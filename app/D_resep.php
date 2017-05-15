@@ -14,7 +14,7 @@ class D_resep extends Model
    * @var string
    */
   protected $table = 'd_resep';
-  protected $primarykey = ['no_nota', 'id_racikan', 'id_obat', 'harga_beli'];
+  protected $primarykey = ['no_nota', 'id_racikan', 'id_obat'];
   protected $dates = ['deleted_at'];
 
   /**
@@ -23,7 +23,7 @@ class D_resep extends Model
    * @var array
    */
   protected $fillable = [
-      'no_nota', 'id_racikan', 'id_obat', 'jumlah', 'harga_jual', 'harga_beli', 'subtotal_jual', 'subtotal_beli', 'keterangan'
+      'no_nota', 'id_racikan', 'id_obat', 'jumlah', 'harga_jual', 'subtotal_jual', 'keterangan'
   ];
 
   /**

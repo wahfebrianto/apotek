@@ -9,11 +9,15 @@ Yang Belum STOK :
 2. index stok.php table tidak bisa di sort. -- DONE
 3. table index stok bisa cari berdasarkan tanggal
 4. tambah tab table untuk cek stok saat ini. -- DONE
+5. notifikasi stok obat yang tersedia sudah expired
+6. untuk penyesuaian stok jika harga diubah, dipembelian harganya tidak berubah
+7. perubahan untuk penyesuaian stok keluar.
 
 Yang Belum Pembelian :
 1. History yang hapus data pembelian
 2. auto update stok -- DONE
 3. Pengiriman bisa 2 kali 1 barang.
+4. tidak bisa beli 2 barang yang sama
 
 Penerimaan :
 1. kapan tau tanggale expired obatnya
