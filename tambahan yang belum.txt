@@ -20,7 +20,7 @@ Yang Belum Pembelian :
 4. tidak bisa beli 2 barang yang sama
 
 Penerimaan :
-1. kapan tau tanggale expired obatnya
+1. kapan tau tanggale expired obatnya --DONE
 
 Pembayaran :
 1. tanggal pembayaran -- DONE
@@ -29,3 +29,19 @@ penjualan
 1. bisa gratis ?
 2. bisa desimal
 3. no tabel
+
+1. hresep dresep
+2. desimal
+3. ubah stok
+4. ubah penerimaan barang
+5. nonaktif obat
+
+memikirkan cari untung
+
+@foreach ($d_resep as $data)
+    rowResepData[][0] = (i+1);
+    rowResepData[][1] = {{$data->obat->nama.' '.$data->obat->dosis.'-'.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}};
+    rowResepData[][2] = {{$data->harga_jual}};
+    rowResepData[][3] = {{$data->jumlah}};
+    rowResepData[][4] = {{$data->subtotal_jual}};
+@endforeach

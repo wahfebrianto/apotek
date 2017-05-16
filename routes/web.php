@@ -54,7 +54,10 @@ Route::post('pembayaran', 'MPembelianController@bayar')->name('pembelian.bayar')
 //penjualan
 Route::get('penjualan','MPenjualanController@index')->name('penjualan.index');
 Route::get('penjualan/create','MPenjualanController@create')->name('penjualan.create');
+Route::get('penjualan/list/{no_nota}','MPenjualanController@listpenjualan')->name('penjualan.listpenjualan');
 Route::post('penjualan/rowdata', 'MPenjualanController@rowdata')->name('penjualan.rowdata');
 Route::post('penjualan','MPenjualanController@store')->name('penjualan.store');
+Route::delete('penjualan/{no_nota}','MPenjualanController@destroy')->name('penjualan.destroy');
+
 
 Auth::routes();

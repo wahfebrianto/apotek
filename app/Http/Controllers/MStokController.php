@@ -22,10 +22,11 @@ class MStokController extends Controller
    public function index($id_obat)
    {
       $obat = Obat::find($id_obat);
-      $stokData = Kartu_stok::where('id_obat',$id_obat)->orderby('created_at')->get();
+      $stokData = Kartu_stok::where('id_obat',$id_obat)->orderby('created_at','desc')->get();
       $descStok = DB::table('kartu_stok')
-                  ->select(DB::raw('tanggal, expired_date, sum(jumlah) as jumlah, harga'))
+                  ->select(DB::raw('tanggal, expired_date, sum(jumlah) as total, harga'))
                   ->where('id_obat',$id_obat)
+                  // ->where('total','>',0)
                   ->whereNull('deleted_at')
                   ->groupBy('expired_date')
                   ->orderBy('expired_date')

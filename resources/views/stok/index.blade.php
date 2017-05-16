@@ -60,30 +60,33 @@
                               <th class="text-center">M</th>
                               <th class="text-center">K</th>
                               <th class="text-center">S</th>
-                              <th>Harga</th>
-                              <th>Tanggal Expired</th>
+                              {{-- <th>Harga</th>
+                              <th>Tanggal Expired</th> --}}
                               <th>Keterangan</th>
                               <th>Penyesuaian Stok</th>
                           </tr>
                         </thead>
                         <tbody>
-                        <?php $sisa = 0; ?>
+                        <?php $sisa = $overview["total_stok"];  $ctr=0; $temp = 0;?>
                         @foreach ($stokData as $stok)
+                            <?php
+                              if($ctr>0) $sisa = $sisa - $temp;
+                            ?>
                             <tr>
                                 <td class="number-td"></td>
                                 <td>{{date("d-m-Y",strtotime($stok->tanggal))}}</td>
                                 <td class="text-center">{{($stok->jenis == 'masuk')? abs($stok->jumlah) : 0}}</td>
                                 <td class="text-center">{{($stok->jenis == 'keluar')? abs($stok->jumlah) : 0}}</td>
-                                <td class="text-center">{{($sisa + $stok->jumlah)}}</td>
-                                <td>Rp {{number_format($stok->harga,2,",",".")}}</td>
-                                <td>{{date("d-m-Y",strtotime($stok->expired_date))}}</td>
+                                <td class="text-center">{{($sisa)}}</td>
+                                {{-- <td>Rp {{number_format($stok->harga,2,",",".")}}</td>
+                                <td>{{date("d-m-Y",strtotime($stok->expired_date))}}</td> --}}
                                 <td>{{$stok->keterangan}}</td>
                                 <td>
                                     <a class="col-sm-12 col-lg-5 btn btn-info btn-action less-margin" href="{{ URL::to('stok/'.$stok->id.'/edit') }}">Ubah</a>
                                     <a class="col-sm-12 col-lg-5 btn btn-warning btn-action less-margin" href="{{ url('stok', [$stok->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                                 </td>
                             </tr>
-                            <?php $sisa = $sisa + $stok->jumlah; ?>
+                            <?php $temp=$stok->jumlah; $ctr=$ctr+1; ?>
                         @endforeach
                         </tbody>
                     </table>
@@ -97,18 +100,20 @@
                               <th>Tanggal Beli</th>
                               <th>Tanggal Expired</th>
                               <th>Jumlah</th>
-                              {{-- <th>Harga Beli</th> --}}
+                              <th>Harga Beli</th>
                           </tr>
                         </thead>
                         <tbody>
                         @foreach ($descStok as $stok)
-                            <tr>
-                                <td class="number-td"></td>
-                                <td>{{date("d-m-Y",strtotime($stok->tanggal))}}</td>
-                                <td>{{date("d-m-Y",strtotime($stok->expired_date))}}</td>
-                                <td>{{$stok->jumlah}}</td>
-                                {{-- <td>Rp {{number_format($stok->harga,2,",",".")}}</td> --}}
-                            </tr>
+                            @if ($stok->total > 0)
+                              <tr>
+                                  <td class="number-td"></td>
+                                  <td>{{date("d-m-Y",strtotime($stok->tanggal))}}</td>
+                                  <td>{{date("d-m-Y",strtotime($stok->expired_date))}}</td>
+                                  <td>{{$stok->total}}</td>
+                                  <td>Rp {{number_format($stok->harga,2,",",".")}}</td>
+                              </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
