@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use \Auth, \Redirect, \Validator, \Input, \Session;
-use App\Obat, App\Pamakologi, App\Log;
+use App\Obat, App\Pamakologi, App\Log, App\Kartu_stok;
 use Webpatser\Uuid\Uuid;
 
 class MObatController extends Controller
@@ -25,7 +25,11 @@ class MObatController extends Controller
     public function index()
     {
         $obatData = Obat::with('pamakologi')->get();
-        return view('obat.index')->with('obatData',$obatData);
+        $total_stok = array();
+        for ($i=0; $i <sizeof($obatData) ; $i++) {
+          $total_stok[] = Kartu_stok::where('id_obat',$obatData[$i]->id)->sum('jumlah');
+        }
+        return view('obat.index')->with(['obatData'=>$obatData,'total_stok'=>$total_stok]);
     }
 
     /**

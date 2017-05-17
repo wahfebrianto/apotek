@@ -22,11 +22,13 @@
                           <th>Satuan Dosis</th>
                           <th>Bentuk Sediaan</th>
                           <th>Harga Jual</th>
+                          <th class="number-td">Stok</th>
                           <th>Keterangan</th>
                           <th>&nbsp;</th>
                       </tr>
                     </thead>
                     <tbody>
+                    <?php $idx = 0; ?>
                     @foreach ($obatData as $obat)
                         <tr>
                             <td class="number-td"></td>
@@ -36,6 +38,7 @@
                             <td>{{$obat->satuan_dosis}}</td>
                             <td>{{$obat->bentuk_sediaan}}</td>
                             <td>Rp {{number_format($obat->harga_jual,2,",",".")}}</td>
+                            <td class="number-td">{{$total_stok[$idx]}}</td>
                             <td>{{$obat->keterangan}}</td>
                             <td>
                                 <a class="col-sm-12 col-lg-12 btn btn-primary btn-action" href="{{ URL::to('stok/'.$obat->id) }}">Stok</a>
@@ -43,6 +46,7 @@
                                 <a class="col-sm-12 col-lg-6 btn btn-warning btn-action" href="{{ url('obat', [$obat->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
+                        <?php $idx=$idx+1; ?>
                     @endforeach
                     </tbody>
                 </table>

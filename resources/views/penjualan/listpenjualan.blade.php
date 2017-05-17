@@ -161,7 +161,7 @@
               result +=
                 '<tr>'+
                     '<td>'+table[i][0]+'</td>'+
-                    '<td>Rp '+table[i][1]+'</td>'+
+                    '<td>'+table[i][1]+'</td>'+
                     '<td>Rp '+$.number((table[i][2])*n)+'</td>'+
                     '<td>'+table[i][3]+'</td>'+
                     '<td>Rp '+$.number((table[i][4])*n)+'</td>'+

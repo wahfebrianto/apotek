@@ -35,7 +35,7 @@
                             <td>{{$data->keterangan}}</td>
                             <td>
                                 <a class="col-sm-12 btn btn-info btn-action" href="{{ URL::to('penjualan/list/'.$data->no_nota) }}">Lihat</a>
-                                <a class="col-sm-12 btn btn-warning btn-action" href="{{ url('penjualan', [$data->no_nota]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                {{-- <a class="col-sm-12 btn btn-warning btn-action" href="{{ url('penjualan', [$data->no_nota]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a> --}}
                             </td>
                         </tr>
                     @endforeach
