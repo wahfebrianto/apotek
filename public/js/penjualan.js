@@ -280,6 +280,9 @@ $(document).ready(function(){
     });
 
     $('#btn-tambah-obat').on('click',function(){
+        var row_obat_nota_data = t_nota_obat.rows().data();
+        var flag = true;
+
         var jumlah = ($('#jumlah_obat_obat').val()=="")? 0 : parseInt($('#jumlah_obat_obat').val());
         var harga_jual = parseInt($('#hargajual_obat_obat').val());
         var diskon = ($('#diskon_obat_obat').val()=="")? 0 : parseInt($('#diskon_obat_obat').val());
@@ -288,63 +291,92 @@ $(document).ready(function(){
         var id_obat = $('#nama_obat_obat').val().split(";")[0];
         var nama_obat = $('#nama_obat_obat').val().split(";")[1];
         //alert(harga_jual);
-        if (harga_jual != 0 && nama_obat != "") {
-          t_nota_obat.row.add( [
-              ' ',
-              id_obat,
-              nama_obat,
-              "Rp " + $.number(harga_jual),
-              jumlah,
-              "Rp " + $.number(subtotal),
-              "Rp " + $.number(diskon),
-              "Rp " + $.number(subsubtotal)
-          ] ).draw( false );
+        for (var i = 0; i <row_obat_nota_data.length; i++) {
+            var namaObat = row_obat_nota_data[i][2];
+            if(namaObat == nama_obat){
+               flag = false;
+               break;
+            }
+        }
 
-          refreshObat();
+        if(flag){
+            if (harga_jual != 0 && nama_obat != "") {
+              t_nota_obat.row.add( [
+                  ' ',
+                  id_obat,
+                  nama_obat,
+                  "Rp " + $.number(harga_jual),
+                  jumlah,
+                  "Rp " + $.number(subtotal),
+                  "Rp " + $.number(diskon),
+                  "Rp " + $.number(subsubtotal)
+              ] ).draw( false );
 
-          t_nota_obat.on( 'order.dt search.dt', function () {
-              t_nota_obat.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                  cell.innerHTML = i+1;
-              } );
-          } ).draw();
-          autoSumHeader();
-          saveRowData();
+              refreshObat();
+
+              t_nota_obat.on( 'order.dt search.dt', function () {
+                  t_nota_obat.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                      cell.innerHTML = i+1;
+                  } );
+              } ).draw();
+              autoSumHeader();
+              saveRowData();
+            }
+            else{
+              alert('Inputan tidak valid.');
+            }
         }
         else{
-          alert('Inputan tidak valid.');
+            alert('Inputan tidak valid. Data sudah pernah diinputkan.');
         }
     });
 
     $('#btn-tambah-resep').on('click',function(){
+        var row_resep_data = tresep.rows().data();
+        var flag = true;
+
         var jumlah = ($('#jumlah_obat_resep').val()=="")? 0 : parseFloat($('#jumlah_obat_resep').val());
         var harga_jual = parseInt($('#hargajual_obat_resep').val());
         var subtotal = ($('#subtotal_obat_resep').val()=="")? 0 : parseInt($('#subtotal_obat_resep').val());
         var id_obat = $('#nama_obat_resep').val().split(";")[0];
         var nama_obat = $('#nama_obat_resep').val().split(";")[1];
         //alert(harga_jual);
-        if (subtotal != 0 && nama_obat != "") {
-          tresep.row.add( [
-              ' ',
-              id_obat,
-              nama_obat,
-              "Rp " + $.number(harga_jual),
-              jumlah,
-              "Rp " + $.number(subtotal)
-          ] ).draw( false );
+        for (var i = 0; i <row_resep_data.length; i++) {
+            var namaObat = row_resep_data[i][2];
+            if(namaObat == nama_obat){
+               flag = false;
+               break;
+            }
+        }
 
-          refreshResep();
+        if(flag){
+            if (subtotal != 0 && nama_obat != "") {
+              tresep.row.add( [
+                  ' ',
+                  id_obat,
+                  nama_obat,
+                  "Rp " + $.number(harga_jual),
+                  jumlah,
+                  "Rp " + $.number(subtotal)
+              ] ).draw( false );
 
-          tresep.on( 'order.dt search.dt', function () {
-              tresep.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                  cell.innerHTML = i+1;
-              } );
-          } ).draw();
-          autoSumHeaderResep();
-          rowResepData = tresep.rows().data();
-          saveRowData();
+              refreshResep();
+
+              tresep.on( 'order.dt search.dt', function () {
+                  tresep.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                      cell.innerHTML = i+1;
+                  } );
+              } ).draw();
+              autoSumHeaderResep();
+              rowResepData = tresep.rows().data();
+              saveRowData();
+            }
+            else{
+              alert('Inputan tidak valid.');
+            }
         }
         else{
-          alert('Inputan tidak valid.');
+            alert('Inputan tidak valid. Data sudah pernah diinputkan.');
         }
     });
 

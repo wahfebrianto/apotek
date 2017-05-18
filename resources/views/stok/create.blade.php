@@ -26,7 +26,7 @@
                       <div class="form-group">
                           <label for="nama" class="col-md-4 control-label">Nama Obat</label>
                           <div class="col-md-6">
-                              <input id="nama" type="text" class="form-control" name="nama" value="{{$obat->nama}}" readonly>
+                              <input id="nama" type="text" class="form-control" name="nama" value="{{$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}" readonly>
                           </div>
                       </div>
 

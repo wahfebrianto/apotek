@@ -89,6 +89,9 @@
         });
 
         $('#btn-tambah-obat').on('click',function(){
+            var row_obat_data = t.rows().data();
+            var flag = true;
+
             var jumlah = ($('#jumlah').val()=="")? 0 : parseInt($('#jumlah').val());
             var harga_beli = ($('#harga_beli').val()=="")? 0 : parseInt($('#harga_beli').val());
             var diskon = ($('#diskonobat').val()=="")? 0 : parseInt($('#diskonobat').val());
@@ -97,30 +100,43 @@
             var id_obat = $('#nama_obat').val().split(";")[0];
             var nama_obat = $('#nama_obat').val().split(";")[1];
             //alert(harga_beli);
-            if (harga_beli != 0 && nama_obat != "") {
-              t.row.add( [
-                  ' ',
-                  id_obat,
-                  nama_obat,
-                  "Rp " + $.number(harga_beli),
-                  jumlah,
-                  "Rp " + $.number(subtotal),
-                  "Rp " + $.number(diskon),
-                  "Rp " + $.number(subsubtotal)
-              ] ).draw( false );
+            for (var i = 0; i <row_obat_data.length; i++) {
+                var namaObat = row_obat_data[i][2];
+                if(namaObat == nama_obat){
+                   flag = false;
+                   break;
+                }
+            }
 
-              refresh();
+            if(flag){
+                if (harga_beli != 0 && nama_obat != "") {
+                  t.row.add( [
+                      ' ',
+                      id_obat,
+                      nama_obat,
+                      "Rp " + $.number(harga_beli),
+                      jumlah,
+                      "Rp " + $.number(subtotal),
+                      "Rp " + $.number(diskon),
+                      "Rp " + $.number(subsubtotal)
+                  ] ).draw( false );
 
-              t.on( 'order.dt search.dt', function () {
-                  t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                      cell.innerHTML = i+1;
-                  } );
-              } ).draw();
-              autoSumHeader();
-              saveRowData();
+                  refresh();
+
+                  t.on( 'order.dt search.dt', function () {
+                      t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                          cell.innerHTML = i+1;
+                      } );
+                  } ).draw();
+                  autoSumHeader();
+                  saveRowData();
+                }
+                else{
+                  alert('Inputan tidak valid.');
+                }
             }
             else{
-              alert('Inputan tidak valid.');
+                alert('Inputan tidak valid. Data sudah pernah diinputkan.');
             }
         });
 
