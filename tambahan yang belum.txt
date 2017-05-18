@@ -33,10 +33,10 @@ penjualan
 1. hresep dresep--DONE
 2. desimal--DONE
 3. ubah stok
-4. ubah penerimaan barang
+4. ubah penerimaan barang--done
 5. nonaktif obat--tidak jadi
 6. huruf besar--DONE
-7. combobox obat
+7. combobox obat--DONE
 
 memikirkan cari untung
 

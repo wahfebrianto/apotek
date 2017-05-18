@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use \Auth, \Redirect, \Validator, \Input, \Session;
-use App\H_beli, App\D_beli, App\Pbf, App\Obat, App\Kartu_stok;
+use App\H_beli, App\D_beli, App\Pbf, App\Obat, App\Kartu_stok, App\Penerimaan;
 use Webpatser\Uuid\Uuid;
 
 class MPembelianController extends Controller
@@ -77,7 +77,7 @@ class MPembelianController extends Controller
                    $d_beli->subtotal = $subtotal;
                    $d_beli->diskon = $diskon;
                    $d_beli->subtotal_setelah_diskon = $subtotal_setelah_diskon;
-                   $d_beli->tanggal_terima = null;
+                   $d_beli->jumlah_terima = 0;
                    $d_beli->id_pegawai_penerima = null;
                    $d_beli->keterangan = null;
                    $d_beli->save();
@@ -100,8 +100,9 @@ class MPembelianController extends Controller
     {
        $h_beli = H_beli::where('no_nota',$id)->first();
        $d_beli = D_beli::where('no_nota',$id)->get();
+       $penerimaan = Penerimaan::where('no_nota',$id)->get();
         // dd($d_beli);
-       return view('pembelian.listpembelian')->with(['h_beli'=>$h_beli,'d_beli'=>$d_beli]);
+       return view('pembelian.listpembelian')->with(['h_beli'=>$h_beli,'d_beli'=>$d_beli,'penerimaan'=>$penerimaan]);
     }
 
     public function destroy($id)
@@ -114,7 +115,7 @@ class MPembelianController extends Controller
 
     public function penerimaan()
     {
-        $penerimaanData = D_beli::whereNull('tanggal_terima')->get();
+        $penerimaanData = D_beli::whereColumn('jumlah_terima','<','jumlah')->get();
         // dd($penerimaanData);
         return view('penerimaan.index')->with(['penerimaanData'=>$penerimaanData]);
     }
@@ -123,7 +124,19 @@ class MPembelianController extends Controller
     {
         $d_beli = D_beli::where('no_nota',$request->nonota)
                         ->where('id_obat',$request->id_obat)
-                        ->update(['tanggal_terima'=>$request->tanggal_terima]);
+                        ->increment('jumlah_terima',$request->jumlah_terima);
+
+        //insert penerimaan
+        $penerimaan = new Penerimaan;
+        $penerimaan->id = Uuid::generate()->string;
+        $penerimaan->no_nota = $request->nonota;
+        $penerimaan->id_obat = $request->id_obat;
+        $penerimaan->jumlah = $request->jumlah_terima;
+        $penerimaan->tanggal_expired = $request->tanggal_expired;
+        $penerimaan->tanggal_terima = $request->tanggal_terima;
+        $penerimaan->keterangan = null;
+        $penerimaan->save();
+
 
         //update stok
         $stok = new Kartu_stok;
@@ -132,15 +145,8 @@ class MPembelianController extends Controller
         $stok->tanggal = $request->tanggal_terima;
         $stok->jenis = 'masuk';
         $stok->harga = intval(str_replace(['.',','],'',$request->harga_beli));
-
         $stok->expired_date = $request->tanggal_expired;
-        $stok->jumlah = $request->jumlah;
-
-        //sisa
-        $total_stok = Kartu_stok::where('id_obat',$request->id_obat)->sum('jumlah');
-        $total_stok = (!empty($total_stok))? $total_stok : 0;
-        $total_stok = $total_stok + $stok->jumlah;
-
+        $stok->jumlah = $request->jumlah_terima;
         $stok->keterangan = "Diperoleh dari nota pembelian ".$request->nonota;
         $stok->save();
 

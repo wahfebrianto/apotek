@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class D_beli extends Model
+class Penerimaan extends Model
 {
   use SoftDeletes;
   /**
@@ -13,9 +13,10 @@ class D_beli extends Model
    *
    * @var string
    */
-  protected $table = 'd_beli';
-  protected $primarykey = ['no_nota', 'id_obat'];
+  protected $table = 'penerimaan';
+  protected $primarykey = 'id';
   protected $dates = ['deleted_at'];
+  protected $guarded = ['id'];
 
   /**
    * The attributes that are mass assignable.
@@ -23,7 +24,7 @@ class D_beli extends Model
    * @var array
    */
   protected $fillable = [
-      'no_nota', 'id_obat', 'jumlah', 'harga_beli', 'subtotal', 'diskon', 'subtotal_setelah_diskon', 'jumlah_terima', 'id_pegawai_penerima', 'keterangan'
+      'no_nota', 'id_obat', 'jumlah', 'tangal_expired', 'tanggal_terima', 'keterangan'
   ];
 
   /**
@@ -32,7 +33,7 @@ class D_beli extends Model
    * @var array
    */
   protected $hidden = [
-
+      'id'
   ];
 
   public function obat()

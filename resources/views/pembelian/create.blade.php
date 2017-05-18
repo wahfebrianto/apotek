@@ -56,10 +56,10 @@
                             <label for="tanggal_jatuh_tempo" class="col-md-3 control-label">Tanggal Jatuh Tempo</label>
                             <div class=" col-md-9">
                               <div class="input-group date form_datetime" id='datetimepicker-date-tanggal-jatuh-tempo' data-link-field="tanggal_jatuh_tempo">
-        		                    <input type='text' class="form-control" value="<?php echo date("d F Y"); ?>" readonly>
+        		                    <input type='text' class="form-control" value="<?php echo date("d F Y", strtotime('next month')); ?>" readonly>
         		                    <span class="input-group-addon custom-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                               </div>
-                              <input type="hidden" name="tanggal_jatuh_tempo" id="tanggal_jatuh_tempo" value="<?php echo date("Y-m-d"); ?>">
+                              <input type="hidden" name="tanggal_jatuh_tempo" id="tanggal_jatuh_tempo" value="<?php echo date("Y-m-d", strtotime('next month')); ?>">
                           </div>
                         </div>
 

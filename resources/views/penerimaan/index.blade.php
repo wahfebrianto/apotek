@@ -13,6 +13,12 @@
 
                 <form  class="form-horizontal" role="form" action="#" method="get">
                     <div class="form-group">
+                        <label for="jumlah_terima" class="col-md-3 control-label text-left">Masukkan Jumlah</label>
+                        <div class="col-md-3">
+                            <input id="jumlah_terima" type="number" class="form-control" name="jumlah_terima" value=1 min=1 autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="tgl" class="col-md-3 control-label text-left">Masukkan Tanggal Terima</label>
                         <div class=" col-md-3">
                           <div class="input-group date form_datetime" id='datetimepicker-date-tanggal' data-link-field="tgl">
@@ -65,6 +71,7 @@
                           <th>Nama Obat</th>
                           <th>Harga Beli</th>
                           <th>Jumlah</th>
+                          <th>Tersisa</th>
                           <th>Tanggal Pemesanan</th>
                           <th>&nbsp;</th>
                       </tr>
@@ -78,6 +85,7 @@
                             <td>{{$data->obat->nama.' '.$data->obat->dosis.'-'.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}}</td>
                             <td>{{$data->harga_beli}}</td>
                             <td>{{$data->jumlah}}</td>
+                            <td>{{($data->jumlah-$data->jumlah_terima)}}</td>
                             <td>{{date("d-m-Y",strtotime($data->h_beli->tanggal_pesan))}}</td>
                             <td>
                               <button class="col-sm-12 btn btn-info btn-action btn-terima">Terima</button>
@@ -129,28 +137,36 @@
             var id_obat = rowData[0][2];
             var nama_obat = rowData[0][3];
             var harga_beli = rowData[0][4];
-            var jumlah = rowData[0][5];
+            var jumlah = parseInt(rowData[0][5]);
+            var tersisa = parseInt(rowData[0][6]);
+            var jumlah_terima = parseInt($('#jumlah_terima').val());
             var tgl = $('#tgl').val();
             var tgl_expired = $('#tanggal_expired').val();
-            var r = confirm("Apakah Anda yakin dengan penerimaan obat ini ?");
-            if(r){
-              $.ajax({
-                  type: 'POST',
-                  url: '/penerimaan',
-                  data: {
-                      '_token' : '{{ csrf_token() }}',
-                      'nonota' : nonota,
-                      'id_obat' : id_obat,
-                      'nama_obat' : nama_obat,
-                      'harga_beli' : harga_beli,
-                      'jumlah' : jumlah,
-                      'tanggal_terima' : tgl,
-                      'tanggal_expired' : tgl_expired
-                  },
-                  success:function(){
-                     window.location.href = "/penerimaan";
-                 }
-              });
+
+            if(jumlah_terima<=tersisa){
+                var r = confirm("Apakah Anda yakin dengan penerimaan obat ini ?");
+                if(r){
+                  $.ajax({
+                      type: 'POST',
+                      url: '/penerimaan',
+                      data: {
+                          '_token' : '{{ csrf_token() }}',
+                          'nonota' : nonota,
+                          'id_obat' : id_obat,
+                          'nama_obat' : nama_obat,
+                          'harga_beli' : harga_beli,
+                          'jumlah_terima' : jumlah_terima,
+                          'tanggal_terima' : tgl,
+                          'tanggal_expired' : tgl_expired
+                      },
+                      success:function(){
+                         window.location.href = "/penerimaan";
+                     }
+                  });
+                }
+            }
+            else{
+                alert("Inputan tidak valid. Jumlah yang diinputkan lebih besar dari yang tersisa.");
             }
         });
     });
