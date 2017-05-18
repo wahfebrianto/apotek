@@ -62,11 +62,11 @@ class MObatController extends Controller
 
         $obat = new Obat;
         $obat->id = Uuid::generate()->string;
-        $obat->nama = $request->nama;
+        $obat->nama = strtoupper($request->nama);
         $obat->id_pamakologi = $request->id_pamakologi;
         $obat->dosis = $request->dosis;
-        $obat->satuan_dosis = $request->satuan_dosis;
-        $obat->bentuk_sediaan = $request->bentuk_sediaan;
+        $obat->satuan_dosis = strtoupper($request->satuan_dosis);
+        $obat->bentuk_sediaan = strtoupper($request->bentuk_sediaan);
         $obat->harga_jual = intval(str_replace(['.',','],'',$request->harga_jual));
         $obat->keterangan = $request->keterangan;
         $obat->save();
@@ -117,11 +117,11 @@ class MObatController extends Controller
               'harga_jual' => 'required',
         ]);
 
-        $obat->nama = $request->nama;
+        $obat->nama = strtoupper($request->nama);
         $obat->id_pamakologi = $request->id_pamakologi;
         $obat->dosis = $request->dosis;
-        $obat->satuan_dosis = $request->satuan_dosis;
-        $obat->bentuk_sediaan = $request->bentuk_sediaan;
+        $obat->satuan_dosis = strtoupper($request->satuan_dosis);
+        $obat->bentuk_sediaan = strtoupper($request->bentuk_sediaan);
         $old_harga_jual = $obat->harga_jual;
         $obat->harga_jual = intval(str_replace(['.',','],'',$request->harga_jual));
         $obat->keterangan = $request->keterangan;

@@ -182,14 +182,16 @@ $(document).ready(function(){
     function autoSumHeaderResep(){
           var grandtotal = 0;
           var datatable_row = tresep.rows().data();
-          for (var i = 0; i < datatable_row.length; i++) {
-            var currentPrice =  parseInt(datatable_row[i][5].replace(/\D/g,''));
-            grandtotal = grandtotal + currentPrice;
-          }
           var jumlah = ($('#jumlah_resep').val()=="")? 0 : parseInt($('#jumlah_resep').val());
+          for (var i = 0; i < datatable_row.length; i++) {
+            var currentQty = Math.ceil(parseFloat(datatable_row[i][4])*jumlah);
+            var currentPrice =  parseInt(datatable_row[i][3].replace(/\D/g,''));
+            var currentSubtotal = currentPrice*currentQty;
+            grandtotal = grandtotal + currentSubtotal;
+          }
           var diskon = ($('#diskon_total_resep').val()=="")? 0 : parseInt($('#diskon_total_resep').val());
           var kemasan = ($('#biaya_kemasan_resep').val()=="")? 0 : parseInt($('#biaya_kemasan_resep').val());
-          var grandgrandtotal = (grandtotal*jumlah) - diskon + kemasan;
+          var grandgrandtotal = grandtotal - diskon + kemasan;
           grandgrandtotal = (grandgrandtotal<0)? 0 : grandgrandtotal;
           $('#total_resep').val(grandtotal);
           $('#grand_total_resep').val(grandgrandtotal);
@@ -352,15 +354,18 @@ $(document).ready(function(){
         result +=
         '<thead><tr><th>No</th><th>id_obat</th><th>Nama Obat</th><th>Harga</th><th>Jumlah</th><th>Subtotal</th></tr></thead><tbody>';
         for (var i = 0; i < table.length; i++) {
+          var harga = convertToNumber(table[i][3]);
+          var jumlah = parseFloat(table[i][4])*n;
+          var subtotal = harga*Math.ceil(jumlah);
           // alert(convertToInt(table[i][3]));
           result +=
             '<tr>'+
                 '<td>'+(i+1)+'</td>'+
                 '<td>'+table[i][1]+'</td>'+
                 '<td>'+table[i][2]+'</td>'+
-                '<td>Rp '+$.number((convertToInt(table[i][3])*n))+'</td>'+
-                '<td>'+(table[i][4]*n)+'</td>'+
-                '<td>Rp '+$.number((convertToInt(table[i][5])*n))+'</td>'+
+                '<td>Rp '+$.number(harga)+'</td>'+
+                '<td>'+jumlah+'</td>'+
+                '<td>Rp '+$.number(subtotal)+'</td>'+
             '</tr>';
         }
         result += '</tbody></table>';
@@ -413,7 +418,7 @@ $(document).ready(function(){
                   cell.innerHTML = i+1;
               } );
           } ).draw();
-          t_nota_resep.row(':last').child(nestedTable(rowResepData,1)).show();
+          t_nota_resep.row(':last').child(nestedTable(rowResepData,jumlah)).show();
           initDataTable(".data-table-nota-dresep:last");
           t_nota_resep.row(':last').child.hide();
           refreshHResep();
@@ -515,7 +520,7 @@ $(document).ready(function(){
       }
       // console.log(data_djual);
       // console.log(data_hresep);
-       console.log(data_dresep);
+      //  console.log(data_dresep);
       $.ajax({
           type: 'POST',
           url: '/penjualan/rowdata',
@@ -532,7 +537,7 @@ $(document).ready(function(){
       });
     }
 
-    function convertToInt(input){
+    function convertToNumber(input){
        var temp = input.match(/(\d+)/g);
        var result = "";
        for (var i = 0; i < temp.length; i++) {

@@ -54,7 +54,7 @@
                     @foreach ($d_jual as $data)
                         <tr>
                             <td class="number-td"></td>
-                            <td>{{$data->obat->nama.' '.$data->obat->dosis.'-'.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}}</td>
+                            <td>{{$data->obat->nama.' '.$data->obat->dosis.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}}</td>
                             <td>Rp {{number_format($data->harga_jual,2,",",".")}}</td>
                             <td>{{$data->jumlah}}</td>
                             <td>Rp {{number_format($data->diskon,2,",",".")}}</td>
@@ -194,15 +194,17 @@
         for (var i = 0; i < dataHResep.length; i++) {
           var rowResepData = [];
           <?php $i=0; ?>
+          @if (sizeof($d_resep)>0)
           @foreach ($d_resep[$idx] as $data)
               rowResepData[{{$i}}] = [];
               rowResepData[{{$i}}][0] = ({{$i}}+1);
-              rowResepData[{{$i}}][1] = "{{$data->obat->nama.' '.$data->obat->dosis.'-'.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}}";
+              rowResepData[{{$i}}][1] = "{{$data->obat->nama.' '.$data->obat->dosis.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}}";
               rowResepData[{{$i}}][2] = {{$data->harga_jual}};
               rowResepData[{{$i}}][3] = {{$data->jumlah}};
               rowResepData[{{$i}}][4] = {{$data->subtotal_jual}};
               <?php $i=$i+1; ?>
           @endforeach
+          @endif
           t2.row(i).child(nestedTable(rowResepData,1)).show();
           t2.row(i).child.hide();
           <?php $idx=$idx+1; ?>

@@ -28,7 +28,10 @@ class MPenjualanController extends Controller
     {
         $obatData = Obat::orderBy('nama')->get();
         $nonota = DB::select(DB::raw('select autogenID_HJual() as nota'))[0]->nota;
-        return view('penjualan.create')->with(['obatData'=>$obatData, 'nonota'=>$nonota]);
+        for ($i=0; $i <sizeof($obatData) ; $i++) {
+          $total_stok[] = Kartu_stok::where('id_obat',$obatData[$i]->id)->sum('jumlah');
+        }
+        return view('penjualan.create')->with(['obatData'=>$obatData, 'nonota'=>$nonota,'total_stok'=>$total_stok]);
     }
 
     public function rowdata(Request $request)
@@ -74,6 +77,7 @@ class MPenjualanController extends Controller
                       $harga_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[3])));
 
                       if($total_stok>=$jumlah_total){
+                        $total_harga_beli = 0;
                         while($jumlah_total>0){
                            $expired = DB::table('kartu_stok')
                                      ->where('kartu_stok.id_obat',$id_obat)
@@ -119,6 +123,7 @@ class MPenjualanController extends Controller
                            //dd($kartu_stok);
 
                           //  echo($harga_beli."-".$jumlah."<br>");
+                           $total_harga_beli = $total_harga_beli + ($harga_beli*$jumlah);
                            $jumlah_total = $jumlah_total-$jumlah;
                          }
 
@@ -130,7 +135,8 @@ class MPenjualanController extends Controller
                           $stok_kurang->tanggal = date("Y-m-d");
                           $stok_kurang->jenis = "keluar";
                           $stok_kurang->jumlah = 0-$jumlah_total;
-                          $stok_kurang->harga = $harga_jual;
+                          //untuk harga akan menampilkan total modal harga_beli untuk memudahkan dalam perhitungan laba rugi
+                          $stok_kurang->harga = $total_harga_beli;
                           $stok_kurang->expired_date = $expired;
                           $stok_kurang->terpakai = 0;
                           $stok_kurang->save();
@@ -164,7 +170,7 @@ class MPenjualanController extends Controller
                        $nama_racikan = explode("-",$data[1])[0];
                        $bentuk_sediaan = explode("-",$data[1])[1];
                        $total = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[2])));
-                       $jumlah_resep = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[3])));
+                       $jumlah_resep = floatval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[3])));
                        $biaya_kemasan = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[4])));
                        $diskon = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[5])));
                        $grand_total = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[6])));
@@ -185,13 +191,14 @@ class MPenjualanController extends Controller
                        //d_resep
                        foreach ($dresepData[$idx] as $data) {
                           $id_obat = $data[1];
-                          $jumlah_total = intval($data[4])*$jumlah_resep;
+                          $jumlah_total = floatval($data[4]);
                           $total_stok = Kartu_stok::where('id_obat',$id_obat)->sum('jumlah');
                           $harga_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[3])));
                           $subtotal_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[5])));
 
                           //pengurangan stok
                           if($total_stok>=$jumlah_total){
+                            $total_harga_beli = 0;
                             while($jumlah_total>0){
                                $expired = DB::table('kartu_stok')
                                          ->where('kartu_stok.id_obat',$id_obat)
@@ -232,15 +239,18 @@ class MPenjualanController extends Controller
                                             ->where('expired_date',$expired)
                                             ->where('harga',$harga_beli)
                                             ->whereColumn('terpakai','<','jumlah')
-                                            ->first();
-                               $kartu_stok->increment('terpakai',$jumlah);
+                                            ->first()
+                                            ->increment('terpakai',$jumlah);
+
+                              // dd(DB::getQueryLog());
                                //dd($kartu_stok);
 
                               //  echo($harga_beli."-".$jumlah."<br>");
+                               $total_harga_beli = $total_harga_beli + ($harga_beli*$jumlah);
                                $jumlah_total = $jumlah_total-$jumlah;
                              }
 
-                             $jumlah_total = intval($data[4])*$jumlah_resep;
+                             $jumlah_total = floatval($data[4]);
 
                              //insert kartu_stok
                              $stok_kurang = new Kartu_stok;
@@ -249,7 +259,7 @@ class MPenjualanController extends Controller
                              $stok_kurang->tanggal = date("Y-m-d");
                              $stok_kurang->jenis = "keluar";
                              $stok_kurang->jumlah = 0-$jumlah_total;
-                             $stok_kurang->harga = $harga_jual;
+                             $stok_kurang->harga = $total_harga_beli;
                              $stok_kurang->expired_date = $expired;
                              $stok_kurang->terpakai = 0;
                              $stok_kurang->save();
@@ -260,7 +270,7 @@ class MPenjualanController extends Controller
                              $d_resep->id_obat = $id_obat;
                              $d_resep->jumlah = $jumlah_total;
                              $d_resep->harga_jual = $harga_jual;
-                             $d_resep->subtotal_jual = $jumlah_total*$harga_jual;
+                             $d_resep->subtotal_jual = $subtotal_jual;
                              $d_resep->keterangan = null;
                              $d_resep->save();
                           }

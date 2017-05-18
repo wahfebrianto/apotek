@@ -18,10 +18,10 @@ class CreateTableKartuStok extends Migration
             $table->uuid('id_obat');
             $table->date('tanggal');
             $table->string('jenis');
-            $table->integer('jumlah');
+            $table->float('jumlah');
             $table->unsignedInteger('harga');
             $table->date('expired_date');
-            $table->unsignedInteger('terpakai');
+            $table->float('terpakai');
             $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();

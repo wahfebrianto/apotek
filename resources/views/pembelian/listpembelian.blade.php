@@ -69,7 +69,7 @@
                     @foreach ($d_beli as $data)
                         <tr>
                             <td class="number-td"></td>
-                            <td>{{$data->obat->nama.' '.$data->obat->dosis.'-'.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}}</td>
+                            <td>{{$data->obat->nama.' '.$data->obat->dosis.$data->obat->satuan_dosis.' ('.$data->obat->bentuk_sediaan.')'}}</td>
                             <td>Rp {{number_format($data->harga_beli,2,",",".")}}</td>
                             <td>{{$data->jumlah}}</td>
                             <td>Rp {{number_format($data->diskon,2,",",".")}}</td>

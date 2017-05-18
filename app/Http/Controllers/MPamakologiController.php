@@ -50,7 +50,7 @@ class MPamakologiController extends Controller
         ]);
 
         $pamakologi = new Pamakologi;
-        $pamakologi->nama = $request->nama;
+        $pamakologi->nama = strtoupper($request->nama);
         $pamakologi->keterangan = $request->keterangan;
         $pamakologi->save();
 
@@ -95,7 +95,7 @@ class MPamakologiController extends Controller
       $this->validate($request, [
             'nama' =>  ['required',Rule::unique('pamakologi')->ignore($pamakologi->id),],
       ]);
-      $pamakologi->nama = $request->nama;
+      $pamakologi->nama = strtoupper($request->nama);
       $pamakologi->keterangan = $request->keterangan;
       $pamakologi->save();
 

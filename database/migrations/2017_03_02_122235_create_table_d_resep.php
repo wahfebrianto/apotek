@@ -17,7 +17,7 @@ class CreateTableDResep extends Migration
             $table->string('no_nota',10);
             $table->uuid('id_racikan');
             $table->uuid('id_obat');
-            $table->unsignedInteger('jumlah');
+            $table->float('jumlah');
             $table->unsignedInteger('harga_jual');
             $table->unsignedInteger('subtotal_jual');
             $table->string('keterangan')->nullable();

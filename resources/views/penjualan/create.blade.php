@@ -110,9 +110,11 @@
                             <label for="nama_obat_obat" class="col-md-2 control-label">Nama Obat</label>
                             <div class="col-md-10" id="list_obat_obat">
                               <select class="form-control" id="nama_obat_obat" name="nama_obat_obat">
-                                  @foreach ($obatData as $obat)
-                                      <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.');'.$obat->harga_jual.')'}}">{{$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}</option>
-                                  @endforeach
+                                <?php $idx=0; ?>
+                                @foreach ($obatData as $obat)
+                                    <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.');'.$obat->harga_jual}}">{{$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.') - '.$total_stok[$idx]}}</option>
+                                    <?php $idx=$idx+1; ?>
+                                @endforeach
                               </select>
                             </div>
                         </div>
@@ -221,8 +223,10 @@
                             <label for="nama_obat_resep" class="col-md-2 control-label">Nama Obat</label>
                             <div class="col-md-10" id="list_obat_resep">
                               <select class="form-control" id="nama_obat_resep" name="nama_obat_resep">
+                                  <?php $idx=0; ?>
                                   @foreach ($obatData as $obat)
-                                      <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.');'.$obat->harga_jual}}">{{$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}</option>
+                                      <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.');'.$obat->harga_jual}}">{{$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.') - '.$total_stok[$idx]}}</option>
+                                      <?php $idx=$idx+1; ?>
                                   @endforeach
                               </select>
                             </div>

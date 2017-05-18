@@ -54,10 +54,10 @@ class MPBFController extends Controller
         ]);
 
         $pbf = new Pbf;
-        $pbf->nama = $request->nama;
-        $pbf->alamat  = $request->alamat;
+        $pbf->nama = strtoupper($request->nama);
+        $pbf->alamat  = strtoupper($request->alamat);
         $pbf->telepon = $request->telepon;
-        $pbf->nama_cp = $request->nama_cp;
+        $pbf->nama_cp = strtoupper($request->nama_cp);
         $pbf->telp_cp = $request->telp_cp;
         $pbf->tergolong_pajak = is_null($request->tergolong_pajak) ? 0 : 1;
         $pbf->keterangan = $request->keterangan;
@@ -109,10 +109,10 @@ class MPBFController extends Controller
               'telp_cp' => 'required|numeric',
         ]);
 
-        $pbf->nama = $request->nama;
-        $pbf->alamat  = $request->alamat;
+        $pbf->nama = strtoupper($request->nama);
+        $pbf->alamat  = strtoupper($request->alamat);
         $pbf->telepon = $request->telepon;
-        $pbf->nama_cp = $request->nama_cp;
+        $pbf->nama_cp = strtoupper($request->nama_cp);
         $pbf->telp_cp = $request->telp_cp;
         $pbf->tergolong_pajak = is_null($request->tergolong_pajak) ? 0 : 1;
         $pbf->keterangan = $request->keterangan;

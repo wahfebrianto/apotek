@@ -151,7 +151,7 @@
                           <div class="col-md-10">
                             <select class="form-control" id="nama_obat" name="nama_obat" required>
                                 @foreach ($obatData as $obat)
-                                    <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}">{{$obat->nama.' '.$obat->dosis.'-'.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}</option>
+                                    <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}">{{$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.')'}}</option>
                                 @endforeach
                             </select>
                           </div>

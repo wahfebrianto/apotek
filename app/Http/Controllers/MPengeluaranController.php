@@ -51,7 +51,7 @@ class MPengeluaranController extends Controller
       $pengeluaran = new Pengeluaran();
       $pengeluaran->id = Uuid::generate()->string;
       $pengeluaran->tgl = $request->input('tgl');
-      $pengeluaran->nama = $request->input('nama');
+      $pengeluaran->nama = strtoupper($request->input('nama'));
       $pengeluaran->harga = intval(str_replace(['.',','],'',$request->input('harga')));
       $pengeluaran->keterangan = $request->input('keterangan');
       $pengeluaran->save();
@@ -71,7 +71,7 @@ class MPengeluaranController extends Controller
 
     $dataUbah = [
         'tgl' => $request->input('tgl'),
-        'nama' => $request->input('nama'),
+        'nama' => strtoupper($request->input('nama')),
         'harga' => intval(str_replace(['.',','],'',$request->input('harga'))),
         'keterangan' => $request->input('keterangan')
     ];

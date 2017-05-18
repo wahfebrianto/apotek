@@ -19,7 +19,7 @@ class CreateTableHResep extends Migration
             $table->string('nama_racikan');
             $table->string('bentuk_sediaan');
             $table->unsignedInteger('total');
-            $table->unsignedInteger('jumlah');
+            $table->float('jumlah');
             $table->unsignedInteger('biaya_kemasan');
             $table->unsignedInteger('diskon');
             $table->unsignedInteger('grand_total');

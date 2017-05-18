@@ -47,8 +47,8 @@ class MPegawaiController extends Controller
       ]);
 
       $user = new User();
-      $user->nama = $request->input('nama');
-      $user->alamat = $request->input('alamat');
+      $user->nama = strtoupper($request->input('nama'));
+      $user->alamat = strtoupper($request->input('alamat'));
       $user->telepon = $request->input('telepon');
       $user->gaji = intval(str_replace(['.',','],'',$request->input('gaji')));
       $user->username = $request->input('username');
@@ -71,8 +71,8 @@ class MPegawaiController extends Controller
     ]);
 
     $dataUbah = [
-        'nama' => $request->input('nama'),
-        'alamat' => $request->input('alamat'),
+        'nama' => strtoupper($request->input('nama')),
+        'alamat' => strtoupper($request->input('alamat')),
         'telepon' => $request->input('telepon'),
         'gaji' => intval(str_replace(['.',','],'',$request->input('gaji'))),
         'username' => $request->input('username'),

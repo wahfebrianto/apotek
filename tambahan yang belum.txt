@@ -30,11 +30,13 @@ penjualan
 2. bisa desimal
 3. no tabel
 
-1. hresep dresep
-2. desimal
+1. hresep dresep--DONE
+2. desimal--DONE
 3. ubah stok
 4. ubah penerimaan barang
-5. nonaktif obat
+5. nonaktif obat--tidak jadi
+6. huruf besar--DONE
+7. combobox obat
 
 memikirkan cari untung
 
