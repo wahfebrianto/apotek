@@ -23,6 +23,7 @@
     <link href="{{ asset('css/combobox.css')}}" rel="stylesheet">
     <link href="{{ asset('css/penjualan.css')}}" rel="stylesheet">
     <link rel="icon" href="{{ asset('assets/logo.ico')}}">
+    <link href="{{ asset('icheck/square/blue.css')}}" rel="stylesheet">
 
     <!-- Scripts -->
     <!--<script src="/js/app.js"></script>-->
@@ -35,6 +36,7 @@
     <script src="{{asset('js/combobox.js')}}"></script>
     <script src="{{ asset('datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('datetimepicker/bootstrap-datetimepicker.id.js')}}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{{ asset('icheck/icheck.js')}}" charset="UTF-8"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -111,6 +113,9 @@
                       </li>
                       <li class="dropdown">
                         <a href="{{ route('penjualan.index') }}">Penjualan</a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="{{ route('laporan.index') }}">Laporan</a>
                       </li>
                       @endif
                     </ul>

@@ -59,5 +59,6 @@ Route::post('penjualan/rowdata', 'MPenjualanController@rowdata')->name('penjuala
 Route::post('penjualan','MPenjualanController@store')->name('penjualan.store');
 Route::delete('penjualan/{no_nota}','MPenjualanController@destroy')->name('penjualan.destroy');
 
+Route::resource('laporan', 'LaporanController');
 
 Auth::routes();
