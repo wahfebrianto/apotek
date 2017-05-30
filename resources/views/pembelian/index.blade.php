@@ -45,7 +45,7 @@
                             <td>{{$data->keterangan}}</td>
                             <td>
                                 <a class="col-sm-12 btn btn-info btn-action" href="{{ URL::to('pembelian/list/'.$data->no_nota) }}">Lihat</a>
-                                {{-- <a class="col-sm-12 btn btn-warning btn-action" href="{{ url('pembelian', [$data->no_nota]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a> --}}
+                                <a class="col-sm-12 btn btn-warning btn-action" href="{{ url('pembelian', [$data->no_nota]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                             </td>
                         </tr>
                     @endforeach
@@ -64,7 +64,6 @@
                 "orderable": false,
                 "targets": 0
             } ],
-            "order": [[ 1, 'asc' ]],
             "responsive": true,
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"

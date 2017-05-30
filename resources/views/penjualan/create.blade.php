@@ -101,7 +101,7 @@
                         <div class="col-md-10">
                           <select class="form-control" id="jenis" name="jenis" required>
                               <option value="obat">Obat</option>
-                              <option value="resep">Resep</option>
+                              <option value="resep">Racikan</option>
                           </select>
                         </div>
                       </div>
