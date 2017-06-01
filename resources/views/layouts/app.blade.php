@@ -21,7 +21,9 @@
     <link href="{{ asset('jqueryui/jquery-ui.structure.min.css')}}" rel="stylesheet">
     <link href="{{ asset('jqueryui/jquery-ui.theme.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/combobox.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('css/penjualan.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/laporan.css')}}" rel="stylesheet">
     <link rel="icon" href="{{ asset('assets/logo.ico')}}">
     <link href="{{ asset('icheck/square/blue.css')}}" rel="stylesheet">
 

@@ -26,8 +26,13 @@ class LaporanController extends Controller
         return view('laporan.index')->with(["report"=>""]);
     }
 
-    public function generate()
+    public function generate(Request $request)
     {
-        return view('laporan.index')->with(["report"=>""]);
+        $data["jenislaporan"] = $request->jenislaporan;
+        $data["rangelaporan"] = $request->rangelaporan;
+        $data["tglawal"] = $request->tglawal;
+        $data["tglakhir"] = $request->tglakhir;
+        $data["bulan"] = $request->bulan;
+        return view('laporan.index')->with(["report"=>"", "data" => $data]);
     }
 }
