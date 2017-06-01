@@ -98,16 +98,16 @@
                       <div class="form-group">
                           <label for="jumlah" class="col-md-4 control-label">Jumlah</label>
                           <div class="col-md-6">
-                                <input id="jumlah" type="number" class="form-control" name="jumlah" value=1 min=1 required autofocus>
+                                <input id="jumlah" type="number" class="form-control" name="jumlah" value=1 min=1 step=0.25 required autofocus>
                           </div>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group harga-stok">
                           <label for="harga" class="col-md-4 control-label">Harga</label>
                           <div class="col-md-6">
                               <div class="input-group">
                                 <span class="input-group-addon">Rp</span>
-                                <input id="harga" type="text" class="form-control" name="harga" required>
+                                <input id="harga" type="text" class="form-control" name="harga" value="0" required>
                               </div>
                           </div>
                       </div>
@@ -132,6 +132,17 @@
 <script>
   $(document).ready(function(){
       $('#harga').number(true,0,',','.');
+
+      $('#jenis_stok').on('click',function(){
+          if($('#jenis_stok').val()=="masuk"){
+            $('.harga-stok').css('display','block');
+            $('#tanggal_expiredd').css('display','block');
+          }
+          else{
+            $('.harga-stok').css('display','none');
+            $('#tanggal_expiredd').css('display','none');
+          }
+      });
 
       // $('#jenis_stok').on('click',function(){
       //     if ($(this).val() == 'keluar') {

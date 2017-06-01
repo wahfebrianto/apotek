@@ -63,7 +63,7 @@
                               {{-- <th>Harga</th>
                               <th>Tanggal Expired</th> --}}
                               <th>Keterangan</th>
-                              <th>Penyesuaian Stok</th>
+                              <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -82,8 +82,10 @@
                                 <td>{{date("d-m-Y",strtotime($stok->expired_date))}}</td> --}}
                                 <td>{{$stok->keterangan}}</td>
                                 <td>
-                                    <a class="col-sm-12 col-lg-5 btn btn-info btn-action less-margin" href="{{ URL::to('stok/'.$stok->id.'/edit') }}">Ubah</a>
-                                    <a class="col-sm-12 col-lg-5 btn btn-warning btn-action less-margin" href="{{ url('stok', [$stok->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                    {{-- <a class="col-sm-12 col-lg-5 btn btn-info btn-action less-margin" href="{{ URL::to('stok/'.$stok->id.'/edit') }}">Ubah</a> --}}
+                                    @if ($stok->buatan == 1)
+                                      <a class="col-sm-12 col-lg-12 btn btn-warning btn-action" href="{{ url('stok', [$stok->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                    @endif
                                 </td>
                             </tr>
                             <?php $temp=$stok->jumlah; $ctr=$ctr+1; ?>
@@ -135,6 +137,15 @@
             "searchable": false,
             "orderable": false,
             "targets": 0
+        },{
+            "width": "8%",
+            "targets": [0,2,3,4]
+        } ,{
+            "width": "10%",
+            "targets": [1]
+        } ,{
+            "width": "15%",
+            "targets": [6]
         } ],
         "ordering" : false,
         "responsive": true,

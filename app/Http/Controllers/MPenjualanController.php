@@ -20,7 +20,7 @@ class MPenjualanController extends Controller
 
     public function index()
     {
-        $dataPenjualan = H_jual::get();
+        $dataPenjualan = H_jual::orderBy('no_nota', 'desc')->get();
         return view('penjualan.index')->with('dataPenjualan',$dataPenjualan);
     }
 
@@ -78,6 +78,8 @@ class MPenjualanController extends Controller
 
                       if($total_stok>=$jumlah_total){
                         $total_harga_beli = 0;
+                        $ket_stok = "";
+                        $idx = 0;
                         while($jumlah_total>0){
                            $expired = DB::table('kartu_stok')
                                      ->where('kartu_stok.id_obat',$id_obat)
@@ -120,6 +122,10 @@ class MPenjualanController extends Controller
                                         ->whereColumn('terpakai','<','jumlah')
                                         ->first();
                            $kartu_stok->increment('terpakai',$jumlah);
+
+                           if($idx!=0) $ket_stok .= ";";
+                           $ket_stok .= $kartu_stok->id."/".$jumlah;
+                           $idx++;
                            //dd($kartu_stok);
 
                           //  echo($harga_beli."-".$jumlah."<br>");
@@ -139,6 +145,8 @@ class MPenjualanController extends Controller
                           $stok_kurang->harga = $total_harga_beli;
                           $stok_kurang->expired_date = $expired;
                           $stok_kurang->terpakai = 0;
+                          $stok_kurang->ket_stok = $ket_stok;
+                          $stok_kurang->buatan = 0;
                           $stok_kurang->save();
 
                           $subtotal_jual = intval(str_replace(['.',','],'',preg_replace("/[^0-9]/","",$data[5])));
@@ -153,7 +161,7 @@ class MPenjualanController extends Controller
                            $d_jual->subtotal_jual = $subtotal_jual;
                            $d_jual->diskon = $diskon;
                            $d_jual->subtotal_jual_setelah_diskon = $subtotal_jual_setelah_diskon;
-                           $d_jual->keterangan = null;
+                           $d_jual->keterangan = $stok_kurang->id;
                            $d_jual->save();
                        }
                        else{
@@ -199,6 +207,8 @@ class MPenjualanController extends Controller
                           //pengurangan stok
                           if($total_stok>=$jumlah_total){
                             $total_harga_beli = 0;
+                            $ket_stok = "";
+                            $idxx = 0;
                             while($jumlah_total>0){
                                $expired = DB::table('kartu_stok')
                                          ->where('kartu_stok.id_obat',$id_obat)
@@ -239,8 +249,12 @@ class MPenjualanController extends Controller
                                             ->where('expired_date',$expired)
                                             ->where('harga',$harga_beli)
                                             ->whereColumn('terpakai','<','jumlah')
-                                            ->first()
-                                            ->increment('terpakai',$jumlah);
+                                            ->first();
+                               $kartu_stok->increment('terpakai',$jumlah);
+
+                               if($idxx!=0) $ket_stok .= ";";
+                               $ket_stok .= $kartu_stok->id."/".$jumlah;
+                               $idxx++;
 
                               // dd(DB::getQueryLog());
                                //dd($kartu_stok);
@@ -262,6 +276,8 @@ class MPenjualanController extends Controller
                              $stok_kurang->harga = $total_harga_beli;
                              $stok_kurang->expired_date = $expired;
                              $stok_kurang->terpakai = 0;
+                             $stok_kurang->ket_stok = $ket_stok;
+                             $stok_kurang->buatan = 0;
                              $stok_kurang->save();
 
                              $d_resep = new D_resep;
@@ -271,7 +287,7 @@ class MPenjualanController extends Controller
                              $d_resep->jumlah = $jumlah_total;
                              $d_resep->harga_jual = $harga_jual;
                              $d_resep->subtotal_jual = $subtotal_jual;
-                             $d_resep->keterangan = null;
+                             $d_resep->keterangan = $stok_kurang->id;
                              $d_resep->save();
                           }
                           else{
@@ -314,61 +330,44 @@ class MPenjualanController extends Controller
 
     public function destroy($id)
     {
-       $d_jual= D_beli::where('no_nota',$id)->delete();
-       $h_jual= H_beli::where('no_nota',$id)->delete();
-       Session::flash('message', 'Data Pembelian telah berhasil dihapus.');
-       return Redirect::to('pembelian');
+       //buang stok
+       $d_resep = D_resep::where('no_nota',$id)->get();
+       $d_jual= D_Jual::where('no_nota',$id)->get();
+
+       foreach ($d_resep as $data) {
+           $stok = Kartu_stok::where('id',$data->keterangan)->first();
+           $tempStok = explode(";",$stok->ket_stok);
+           foreach ($tempStok as $value) {
+              $value = explode("/",$value);
+              $id_stok = $value[0];
+              $jumlah = floatval($value[1]);
+
+              //cari stok
+              $stok_recovery = Kartu_stok::where('id',$id_stok)->first()->decrement('terpakai',$jumlah);
+           }
+           $stok = Kartu_stok::where('id',$data->keterangan)->delete();
+       }
+
+       foreach ($d_jual as $data) {
+           $stok = Kartu_stok::where('id',$data->keterangan)->first();
+           $tempStok = explode(";",$stok->ket_stok);
+           foreach ($tempStok as $value) {
+              $value = explode("/",$value);
+              $id_stok = $value[0];
+              $jumlah = floatval($value[1]);
+
+              //cari stok
+              $stok_recovery = Kartu_stok::where('id',$id_stok)->first()->decrement('terpakai',$jumlah);
+           }
+           $stok = Kartu_stok::where('id',$data->keterangan)->delete();
+       }
+
+       $d_resep= D_resep::where('no_nota',$id)->delete();
+       $h_resep= H_resep::where('no_nota',$id)->delete();
+       $d_jual= D_jual::where('no_nota',$id)->delete();
+       $h_jual= H_jual::where('no_nota',$id)->delete();
+       Session::flash('message', 'Data Penjualan telah berhasil dihapus.');
+       return Redirect::to('penjualan');
     }
-
-    public function penerimaan()
-    {
-        $penerimaanData = D_beli::whereNull('tanggal_terima')->get();
-        // dd($penerimaanData);
-        return view('penerimaan.index')->with(['penerimaanData'=>$penerimaanData]);
-    }
-
-    public function terima(Request $request)
-    {
-        $d_jual = D_beli::where('no_nota',$request->nonota)
-                        ->where('id_obat',$request->id_obat)
-                        ->update(['tanggal_terima'=>$request->tanggal_terima]);
-
-        //update stok
-        $stok = new Kartu_stok;
-        $stok->id = Uuid::generate()->string;
-        $stok->id_obat = $request->id_obat;
-        $stok->tanggal = $request->tanggal_terima;
-        $stok->jenis = 'masuk';
-        $stok->harga = intval(str_replace(['.',','],'',$request->harga_beli));
-
-        $stok->expired_date = $request->tanggal_expired;
-        $stok->jumlah = $request->jumlah;
-
-        //sisa
-        $total_stok = Kartu_stok::where('id_obat',$request->id_obat)->sum('jumlah');
-        $total_stok = (!empty($total_stok))? $total_stok : 0;
-        $total_stok = $total_stok + $stok->jumlah;
-
-        $stok->keterangan = "Diperoleh dari nota pembelian ".$request->nonota;
-        $stok->save();
-
-        Session::flash('message', 'Pembelian obat '.$request->nama_obat.' dengan nomor nota '.$request->nonota.' telah diterima pada tanggal '. date("d-m-Y",strtotime($request->tanggal_terima)));
-    }
-
-    public function pembayaran()
-    {
-        $pembayaranData = H_beli::whereNull('tanggal_pembayaran')->get();
-        // dd($penerimaanData);
-        return view('pembayaran.index')->with(['pembayaranData'=>$pembayaranData]);
-    }
-
-    public function bayar(Request $request)
-    {
-
-        $h_jual = H_beli::where('no_nota',$request->nonota)
-                      ->update(['tanggal_pembayaran'=>$request->tanggal_pembayaran]);
-        Session::flash('message', 'Pembelian dengan nomor nota '.$request->nonota.' telah dibayar pada tanggal '. date("d-m-Y",strtotime($request->tanggal_pembayaran)));
-    }
-
 
 }

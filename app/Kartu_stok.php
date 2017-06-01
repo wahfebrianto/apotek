@@ -24,7 +24,7 @@ class Kartu_stok extends Model
    * @var array
    */
   protected $fillable = [
-      'id_obat', 'jenis', 'harga', 'tanggal', 'expired_date', 'jumlah', 'keterangan'
+      'id_obat', 'jenis', 'harga', 'tanggal', 'expired_date', 'jumlah', 'keterangan', 'ket_stok'
   ];
 
   /**

@@ -16,8 +16,8 @@ Yang Belum STOK :
 Yang Belum Pembelian :
 1. History yang hapus data pembelian
 2. auto update stok -- DONE
-3. Pengiriman bisa 2 kali 1 barang.
-4. tidak bisa beli 2 barang yang sama
+3. Pengiriman bisa 2 kali 1 barang.--DONE
+4. tidak bisa beli 2 barang yang sama--DONE
 
 Penerimaan :
 1. kapan tau tanggale expired obatnya --DONE
@@ -29,6 +29,7 @@ penjualan
 1. bisa gratis ?
 2. bisa desimal
 3. no tabel
+4. tambahan dosis pecahan
 
 1. hresep dresep--DONE
 2. desimal--DONE
@@ -37,6 +38,9 @@ penjualan
 5. nonaktif obat--tidak jadi
 6. huruf besar--DONE
 7. combobox obat--DONE
+
+8. hapus pembelian--DONE
+9. hapus penjualan
 
 memikirkan cari untung
 

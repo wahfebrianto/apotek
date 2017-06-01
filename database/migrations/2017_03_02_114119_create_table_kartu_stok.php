@@ -23,6 +23,8 @@ class CreateTableKartuStok extends Migration
             $table->date('expired_date');
             $table->float('terpakai');
             $table->string('keterangan')->nullable();
+            $table->string('ket_stok')->nullable();
+            $table->boolean('buatan');
             $table->timestamps();
             $table->softDeletes();
             $table->primary(['id', 'id_obat']);

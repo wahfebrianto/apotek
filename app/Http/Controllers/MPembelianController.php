@@ -20,7 +20,7 @@ class MPembelianController extends Controller
 
     public function index()
     {
-        $dataPembelian = H_beli::get();
+        $dataPembelian = H_beli::orderBy('no_nota','desc')->get();
         return view('pembelian.index')->with('dataPembelian',$dataPembelian);
     }
 
@@ -107,6 +107,13 @@ class MPembelianController extends Controller
 
     public function destroy($id)
     {
+       //hilangkan stok dulu
+       $penerimaan = Penerimaan::where('no_nota',$id)->get();
+       foreach ($penerimaan as $data) {
+          $stok = Kartu_stok::where('id',$data->keterangan)->delete();
+       }
+
+       $penerimaan = Penerimaan::where('no_nota',$id)->delete();
        $d_beli= D_beli::where('no_nota',$id)->delete();
        $h_beli= H_beli::where('no_nota',$id)->delete();
        Session::flash('message', 'Data Pembelian telah berhasil dihapus.');
@@ -126,18 +133,6 @@ class MPembelianController extends Controller
                         ->where('id_obat',$request->id_obat)
                         ->increment('jumlah_terima',$request->jumlah_terima);
 
-        //insert penerimaan
-        $penerimaan = new Penerimaan;
-        $penerimaan->id = Uuid::generate()->string;
-        $penerimaan->no_nota = $request->nonota;
-        $penerimaan->id_obat = $request->id_obat;
-        $penerimaan->jumlah = $request->jumlah_terima;
-        $penerimaan->tanggal_expired = $request->tanggal_expired;
-        $penerimaan->tanggal_terima = $request->tanggal_terima;
-        $penerimaan->keterangan = null;
-        $penerimaan->save();
-
-
         //update stok
         $stok = new Kartu_stok;
         $stok->id = Uuid::generate()->string;
@@ -148,7 +143,19 @@ class MPembelianController extends Controller
         $stok->expired_date = $request->tanggal_expired;
         $stok->jumlah = $request->jumlah_terima;
         $stok->keterangan = "Diperoleh dari nota pembelian ".$request->nonota;
+        $stok->buatan = 0;
         $stok->save();
+
+        //insert penerimaan
+        $penerimaan = new Penerimaan;
+        $penerimaan->id = Uuid::generate()->string;
+        $penerimaan->no_nota = $request->nonota;
+        $penerimaan->id_obat = $request->id_obat;
+        $penerimaan->jumlah = $request->jumlah_terima;
+        $penerimaan->tanggal_expired = $request->tanggal_expired;
+        $penerimaan->tanggal_terima = $request->tanggal_terima;
+        $penerimaan->keterangan = $stok->id;
+        $penerimaan->save();
 
         Session::flash('message', 'Pembelian obat '.$request->nama_obat.' dengan nomor nota '.$request->nonota.' telah diterima pada tanggal '. date("d-m-Y",strtotime($request->tanggal_terima)));
     }
