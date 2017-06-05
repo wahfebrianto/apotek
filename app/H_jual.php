@@ -37,12 +37,12 @@ class H_jual extends Model
 
   public function d_jual()
   {
-      return $this->hasMany('App\D_jual');
+      return $this->hasMany('App\D_jual','no_nota','no_nota');
   }
 
   public function h_resep()
   {
-      return $this->hasMany('App\H_resep');
+      return $this->hasMany('App\H_resep','no_nota','no_nota');
   }
 
   public function user()

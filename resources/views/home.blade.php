@@ -86,8 +86,8 @@
                                       <a class="col-sm-12 col-lg-6 btn btn-warning btn-action" href="{{ url('obat', [$obat->id]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
                                   </td>
                               </tr>
-                              <?php $idx=$idx+1; ?>
                           @endif
+                          <?php $idx=$idx+1; ?>
                       @endforeach
                       </tbody>
                   </table>

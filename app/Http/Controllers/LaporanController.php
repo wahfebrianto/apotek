@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\H_beli;
+use App\D_beli;
+use App\H_jual;
+use Datetime;
 
 class LaporanController extends Controller
 {
@@ -30,9 +34,25 @@ class LaporanController extends Controller
     {
         $data["jenislaporan"] = $request->jenislaporan;
         $data["rangelaporan"] = $request->rangelaporan;
-        $data["tglawal"] = $request->tglawal;
-        $data["tglakhir"] = $request->tglakhir;
-        $data["bulan"] = $request->bulan;
-        return view('laporan.index')->with(["report"=>"", "data" => $data]);
+        $data["tglawal"] = explode(' ', $request->tglawal)[0];
+        $data["tglakhir"] = explode(' ', $request->tglakhir)[0];
+        $data["bulan"] = explode(' ', $request->bulan)[0];
+        $periode = ($request->rangelaporan=='harian')?"Periode ".date("d F Y",strtotime($data['tglawal'])).' - '.date("d F Y",strtotime($data['tglakhir'])):"Periode ".date("F Y",strtotime($data['bulan']));
+        $hasil='';
+        if($request->rangelaporan!='harian')
+        {
+           $pecah = explode('-', $data["bulan"]);
+           $data["tglawal"] = $pecah[0].'-'.$pecah[1].'-01';
+           $data["tglakhir"] = (new DateTime($data["bulan"]))->format( 'Y-m-t' );
+        }
+        if($data["jenislaporan"] === 'laporan_pembelian')
+        {
+          $hasil = H_beli::where('tanggal_pesan', '>=', $data["tglawal"])->where('tanggal_pesan', '<=', $data["tglakhir"])->with('pbf')->with('d_beli.obat')->orderBy('tanggal_pesan', 'asc')->get();
+        }
+        else if($data["jenislaporan"] === 'laporan_penjualan')
+        {
+          $hasil = H_jual::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->with('h_resep.d_resep.obat')->with('d_jual.obat')->orderBy('tgl', 'asc')->get();
+        }
+        return view('laporan.'.$data["jenislaporan"])->with(["periode" => $periode, "data" => $data, "hasil" => $hasil]);
     }
 }

@@ -37,7 +37,7 @@ class H_beli extends Model
 
   public function d_beli()
   {
-      return $this->hasMany('App\D_beli');
+      return $this->hasMany('App\D_beli','no_nota','no_nota');
   }
 
   public function user()

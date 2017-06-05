@@ -37,7 +37,7 @@ class H_resep extends Model
 
   public function d_resep()
   {
-      return $this->hasMany('App\D_resep');
+      return $this->hasMany('App\D_resep', 'id_racikan', 'id_racikan');
   }
 
   public function h_jual()

@@ -36,6 +36,7 @@
     {{-- <script src="{{asset('js/require.js')}}"></script> --}}
     {{-- <script src="{{asset('js/bootstrap.js')}}" data-modules="tooltip button"></script> --}}
     <script src="{{asset('js/combobox.js')}}"></script>
+    <script src="{{asset('js/jquery-print.js')}}"></script>
     <script src="{{ asset('datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('datetimepicker/bootstrap-datetimepicker.id.js')}}" charset="UTF-8"></script>
     <script type="text/javascript" src="{{ asset('icheck/icheck.js')}}" charset="UTF-8"></script>

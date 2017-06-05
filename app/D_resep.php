@@ -42,6 +42,6 @@ class D_resep extends Model
 
   public function h_resep()
   {
-      return $this->belongsTo('App\H_resep','no_nota','no_nota');
+      return $this->belongsTo('App\H_resep','id_racikan', 'id_racikan');
   }
 }
