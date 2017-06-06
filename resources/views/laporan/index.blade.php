@@ -13,7 +13,7 @@
                     <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_penjualan" value="laporan_penjualan" checked> <i></i> Laporan Penjualan </label></div>
                     <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_pembelian" value="laporan_pembelian"> <i></i> Laporan Pembelian </label></div>
                     <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_laba_rugi" value="laporan_laba_rugi"> <i></i> Laporan Laba Rugi </label></div>
-                    <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_keluar_masuk" value="laporan_barang"> <i></i> Laporan Barang </label></div>
+                    <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_obat" value="laporan_obat"> <i></i> Laporan Obat </label></div>
                   </div>
                   <br>
                   <br>

@@ -7,6 +7,8 @@ use App\H_beli;
 use App\D_beli;
 use App\H_jual;
 use Datetime;
+use App\Obat;
+use App\Kartu_stok;
 
 class LaporanController extends Controller
 {
@@ -52,6 +54,10 @@ class LaporanController extends Controller
         else if($data["jenislaporan"] === 'laporan_penjualan')
         {
           $hasil = H_jual::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->with('h_resep.d_resep.obat')->with('d_jual.obat')->orderBy('tgl', 'asc')->get();
+        }
+        else if($data["jenislaporan"] === 'laporan_obat')
+        {
+          $hasil = Obat::with('pamakologi')->get();
         }
         return view('laporan.'.$data["jenislaporan"])->with(["periode" => $periode, "data" => $data, "hasil" => $hasil]);
     }
