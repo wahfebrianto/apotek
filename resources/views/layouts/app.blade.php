@@ -107,16 +107,27 @@
                       <li class="dropdown">
                         <a href="{{ route('pembelian.index') }}">Pembelian</a>
                       </li>
+                      @endif
+
+                      @if (!Auth::guest())
                       <li class="dropdown">
                         <a href="{{ route('penerimaan.index') }}">Penerimaan Obat</a>
                       </li>
-                      </li>
+                      @endif
+
+                      @if (!Auth::guest() && Auth::user()->username == "admin")
                       <li class="dropdown">
                         <a href="{{ route('pembayaran.index') }}">Pembayaran</a>
                       </li>
+                      @endif
+
+                      @if (!Auth::guest())
                       <li class="dropdown">
                         <a href="{{ route('penjualan.index') }}">Penjualan</a>
                       </li>
+                      @endif
+
+                      @if (!Auth::guest() && Auth::user()->username == "admin")
                       <li class="dropdown">
                         <a href="{{ route('laporan.index') }}">Laporan</a>
                       </li>

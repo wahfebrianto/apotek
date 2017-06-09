@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@if (!Auth::guest() && Auth::user()->username == "admin")
 <div class="container auto-width">
     <div class="row">
         <div class="col-md-12">
@@ -96,6 +97,7 @@
         </div>
     </div>
 </div>
+@endif
 <script>
     $(document).ready(function(){
         var t = $('#data-table1').DataTable( {

@@ -15,3 +15,52 @@
 .mini-table {
   font-size: 9pt;
 }
+#tempat-ttd{
+  width:20%;
+  float:right;
+}
+#tempat-ttd > tbody > tr > td {
+  border: 0 none;
+}
+
+@media print {
+  *{
+    font-size: 0.98em;
+  }
+  body
+  {
+    margin: 0mm 0mm 0mm 0mm;
+  }
+  #panel-generate{
+    display: none;
+  }
+  #laporan-head{
+    display: none;
+  }
+  .panel{
+    border:0px;
+    margin: 0mm 0mm 0mm 0mm;
+    padding: 0mm 0mm 0mm 0mm;
+  }
+  .container{
+    margin: 0mm 0mm 0mm 0mm;
+    padding: 0mm 0mm 0mm 0mm;
+  }
+  .row{
+    margin: 0mm 0mm 0mm 0mm;
+    padding: 0mm 0mm 0mm 0mm;
+  }
+  .divcol{
+    margin: 0mm 0mm 0mm 0mm;
+    padding: 0mm 0mm 0mm 0mm;
+  }
+  #app{
+    margin: 0mm 0mm 0mm 0mm;
+    padding: 0mm 0mm 0mm 0mm;
+  }
+  @page
+  {
+      size: auto;
+      margin: 7mm 7mm 7mm 7mm;
+  }
+}

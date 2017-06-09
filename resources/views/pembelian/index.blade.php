@@ -45,7 +45,9 @@
                             <td>{{$data->keterangan}}</td>
                             <td>
                                 <a class="col-sm-12 btn btn-info btn-action" href="{{ URL::to('pembelian/list/'.$data->no_nota) }}">Lihat</a>
+                                @if (!Auth::guest() && Auth::user()->username == "admin")
                                 <a class="col-sm-12 btn btn-warning btn-action" href="{{ url('pembelian', [$data->no_nota]) }}" data-method="delete" data-token="{{csrf_token()}}">Hapus</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

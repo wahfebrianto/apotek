@@ -3,22 +3,23 @@
 @section('content')
 <div class="container auto-width">
   <div class="row">
-      <div class="col-md-12">
-          <div class="panel panel-default">
+      <div class="col-md-12 divcol">
+          <div class="panel panel-default" id="panel-generate">
             <div class="panel-heading">Generate Laporan</div>
             <div class="panel-body">
               <form class="form-horizontal" role="form" method="GET" action="{{ url('laporan/generate') }}">
                   <label class="col-md-2 control-label">Jenis Laporan : </label>
                   <div class="col-md-10">
-                    <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_penjualan" value="laporan_penjualan" checked> <i></i> Laporan Penjualan </label></div>
-                    <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_pembelian" value="laporan_pembelian"> <i></i> Laporan Pembelian </label></div>
-                    <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_laba_rugi" value="laporan_laba_rugi"> <i></i> Laporan Laba Rugi </label></div>
-                    <div class="col-md-3 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_obat" value="laporan_obat"> <i></i> Laporan Obat </label></div>
+                    <div class="col-md-2 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_penjualan" value="laporan_penjualan" checked> <i></i> Laporan Penjualan </label></div>
+                    <div class="col-md-2 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_pembelian" value="laporan_pembelian"> <i></i> Laporan Pembelian </label></div>
+                    <div class="col-md-2 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_laba_rugi_bersih" value="laporan_laba_rugi_bersih"> <i></i> Laporan Laba Rugi Bersih </label></div>
+                    <div class="col-md-2 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_laba_rugi_kotor" value="laporan_laba_rugi_kotor"> <i></i> Laporan Laba Rugi Kotor </label></div>
+                    <div class="col-md-2 radio i-checks"><label> <input type="radio" name="jenislaporan" id="laporan_obat" value="laporan_obat"> <i></i> Laporan Obat </label></div>
                   </div>
                   <br>
                   <br>
                   <br>
-                  <div class="col-md-10 col-md-offset-1">
+                  <div class="col-md-10 col-md-offset-1" id="divharian">
                     <div class="col-md-2 radio i-checks"><label> <input type="radio" name="rangelaporan" id="harian" value="harian" checked> <i></i> Harian </label></div>
                     <br>
                     <br>
@@ -43,7 +44,7 @@
                   <br>
                   <br>
                   <br>
-                  <div class="col-md-10 col-md-offset-1">
+                  <div class="col-md-10 col-md-offset-1" id="divbulanan">
                     <div class="col-md-2 radio i-checks"><label> <input type="radio" name="rangelaporan" id="bulanan" value="bulanan"> <i></i> Bulanan </label></div>
                     <br>
                     <br>
@@ -68,9 +69,34 @@
             </div>
           </div>
           <div class="panel panel-default">
-            <div class="panel-heading">Laporan</div>
+            <div class="panel-heading" id="laporan-head">Laporan</div>
             <div class="panel-body animated fadeInRight" id="laporan">
               @yield('child')
+              <table class="table invoice-total" id="tempat-ttd">
+                  <tbody>
+                      <tr>
+                          <td class="text-center">Surabaya, {{date("d F Y")}}</td>
+                      </tr>
+                      <tr>
+                          <td class="text-center">Apoteker</td>
+                      </tr>
+                      <tr>
+                          <td class="text-center"></td>
+                      </tr>
+                      <tr>
+                          <td class="text-center"></td>
+                      </tr>
+                      <tr>
+                          <td class="text-center"></td>
+                      </tr>
+                      <tr>
+                          <td class="text-center"></td>
+                      </tr>
+                      <tr>
+                          <td class="text-center"><u>Dra. Lusiwati .T. M Farm-Klin Apt</u></td>
+                      </tr>
+                  </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -126,17 +152,7 @@
               pickerPosition: "bottom-right"
           });
           $('#btnPrint').click(function(){
-              $("#laporan").printThis({
-                debug: false,               // show the iframe for debugging
-                importCSS: true,            // import page CSS
-                importStyle: true,         // import style tags
-                loadCSS: ["{{asset('css/app.css')}}", "{{ asset('css/custom.css')}}", "{{ asset('jqueryui/jquery-ui.min.css')}}", "{{ asset('css/laporan.css')}}"],  // path to additional css file - use an array [] for multiple
-                removeInline: false,        // remove all inline styles from print elements
-                printDelay: 333,            // variable print delay; depending on complexity a higher value may be necessary
-                header: null,               // prefix to html
-                footer: null,               // postfix to html
-                removeScripts: false        // remove script tags from print content
-              });
+              window.print();
           });
       });
 

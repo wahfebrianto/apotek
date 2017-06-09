@@ -7,7 +7,10 @@ use App\H_beli;
 use App\D_beli;
 use App\H_jual;
 use Datetime;
+use Illuminate\Support\Facades\DB;
+use App\Pengeluaran;
 use App\Obat;
+use App\User;
 use App\Kartu_stok;
 
 class LaporanController extends Controller
@@ -58,6 +61,26 @@ class LaporanController extends Controller
         else if($data["jenislaporan"] === 'laporan_obat')
         {
           $hasil = Obat::with('pamakologi')->get();
+        }
+        else if($data["jenislaporan"] === 'laporan_laba_rugi_bersih')
+        {
+          $pecah = explode('-', $data["tglawal"]);
+          $data["tglawal"] = $pecah[0].'-'.$pecah[1].'-01';
+          $data["tglakhir"] = (new DateTime($data["tglawal"]))->format( 'Y-m-t' );
+          $hasil["penjualan"] = H_jual::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->sum("grand_total");
+          $hasil["modal"] = Kartu_stok::whereIn('jenis',['keluar', 'KELUAR'])->where('tanggal', '>=', $data["tglawal"])->where('tanggal', '<=', $data["tglakhir"])->sum('harga');
+          $hasil["pengeluaran"] = Pengeluaran::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->sum('harga');
+          $hasil["gaji"] = User::sum("gaji");
+        }
+        else if($data["jenislaporan"] === 'laporan_laba_rugi_kotor')
+        {
+          $pecah = explode('-', $data["tglawal"]);
+          $data["tglawal"] = $pecah[0].'-'.$pecah[1].'-01';
+          $data["tglakhir"] = (new DateTime($data["tglawal"]))->format( 'Y-m-t' );
+          $hasil["penjualan"] = H_jual::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->sum("grand_total");
+          $hasil["pembelian"] = H_beli::where('tanggal_pesan', '>=', $data["tglawal"])->where('tanggal_pesan', '<=', $data["tglakhir"])->sum("grand_total");
+          $hasil["pengeluaran"] = Pengeluaran::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->sum('harga');
+          $hasil["gaji"] = User::sum("gaji");
         }
         return view('laporan.'.$data["jenislaporan"])->with(["periode" => $periode, "data" => $data, "hasil" => $hasil]);
     }
