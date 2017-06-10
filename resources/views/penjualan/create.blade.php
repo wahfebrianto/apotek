@@ -5,7 +5,7 @@
     @if (Session::has('message'))
       <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
     @endif
-    <div class="row trans-custom ">
+    <div class="row trans-custom">
         <form class="form-horizontal" role="form" method="POST" action="{{ route('penjualan.store') }}">
         {{ csrf_field() }}
         <div class="col-md-12">
@@ -225,7 +225,7 @@
                               <select class="form-control" id="nama_obat_resep" name="nama_obat_resep">
                                   <?php $idx=0; ?>
                                   @foreach ($obatData as $obat)
-                                      <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.');'.$obat->harga_jual}}">{{$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.') - '.$total_stok[$idx]}}</option>
+                                      <option value="{{$obat->id.';'.$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.');'.$obat->harga_jual.';'.$obat->dosis.';'.$obat->satuan_dosis}}">{{$obat->nama.' '.$obat->dosis.$obat->satuan_dosis.' ('.$obat->bentuk_sediaan.') - '.$total_stok[$idx]}}</option>
                                       <?php $idx=$idx+1; ?>
                                   @endforeach
                               </select>
@@ -233,15 +233,24 @@
                         </div>
                         <div class="form-group">
                             <label for="hargajual_obat_resep" class="col-md-2 control-label">Harga</label>
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                                 <div class="input-group">
                                   <span class="input-group-addon">Rp</span>
                                   <input id="hargajual_obat_resep" type="text" class="form-control" name="hargajual_obat_resep" value=readonly>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dosis_obat_resep" class="col-md-2 control-label">Dosis yang digunakan</label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                  <input id="dosis_obat_resep" type="number" class="form-control" name="dosis_obat_resep" value=1 min=1 autofocus>
+                                  <span class="input-group-addon" id="satuan_dosis_obat_resep"></span>
+                                </div>
+                            </div>
                             <label for="jumlah_obat_resep" class="col-md-1 control-label">Qty</label>
                             <div class="col-md-3">
-                                <input id="jumlah_obat_resep" type="number" class="form-control" name="jumlah_obat_resep" value=1 min=1 step=0.25 autofocus>
+                                <input id="jumlah_obat_resep" type="number" class="form-control" name="jumlah_obat_resep" value=1 min=1 autofocus>
                             </div>
                         </div>
                         <div class="form-group">

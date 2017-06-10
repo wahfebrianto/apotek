@@ -87,7 +87,7 @@
                             <td>{{$data->nama_racikan.'('.$data->bentuk_sediaan.')'}}</td>
                             <td>Rp {{number_format($data->total,2,",",".")}}</td>
                             <td>{{$data->jumlah}}</td>
-                            <td>Rp {{number_format($data->biaya_kemasan,2,",",".")}}</td>
+                            <td>Rp {{number_format(($data->biaya_kemasan/$data->jumlah),2,",",".")}}</td>
                             <td>Rp {{number_format($data->diskon,2,",",".")}}</td>
                             <td>Rp {{number_format($data->grand_total,2,",",".")}}</td>
                             <td>{{$data->keterangan}}</td>

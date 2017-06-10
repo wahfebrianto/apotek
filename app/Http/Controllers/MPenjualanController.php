@@ -189,7 +189,7 @@ class MPenjualanController extends Controller
                        $h_resep->bentuk_sediaan = $bentuk_sediaan;
                        $h_resep->total = $total;
                        $h_resep->jumlah = $jumlah_resep;
-                       $h_resep->biaya_kemasan = $biaya_kemasan;
+                       $h_resep->biaya_kemasan = ($biaya_kemasan*$jumlah_resep);
                        $h_resep->diskon = $diskon;
                        $h_resep->grand_total = $grand_total;
                        $h_resep->keterangan = $request->keterangan_resep;

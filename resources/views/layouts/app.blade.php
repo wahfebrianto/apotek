@@ -167,8 +167,8 @@
         <script src="{{asset('js/laravel.js')}}"></script>
     </div>
     <?php
-      $debugbar = App::make('debugbar');
-      $debugbar->addCollector(new DebugBar\DataCollector\MessagesCollector('my_messages'));
+      // $debugbar = App::make('debugbar');
+      // $debugbar->addCollector(new DebugBar\DataCollector\MessagesCollector('my_messages'));
     ?>
 </body>
 </html>

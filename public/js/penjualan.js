@@ -47,7 +47,7 @@ $(document).ready(function(){
         "searching": false,
         "responsive": true,
         "autoWidth": true,
-        "scrollY": 200,
+        "scrollY": 250,
         "scroller":true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
@@ -72,7 +72,7 @@ $(document).ready(function(){
         "info": false,
         "searching": false,
         "autoWidth": true,
-        "scrollY": 400,
+        "scrollY": 410,
         "scroller":true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Indonesian.json"
@@ -149,9 +149,11 @@ $(document).ready(function(){
     }
 
     function autoSumResep(){
-          var jumlah = ($('#jumlah_obat_resep').val()=="")? 0 : parseFloat($('#jumlah_obat_resep').val());
+          var dosis_asli = parseInt($('#nama_obat_resep').val().split(";")[3]);
+          var dosis_pakai = ($('#dosis_obat_resep').val()=="")? 0 : parseInt($('#dosis_obat_resep').val());
+          var jumlah = ($('#jumlah_obat_resep').val()=="")? 0 : parseInt($('#jumlah_obat_resep').val());
           var harga_jual = parseInt($('#hargajual_obat_resep').val());
-          var subtotal = jumlah*harga_jual;
+          var subtotal = (dosis_pakai/dosis_asli)*jumlah*harga_jual;
           $('#subtotal_obat_resep').val(subtotal);
     }
 
@@ -191,7 +193,7 @@ $(document).ready(function(){
           }
           var diskon = ($('#diskon_total_resep').val()=="")? 0 : parseInt($('#diskon_total_resep').val());
           var kemasan = ($('#biaya_kemasan_resep').val()=="")? 0 : parseInt($('#biaya_kemasan_resep').val());
-          var grandgrandtotal = grandtotal - diskon + kemasan;
+          var grandgrandtotal = grandtotal - diskon + (kemasan*jumlah);
           grandgrandtotal = (grandgrandtotal<0)? 0 : grandgrandtotal;
           $('#total_resep').val(grandtotal);
           $('#grand_total_resep').val(grandgrandtotal);
@@ -209,6 +211,8 @@ $(document).ready(function(){
     function refreshResep(){
         $("#click_obat_resep").val('');
         $('#jumlah_obat_resep').val("1");
+        $('#dosis_obat_resep').val("1");
+        $('#satuan_dosis_obat_resep').html("");
         $('#hargajual_obat_resep').val("0");
         $('#subtotal_obat_resep').val("0");
     }
@@ -265,7 +269,11 @@ $(document).ready(function(){
     //d_resep
     $('#nama_obat_resep').on('change',function(){
         var harga = parseInt($('#nama_obat_resep').val().split(";")[2]);
+        var dosis = parseInt($('#nama_obat_resep').val().split(";")[3]);
+        var satuan_dosis = $('#nama_obat_resep').val().split(";")[4];
         $('#hargajual_obat_resep').val(harga);
+        $('#dosis_obat_resep').val(dosis);
+        $('#satuan_dosis_obat_resep').html(satuan_dosis);
         autoSumResep();
     });
 
@@ -273,6 +281,10 @@ $(document).ready(function(){
         var harga = parseInt($('#nama_obat_resep').val().split(";")[2]);
         $('#hargajual_obat_resep').val(harga);
         autoSumResep();
+    });
+
+    $('#dosis_obat_resep').bind('keyup mouseup',function(){
+      autoSumResep();
     });
 
     $('#jumlah_obat_resep').bind('keyup mouseup',function(){
@@ -334,8 +346,10 @@ $(document).ready(function(){
     $('#btn-tambah-resep').on('click',function(){
         var row_resep_data = tresep.rows().data();
         var flag = true;
-
+        var dosis_asli = parseInt($('#nama_obat_resep').val().split(";")[3]);
+        var dosis_pakai = ($('#dosis_obat_resep').val()=="")? 0 : parseInt($('#dosis_obat_resep').val());
         var jumlah = ($('#jumlah_obat_resep').val()=="")? 0 : parseFloat($('#jumlah_obat_resep').val());
+        jumlah = (dosis_pakai/dosis_asli)*jumlah;
         var harga_jual = parseInt($('#hargajual_obat_resep').val());
         var subtotal = ($('#subtotal_obat_resep').val()=="")? 0 : parseInt($('#subtotal_obat_resep').val());
         var id_obat = $('#nama_obat_resep').val().split(";")[0];
