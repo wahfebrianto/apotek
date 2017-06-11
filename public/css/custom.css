@@ -25,6 +25,11 @@
   overflow: hidden;
 }
 
+.copy-resep-width{
+  width:40% !important;
+  overflow: hidden;
+}
+
 .full-height{
   height:6em; !important;
 }
@@ -106,6 +111,24 @@
 .text-left{
     text-align: left !important;
 }
+
+.text-header-resep{
+    margin-left: 20% !important;
+}
+
+.text-body-resep{
+    margin-left: 30% !important;
+}
+
+.print-resep{
+   font-size: 0.6em;
+}
+
+.line-resep{
+   width:40%;
+   border-top: 1px solid black;
+}
+
 
 .divide{
     padding-bottom: 2%;

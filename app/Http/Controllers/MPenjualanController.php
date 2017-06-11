@@ -327,6 +327,33 @@ class MPenjualanController extends Controller
        return view('penjualan.listpenjualan')->with(['h_jual'=>$h_jual,'d_jual'=>$d_jual,'h_resep'=>$h_resep,'d_resep'=>$d_resep]);
     }
 
+    public function copy_resep($id){
+      $h_jual = H_jual::where('no_nota',$id)->first();
+      $d_jual = array();
+      $idx_djual = 0;
+      foreach ($h_jual->d_jual as $d_jual_data) {
+        $obat = $d_jual_data->obat;
+        $d_jual[$idx_djual]['body'] = $obat->nama.' '.$obat->dosis.$obat->satuan_dosis.'('.$obat->bentuk_sediaan.')   NO '.$d_jual_data->jumlah;
+        $d_jual[$idx_djual]['keterangan'] = $d_jual_data->keterangan;
+        $idx_djual++;
+      }
+
+      $h_resep = array();
+      $idx_hresep = 0;
+      foreach ($h_jual->h_resep as $data) {
+        $idx_dresep = 0;
+        foreach ($data->d_resep as $d_resep) {
+            $obat = $d_resep->obat;
+            $dosis = ($d_resep->jumlah/$data->jumlah)*$obat->dosis;
+            $h_resep[$idx_hresep]['body'][$idx_dresep] = $obat->nama.' '.$dosis.$obat->satuan_dosis.'('.$obat->bentuk_sediaan.')';
+            $idx_dresep++;
+        }
+        $h_resep[$idx_hresep]['jumlah'] = $data->jumlah;
+        $idx_hresep++;
+      }
+      return view('penjualan.copy_resep')->with(['d_jual'=>$d_jual,'h_resep'=>$h_resep]);
+    }
+
     public function destroy($id)
     {
        //buang stok

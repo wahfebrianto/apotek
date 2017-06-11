@@ -34,6 +34,11 @@
                       <label class="col-xs-6 no-padding">Rp {{number_format($h_jual->grand_total,2,",",".")}}</label>
                     </div>
                 </div>
+                <div class="overview">
+                   <div class="col-md-offset-6 col-md-6 overview-line no-padding">
+                     <a class="col-sm-offset-9 col-sm-3 btn btn-info btn-action" href="{{ URL::to('penjualan/copyresep/'.$h_jual->no_nota) }}">Copy Resep</a>
+                  </div>
+                </div>
 				        <hr />
                 <h4>Daftar Obat</h4>
                 @if (Session::has('message'))
