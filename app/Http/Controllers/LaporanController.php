@@ -32,7 +32,8 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        return view('laporan.index')->with(["report"=>""]);
+        $printcss = asset('css/laporan.css');
+        return view('laporan.index')->with(["report"=>"", "print" => $printcss]);
     }
 
     public function generate(Request $request)
@@ -82,6 +83,7 @@ class LaporanController extends Controller
           $hasil["pengeluaran"] = Pengeluaran::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->sum('harga');
           $hasil["gaji"] = User::sum("gaji");
         }
-        return view('laporan.'.$data["jenislaporan"])->with(["periode" => $periode, "data" => $data, "hasil" => $hasil]);
+        $printcss = asset('css/laporan.css');
+        return view('laporan.'.$data["jenislaporan"])->with(["periode" => $periode, "data" => $data, "hasil" => $hasil, "print" => $printcss]);
     }
 }

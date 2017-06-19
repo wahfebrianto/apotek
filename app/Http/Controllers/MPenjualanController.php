@@ -351,7 +351,8 @@ class MPenjualanController extends Controller
         $h_resep[$idx_hresep]['jumlah'] = $data->jumlah;
         $idx_hresep++;
       }
-      return view('penjualan.copy_resep')->with(['d_jual'=>$d_jual,'h_resep'=>$h_resep]);
+      $printcss = asset('css/copyresep.css');
+      return view('penjualan.copy_resep')->with(['d_jual'=>$d_jual,'h_resep'=>$h_resep,'print' => $printcss]);
     }
 
     public function destroy($id)
