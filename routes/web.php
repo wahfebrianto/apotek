@@ -64,4 +64,8 @@ Route::delete('penjualan/{no_nota}','MPenjualanController@destroy')->name('penju
 Route::get('laporan','LaporanController@index')->name('laporan.index');
 Route::get('laporan/generate', 'LaporanController@generate')->name('laporan.generate');
 
+//grafik
+Route::get('laporan/grafik','LaporanController@grafik')->name('grafik.index');
+
+
 Auth::routes();

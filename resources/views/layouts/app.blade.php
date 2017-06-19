@@ -40,6 +40,8 @@
     <script src="{{ asset('datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('datetimepicker/bootstrap-datetimepicker.id.js')}}" charset="UTF-8"></script>
     <script type="text/javascript" src="{{ asset('icheck/icheck.js')}}" charset="UTF-8"></script>
+    <script src="{{asset('js/highcharts.js')}}"></script>
+    <script src="{{asset('js/modules/exporting.js')}}"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -130,6 +132,12 @@
                       @if (!Auth::guest() && Auth::user()->username == "admin")
                       <li class="dropdown">
                         <a href="{{ route('laporan.index') }}">Laporan</a>
+                      </li>
+                      @endif
+
+                      @if (!Auth::guest() && Auth::user()->username == "admin")
+                      <li class="dropdown">
+                        <a href="{{ route('grafik.index') }}">Grafik</a>
                       </li>
                       @endif
                     </ul>

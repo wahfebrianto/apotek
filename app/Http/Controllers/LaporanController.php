@@ -36,6 +36,35 @@ class LaporanController extends Controller
         return view('laporan.index')->with(["report"=>"", "print" => $printcss]);
     }
 
+    public function grafik(Request $request)
+    {
+        $year = (empty($request->tgl))? date("Y") : explode('-',explode(' ',$request->tgl)[0])[0];
+        $hasil = array();
+        $hasil["pendapatan"] = array();
+        $hasil["pengeluaran"] = array();
+        $hasil["keuntungan"] = array();
+
+        for ($i=1; $i<=12; $i++) {
+          $nextMonth = $i+1;
+    			$nextYear = $year;
+    			if($nextMonth > 12){
+    				$nextYear = $year + 1;
+    				$nextMonth = 1;
+    			}
+    			$data["tglawal"] = $year.'-'.str_pad($i, 2, "0", STR_PAD_LEFT).'-01';
+    			$data["tglakhir"] = $nextYear.'-'.str_pad($nextMonth, 2, "0", STR_PAD_LEFT).'-01';
+
+          $penjualan = H_jual::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->sum("grand_total");
+          $pembelian = H_beli::where('tanggal_pesan', '>=', $data["tglawal"])->where('tanggal_pesan', '<=', $data["tglakhir"])->sum("grand_total");
+          $pengeluaran = Pengeluaran::where('tgl', '>=', $data["tglawal"])->where('tgl', '<=', $data["tglakhir"])->sum('harga');
+
+          $hasil["pendapatan"][] = $penjualan;
+          $hasil["pengeluaran"][] = $pembelian+$pengeluaran;
+          $hasil["keuntungan"][] = $penjualan-($pembelian+$pengeluaran);
+        }
+        return view('grafik.index')->with(["hasil"=>$hasil,"year"=>$year]);
+    }
+
     public function generate(Request $request)
     {
         $data["jenislaporan"] = $request->jenislaporan;
